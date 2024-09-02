@@ -2,7 +2,7 @@ import { isString } from "@/utils";
 import iso from "./iso";
 import names from "./names";
 
-const isoKeys = Object.keys(iso).sort();
+const isoKeys = Object.values(iso).sort();
 
 export default function language(name: string) {
   if (!isString(name)) {

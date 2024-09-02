@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import pkg from "./package.json";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const external = Object.keys(pkg?.peerDependencies || {});
+const external = [];
 
 export default defineConfig([
 	{
@@ -36,7 +36,7 @@ export default defineConfig([
 			alias({
 				entries: [{ find: "@", replacement: path.resolve(__dirname, "./src") }],
 			}),
-			resolve({ browser: false, extensions: [".ts", ".js"] }),
+			resolve({ browser: true, extensions: [".ts", ".js"] }),
 			commonjs(),
 			typescript({
 				tsconfig: "./tsconfig.json",

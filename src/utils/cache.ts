@@ -18,7 +18,7 @@ class Cache {
       expire: Date.now() + time,
     };
     if (!isNaN(record.expire)) {
-      record.timeout = setTimeout(() => this.del(key), time);
+      record.timeout = setTimeout(() => this.del(key), time) as unknown as number;
     }
     this.cache.set(key, record);
   }

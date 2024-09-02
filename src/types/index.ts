@@ -16,7 +16,7 @@ export type Engine = {
 
 export interface CacheRecord {
   value: unknown;
-  timeout?: NodeJS.Timeout;
+  timeout?: number;
   expire: number;
 }
 

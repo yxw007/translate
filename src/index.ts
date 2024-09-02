@@ -10,7 +10,7 @@ class Translator {
   constructor() {
     this.engines = new Map<string, Engine>();
   }
-  useEngine(engine: Engine) {
+  use(engine: Engine) {
     if (this.engines.has(engine.name)) {
       logger.warn("Engine already exists");
       return;
@@ -46,5 +46,10 @@ class Translator {
   }
 }
 
-export default new Translator();
-export { engines, language as languages };
+const translator = new Translator();
+
+export default {
+  engines,
+  translator,
+};
+export { engines, translator };

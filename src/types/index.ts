@@ -1,6 +1,8 @@
+import { Language } from "@/language";
+
 export interface TranslateOptions {
-  from: string;
-  to: string;
+  from: Language;
+  to: Language;
   engine?: string;
   cache_time?: number;
 }

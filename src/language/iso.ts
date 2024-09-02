@@ -1,5 +1,3 @@
-import { Languages } from "@/types";
-
 export default {
   aar: "aa",
   abk: "ab",
@@ -185,4 +183,4 @@ export default {
   yor: "yo",
   zha: "za",
   zul: "zu",
-} as Languages;
+} as const;

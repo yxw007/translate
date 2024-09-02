@@ -11,7 +11,12 @@
 <body>
 	<script src="../dist/index.umd.js"></script>
 	<script>
-		console.log(translate.sum(1, 2));
+		(async () => {
+			const { engines, translator } = translate;
+			translator.use(engines.google());
+			const res = await translator.translate("hello", { from: "en", to: "zh" });
+			console.log(res);
+		})();
 	</script>
 </body>
 

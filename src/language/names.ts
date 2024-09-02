@@ -1,5 +1,3 @@
-import { Languages } from "@/types";
-
 export default {
   afar: "aa",
   abkhazian: "ab",
@@ -220,4 +218,4 @@ export default {
   zhuang: "za",
   chuang: "za",
   zulu: "zu",
-} as Languages;
+} as const;

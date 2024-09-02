@@ -1,4 +1,7 @@
-import translate from "../dist/index.js"
+import { translator, engines } from "../dist/index.js"
 
-console.log(translate.sum(1, 2));
+translator.use(engines.google());
+const res = await translator.translate("hello", { from: "en", to: "zh" });
+console.log(res);
+
 

@@ -4,16 +4,27 @@ export default function Google(options?: BaseEngineOption) {
   const base = "https://translate.googleapis.com/translate_a/single";
   return {
     name: "google",
-    async translate(text: string, opts: EngineTranslateOptions): Promise<string> {
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       const { from, to } = opts;
-      const url = `${base}?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(text)}`;
+      if (!Array.isArray(text)) {
+        text = [text];
+      }
+      const textStr = text.join("\n");
+      const url = `${base}?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(textStr)}`;
       const res: Response = await fetch(url);
       const body = await (res as any).json();
-      const translated = body && body[0] && body[0][0] && body[0].map((s: Array<any>) => s[0]).join("");
-      if (!translated) {
-        throw new Error("Translation not found");
+      if (!body || body.length === 0) {
+        throw new Error("Translate fail ! translate's result is null or empty");
       }
-      return translated;
+      const translations: string[] = [];
+      for (let i = 0; body[0] && i < body[0].length; i++) {
+        const item = body[0][i];
+        if (!item || item.length == 0 || !Array.isArray(item) || !item[0]) {
+          continue;
+        }
+        translations.push(item[0].replaceAll("\n", ""));
+      }
+      return translations;
     },
   };
 }

@@ -18,7 +18,7 @@ export type EngineTranslateOptions = Omit<TranslateOptions, "engine">;
 
 export type Engine = {
   name: string;
-  translate: (text: string, opts: EngineTranslateOptions) => Promise<string>;
+  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
 };
 
 export interface CacheRecord {

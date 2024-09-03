@@ -4,14 +4,21 @@
 
 import { AzureEngineOption, Engine, EngineTranslateOptions } from "@/types";
 
+interface Translation {
+  translations: Array<{ text: string; to: string; from: string }>;
+}
+
 export default function Azure(options: AzureEngineOption): Engine {
   const { key, region } = options;
   const base = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
   return {
     name: "azure",
-    async translate(text, opts: EngineTranslateOptions): Promise<string> {
+    async translate(text, opts: EngineTranslateOptions): Promise<string[]> {
       const { from, to } = opts;
       const url = `${base}&from=${from}&to=${to}`;
+      if (!Array.isArray(text)) {
+        text = [text];
+      }
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -19,12 +26,20 @@ export default function Azure(options: AzureEngineOption): Engine {
           "Ocp-Apim-Subscription-Key": key,
           "Ocp-Apim-Subscription-Region": region,
         },
-        body: JSON.stringify([{ Text: text }]),
+        body: JSON.stringify(text.map((it) => ({ Text: it }))),
       });
-      const body = await (res as any).json();
-      const translated = body && body[0] && body[0].translations && body[0].translations[0].text;
-
-      return translated;
+      const body: Translation[] = await (res as any).json();
+      if (!body || body.length === 0) {
+        throw new Error("Translate fail ! translate's result is null or empty");
+      }
+      const translations: string[] = [];
+      for (const translation of body) {
+        if (!translation.translations || translation.translations.length == 0) {
+          continue;
+        }
+        translations.push(...translation.translations.map((t) => t.text));
+      }
+      return translations;
     },
   };
 }

@@ -1,9 +1,8 @@
+import { Reverse } from "@/utils/typescript";
 import iso from "./iso";
 import names from "./names";
 
 const isoKeys = Object.values(iso).sort();
-
-export type Reverse<T> = T[keyof T];
 export type Language = Reverse<typeof iso> | Reverse<typeof names>;
 
 export default function language(name: Language) {

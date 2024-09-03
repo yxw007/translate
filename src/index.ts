@@ -17,7 +17,7 @@ class Translator {
     }
     this.engines.set(engine.name, engine);
   }
-  translate(text: string, options: TranslateOptions) {
+  translate(text: string | string[], options: TranslateOptions) {
     const { from, to, engine = "google", cache_time = 60 } = options;
 
     //1. Check if engine exists

@@ -5,3 +5,4 @@ dist
 .npmrc
 /**/coverage
 /**/test-temp
+.env

@@ -7,7 +7,12 @@ export interface TranslateOptions {
   cache_time?: number;
 }
 
-export interface EngineBaseOption {}
+export interface BaseEngineOption {}
+
+export interface AzureEngineOption extends BaseEngineOption {
+  key: string;
+  region: string;
+}
 
 export type EngineTranslateOptions = Omit<TranslateOptions, "engine">;
 

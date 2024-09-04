@@ -65,6 +65,7 @@
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/crypto-js": "^4.2.2",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.5.0",
     "@vitest/coverage-v8": "^2.0.5",
@@ -88,6 +89,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-translate": "^3.637.0",
-    "@smithy/smithy-client": "^3.2.0"
+    "@smithy/smithy-client": "^3.2.0",
+    "crypto-js": "^4.2.0"
   }
 }

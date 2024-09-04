@@ -46,7 +46,7 @@ class Cache {
     this.cache.delete(key);
   }
   clear() {
-    for (const [key, val] of this.cache.entries()) {
+    for (const [, val] of this.cache.entries()) {
       clearTimeout(val.timeout);
     }
     this.cache.clear();

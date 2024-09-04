@@ -5,6 +5,7 @@ export interface TranslateOptions {
   to: Language;
   engine?: string;
   cache_time?: number;
+  domain?: string;
 }
 
 export interface BaseEngineOption {}
@@ -22,6 +23,11 @@ export interface AmazonEngineOption extends BaseEngineOption {
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;
+}
+
+export interface BaiduEngineOption extends BaseEngineOption {
+  appId: string;
+  secretKey: string;
 }
 
 export type EngineTranslateOptions = Omit<TranslateOptions, "engine">;

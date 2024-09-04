@@ -39,5 +39,18 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "amazon" });
     expect(res2).toEqual(["你好", "好"]);
   });
+
+  test("baidu translate", async () => {
+    translator.use(engines.baidu({
+      appId: process.env.BAIDU_APP_ID,
+      secretKey: process.env.BAIDU_SECRET_KEY
+    }));
+
+    const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "baidu" });
+    expect(res1).toEqual(["你好"]);
+
+    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });
+    expect(res2).toEqual(["你好", "好的"]);
+  });
 });
 

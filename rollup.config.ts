@@ -3,6 +3,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import dts from "rollup-plugin-dts";
 import alias from "@rollup/plugin-alias";
+import json from "@rollup/plugin-json"
 import { defineConfig } from "rollup";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -36,6 +37,7 @@ export default defineConfig([
 			alias({
 				entries: [{ find: "@", replacement: path.resolve(__dirname, "./src") }],
 			}),
+			json(),
 			resolve({ browser: true, extensions: [".ts", ".js"] }),
 			commonjs(),
 			typescript({

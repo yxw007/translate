@@ -1,9 +1,9 @@
 
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { translator, engines } from "../src"
 
 describe("translator", () => {
-  test("google translate", async () => {
+  it.concurrent("google translate", async () => {
     translator.use(engines.google());
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "google" });
@@ -13,7 +13,7 @@ describe("translator", () => {
     expect(res2).toEqual(["你好", "好的"]);
   });
 
-  test("azure translate", async () => {
+  it.concurrent("azure translate", async () => {
     translator.use(engines.azure({
       key: process.env.AZURE_KEY,
       region: process.env.AZURE_REGION
@@ -26,7 +26,7 @@ describe("translator", () => {
     expect(res2).toEqual(["你好", "好"]);
   });
 
-  test("amazon translate", async () => {
+  it.concurrent("amazon translate", async () => {
     translator.use(engines.amazon({
       region: process.env.AMAZON_REGION,
       accessKeyId: process.env.AMAZON_ACCESS_KEY_ID,
@@ -40,7 +40,7 @@ describe("translator", () => {
     expect(res2).toEqual(["你好", "好"]);
   });
 
-  test("baidu translate", async () => {
+  it.concurrent("baidu translate", async () => {
     translator.use(engines.baidu({
       appId: process.env.BAIDU_APP_ID,
       secretKey: process.env.BAIDU_SECRET_KEY

@@ -8,7 +8,7 @@ interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;
 }
 
-export default function Azure(options: AzureEngineOption): Engine {
+export default function azure(options: AzureEngineOption): Engine {
   const { key, region } = options;
   const base = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
   return {

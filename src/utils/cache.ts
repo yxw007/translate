@@ -1,10 +1,15 @@
 import { CacheRecord } from "@/types";
 
-class Cache {
+export class Cache {
   private cache: Map<string, CacheRecord>;
   constructor() {
     this.cache = new Map<string, CacheRecord>();
   }
+  /**
+   * @param key
+   * @param value
+   * @param time millisecond
+   */
   set(key: string, value: any, time: number) {
     if (time <= 0) {
       throw new Error("time must be greater than 0");
@@ -52,5 +57,3 @@ class Cache {
     this.cache.clear();
   }
 }
-
-export default new Cache();

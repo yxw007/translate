@@ -1,9 +1,10 @@
 import engines from "./engines";
 import language from "./language";
-import { useLogger } from "./utils";
+import { useLogger, Cache } from "./utils";
 import { Engine, TranslateOptions } from "./types";
-import cache from "./utils/cache";
+
 const logger = useLogger();
+const cache = new Cache();
 
 class Translator {
   private engines: Map<string, Engine>;
@@ -52,4 +53,4 @@ export default {
   engines,
   translator,
 };
-export { engines, translator };
+export { engines, translator, Cache };

@@ -1,8 +1,9 @@
 import { AmazonEngineOption, Engine, EngineTranslateOptions } from "@/types";
 import { TranslateClient, TranslateTextCommand, TranslateTextResponse } from "@aws-sdk/client-translate";
 
-export default function Amazon(options: AmazonEngineOption): Engine {
+export default function amazon(options: AmazonEngineOption): Engine {
   const { region, accessKeyId, secretAccessKey } = options;
+
   return {
     name: "amazon",
     async translate(text: string | string[], opts: EngineTranslateOptions) {

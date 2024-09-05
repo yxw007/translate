@@ -24,6 +24,67 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 - 🔓 **完全开源**
 
 
+## 🚀 安装
+
+- npm
+
+  ```bash
+  npm install @yxw007/translate
+  ```
+
+- yarn
+
+  ```bash
+  yarn add @yxw007/translate
+  ```
+
+- pnpm 
+
+  ```bash
+  pnpm i @yxw007/translate
+  ```
+
+## 📖 使用
+
+- ESM
+
+  ```typescript
+  import { translator, engines } from "@yxw007/translate"
+
+  translator.use(engines.google());
+  const res1 = await translator.translate("hello", { from: "en", to: "zh" });
+  console.log(res1);
+
+  const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
+  console.log(res2);
+  ```
+
+  输出结果
+  ```bash
+  ['你好']
+  ["你好", "好的"]
+  ```
+
+- Commonjs
+
+  ```typescript
+  const { translator, engines }  = required("@yxw007/translate")
+
+  translator.use(engines.google());
+  const res1 = await translator.translate("hello", { from: "en", to: "zh" });
+  console.log(res1);
+
+  const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
+  console.log(res2);
+
+  ```
+
+  输出结果
+  ```bash
+  ['你好']
+  ["你好", "好的"]
+  ```
+
 ## 📄 许可证
 
 Translate 是在 MIT 许可证下发布的。详情请见 [`LICENSE`](./LICENSE) 文件。

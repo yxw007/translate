@@ -9,6 +9,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import pkg from "./package.json";
 
+const name = pkg.name.split("/").pop();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const external = [];
 
@@ -29,7 +30,7 @@ export default defineConfig([
 			{
 				file: "dist/index.umd.js",
 				format: "umd",
-				name: pkg.name,
+				name: name,
 				sourcemap: true,
 			},
 		],

@@ -1,5 +1,5 @@
 {
-  "name": "translate",
+  "name": "@yxw007/translate",
   "version": "0.0.1-alpha.0",
   "description": "A simple library that supports multiple translation engines",
   "author": "Potter<aa4790139@gmail.com>",

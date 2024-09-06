@@ -1,7 +1,12 @@
-import { BaiduEngineOption, Engine, EngineTranslateOptions } from "@/types";
+import { BaseEngineOption, Engine, EngineTranslateOptions } from "@/types";
 import md5 from "crypto-js/md5";
 
-export default function baidu(options: BaiduEngineOption): Engine {
+export interface BaiduEngineOption extends BaseEngineOption {
+  appId: string;
+  secretKey: string;
+}
+
+export function baidu(options: BaiduEngineOption): Engine {
   const { appId, secretKey } = options;
   const url = "https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate";
   return {

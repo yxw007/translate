@@ -15,8 +15,8 @@ describe("translator", () => {
 
   it.concurrent("azure translate", async () => {
     translator.use(engines.azure({
-      key: process.env.AZURE_KEY,
-      region: process.env.AZURE_REGION
+      key: process.env.AZURE_KEY as string,
+      region: process.env.AZURE_REGION as string
     }));
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "azure" });
@@ -28,9 +28,9 @@ describe("translator", () => {
 
   it.concurrent("amazon translate", async () => {
     translator.use(engines.amazon({
-      region: process.env.AMAZON_REGION,
-      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY
+      region: process.env.AMAZON_REGION as string,
+      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
     }));
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "amazon" });
@@ -42,8 +42,8 @@ describe("translator", () => {
 
   it.concurrent("baidu translate", async () => {
     translator.use(engines.baidu({
-      appId: process.env.BAIDU_APP_ID,
-      secretKey: process.env.BAIDU_SECRET_KEY
+      appId: process.env.BAIDU_APP_ID as string,
+      secretKey: process.env.BAIDU_SECRET_KEY as string
     }));
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "baidu" });

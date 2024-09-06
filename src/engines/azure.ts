@@ -2,13 +2,18 @@
  * Azure translate documentation: https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/v3-0-translate
  */
 
-import { AzureEngineOption, Engine, EngineTranslateOptions } from "@/types";
+import { Engine, EngineTranslateOptions, BaseEngineOption } from "@/types";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;
 }
 
-export default function azure(options: AzureEngineOption): Engine {
+export interface AzureEngineOption extends BaseEngineOption {
+  key: string;
+  region: string;
+}
+
+export function azure(options: AzureEngineOption): Engine {
   const { key, region } = options;
   const base = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
   return {

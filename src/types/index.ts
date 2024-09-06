@@ -10,26 +10,6 @@ export interface TranslateOptions {
 
 export interface BaseEngineOption {}
 
-export interface AzureEngineOption extends BaseEngineOption {
-  key: string;
-  region: string;
-}
-
-export interface AmazonEngineOption extends BaseEngineOption {
-  region: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-}
-
-export interface YandexEngineOption extends BaseEngineOption {
-  key: string;
-}
-
-export interface BaiduEngineOption extends BaseEngineOption {
-  appId: string;
-  secretKey: string;
-}
-
 export type EngineTranslateOptions = Omit<TranslateOptions, "engine">;
 
 export type Engine = {

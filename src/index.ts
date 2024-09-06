@@ -1,7 +1,8 @@
-import engines from "./engines";
+import { engines } from "./engines";
 import language from "./language";
 import { useLogger, Cache } from "./utils";
 import { Engine, TranslateOptions } from "./types";
+export * from "./types";
 
 const logger = useLogger();
 const cache = new Cache();

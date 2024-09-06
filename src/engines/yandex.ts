@@ -1,6 +1,10 @@
-import { Engine, YandexEngineOption, EngineTranslateOptions } from "@/types";
+import { Engine, BaseEngineOption, EngineTranslateOptions } from "@/types";
 
-export default function yandex(options: YandexEngineOption): Engine {
+export interface YandexEngineOption extends BaseEngineOption {
+  key: string;
+}
+
+export function yandex(options: YandexEngineOption): Engine {
   const { key } = options;
   const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
   return {

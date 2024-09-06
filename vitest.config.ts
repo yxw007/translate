@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   test: {
     testTimeout: 50 * 1000,
-    include: ["test/**/*.test.ts"],
+    include: ["test/**/*.test.ts", "src/**/*.ts"],
     alias: {
       "@": resolve(__dirname, "src"),
     },

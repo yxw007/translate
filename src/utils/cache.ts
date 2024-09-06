@@ -1,4 +1,4 @@
-import { CacheRecord } from "@/types";
+import { CacheRecord } from "../types";
 
 export class Cache {
   private cache: Map<string, CacheRecord>;

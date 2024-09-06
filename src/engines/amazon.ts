@@ -1,4 +1,4 @@
-import { Engine, EngineTranslateOptions } from "@/types";
+import { Engine, EngineTranslateOptions } from "../types";
 import { TranslateClient, TranslateTextCommand, TranslateTextResponse } from "@aws-sdk/client-translate";
 
 export interface AmazonEngineOption {

@@ -1,4 +1,4 @@
-import { Reverse } from "@/utils/typescript";
+import { Reverse } from "../utils/typescript";
 import iso from "./iso";
 import names from "./names";
 

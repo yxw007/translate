@@ -1,4 +1,4 @@
-import { BaseEngineOption, Engine, EngineTranslateOptions } from "@/types";
+import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
 import md5 from "crypto-js/md5";
 
 export interface BaiduEngineOption extends BaseEngineOption {

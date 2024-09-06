@@ -1,4 +1,4 @@
-import { Engine, BaseEngineOption, EngineTranslateOptions } from "@/types";
+import { Engine, BaseEngineOption, EngineTranslateOptions } from "../types";
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;

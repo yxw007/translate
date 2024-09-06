@@ -2,7 +2,7 @@
  * Azure translate documentation: https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/v3-0-translate
  */
 
-import { Engine, EngineTranslateOptions, BaseEngineOption } from "@/types";
+import { Engine, EngineTranslateOptions, BaseEngineOption } from "../types";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;

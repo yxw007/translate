@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.0.1-alpha.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.0...v0.0.1-alpha.1)
+
+### 🩹 Fixes
+
+- **chore:** Homepage link mistake ([46a199f](https://github.com/yxw007/translate/commit/46a199f))
+
+### 📖 Documentation
+
+- Improve readme ([bc41552](https://github.com/yxw007/translate/commit/bc41552))
+- Improve document ([1b7c60d](https://github.com/yxw007/translate/commit/1b7c60d))
+
+### 🏡 Chore
+
+- Change package name ([0bd4502](https://github.com/yxw007/translate/commit/0bd4502))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.1-alpha.0
 
 

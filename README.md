@@ -251,7 +251,7 @@ export interface BaiduEngineOption extends BaseEngineOption {
   pnpm test
   ```
 
-> **Tip: At present, the library can be used normally. Welcome everyone to experience. If you have any questions and suggestions, you can mention the feedback to me.If you are interested, you are welcome to join, let us improve this tool together.Help to click STAR 更, let more people know this tool, thank you for everyone🙏**
+> **Tips: At present, the library can be used normally. Welcome everyone to experience. If you have any questions and suggestions, you can mention the feedback to me.If you are interested, you are welcome to join, let us improve this tool together. Help to click star ⭐, let more people know this tool, thank you for everyone🙏**
 
 ## 📄 License
 

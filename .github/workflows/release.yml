@@ -36,7 +36,10 @@ jobs:
 
       - name: Install modules
         run: pnpm install --no-frozen-lockfile
-
+        
+      - name: Install tsx
+        run: pnpm install -g tsx
+        
       - name: Build
         run: pnpm build
 

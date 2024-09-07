@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.0.1-alpha.2
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.1...v0.0.1-alpha.2)
+
+### 📦 Build
+
+- Simplify release.yml ([0c83e4b](https://github.com/yxw007/translate/commit/0c83e4b))
+- Simplify release.yml ([08ddc2e](https://github.com/yxw007/translate/commit/08ddc2e))
+
+### 🏡 Chore
+
+- Yml script placement mistake ([2e837b2](https://github.com/yxw007/translate/commit/2e837b2))
+- Specify the pnpm version ([b051a44](https://github.com/yxw007/translate/commit/b051a44))
+- Specify the pnpm version ([60ca1dd](https://github.com/yxw007/translate/commit/60ca1dd))
+- Update environment variables in ci.yml ([6fbecca](https://github.com/yxw007/translate/commit/6fbecca))
+- Update GitHub Actions workflow status badge in README files ([6d27806](https://github.com/yxw007/translate/commit/6d27806))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.1-alpha.1
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.0...v0.0.1-alpha.1)

@@ -6,7 +6,7 @@
 ![GitHub License](https://img.shields.io/github/license/yxw007/translate)
 ![NPM Version](https://img.shields.io/npm/v/%40yxw007%2Ftranslate)
 ![Codecov](https://codecov.io/gh/yxw007/translate/branch/master/graph/badge.svg)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci.yml)
 
 Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套简单的api，让你可以轻松将一种语种翻译成另外一种语种。
 

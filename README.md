@@ -6,7 +6,7 @@ English | [简体中文](./README_zh-CN.md)
 ![GitHub License](https://img.shields.io/github/license/yxw007/translate)
 ![NPM Version](https://img.shields.io/npm/v/%40yxw007%2Ftranslate)
 ![Codecov](https://codecov.io/gh/yxw007/translate/branch/master/graph/badge.svg)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci.yml)
 
 ## ❓ Why do I need translate?
 1. a lot of translation tool libraries on the market, basically not very well-maintained

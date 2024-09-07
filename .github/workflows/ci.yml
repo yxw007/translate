@@ -8,6 +8,16 @@ on:
     branches:
       - master
 
+env:
+  HUSKY: 0
+  AZURE_KEY: ${{ secrets.AZURE_KEY }}
+  AZURE_REGION: ${{ secrets.AZURE_REGION }}
+  AMAZON_REGION: ${{ secrets.AMAZON_REGION }}
+  AMAZON_ACCESS_KEY_ID: ${{ secrets.AMAZON_ACCESS_KEY_ID }}
+  AMAZON_SECRET_ACCESS_KEY: ${{ secrets.AMAZON_SECRET_ACCESS_KEY }}
+  BAIDU_APP_ID: ${{ secrets.BAIDU_APP_ID }}
+  BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest

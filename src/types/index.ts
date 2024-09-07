@@ -4,7 +4,13 @@ export interface TranslateOptions {
   from: Language;
   to: Language;
   engine?: string;
+  /**
+   * Cache time in milliseconds
+   */
   cache_time?: number;
+  /**
+   * Domain to use for translation
+   */
   domain?: string;
 }
 

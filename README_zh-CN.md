@@ -4,6 +4,9 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/yxw007/translate)
 ![GitHub License](https://img.shields.io/github/license/yxw007/translate)
+![NPM Version](https://img.shields.io/npm/v/%40yxw007%2Ftranslate)
+![Codecov](https://codecov.io/gh/yxw007/translate/branch/master/graph/badge.svg)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci)
 
 Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套简单的api，让你可以轻松将一种语种翻译成另外一种语种。
 
@@ -23,7 +26,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 - 📦 **批量翻译**：一次api请求，翻译更多内容，减少http请求提高翻译效率
 - 🔓 **完全开源**
 
-## 翻译引擎集成情况
+## 💻翻译引擎，集成情况
 
 | name             | 支持 | 描述                                                                       |
 | ---------------- | ---- | -------------------------------------------------------------------------- |
@@ -95,21 +98,175 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
   ["你好", "好的"]
   ```
 
-## API 
+## 📚 API 
 
-### AmazonEngineOption
+### Translator
 
 ```typescript
-interface AmazonEngineOption {
+class Translator {
+  private engines: Map<string, Engine>;
+  constructor() {
+    this.engines = new Map<string, Engine>();
+  }
+  use(engine: Engine) {
+   ...
+  }
+  translate(text: string | string[], options: TranslateOptions) {
+    ...
+  }
+}
+```
+
+#### `use`
+
+给translator添加翻译引擎
+
+```typescript
+type Engine = {
+  name: string;
+  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
+};
+```
+
+#### `translate`
+
+可以传一个文本or传一个文本数组，将返回一个翻译后的Promise<string[]>
+
+```typescript
+translate(text: string | string[], options: TranslateOptions)
+```
+
+#### TranslateOptions
+
+```typescript
+export interface TranslateOptions {
+  from: Language;
+  to: Language;
+  engine?: string;
+   /**
+   * Cache time in milliseconds
+   */
+  cache_time?: number;
+  domain?: string;
+}
+```
+
+### 各翻译Engine的Option
+
+#### BaseEngineOption
+
+```typescript
+interface BaseEngineOption {}
+```
+
+#### AzureEngineOption
+
+```typescript
+interface AzureEngineOption extends BaseEngineOption {
+  key: string;
+  region: string;
+}
+```
+
+> 说明：option param 请从对应平台获取
+
+- 相关文档：[rest-api-guide](https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/rest-api-guide?WT.mc_id=Portal-Microsoft_Azure_ProjectOxford)
+
+
+#### AmazonEngineOption
+
+```typescript
+interface AmazonEngineOption extends BaseEngineOption{
   region: string;
   accessKeyId: string;
   secretAccessKey: string;
 }
 ```
 
-> amazon translate option 获取平台：
- 
+> 说明：option param 请从对应平台获取
 
+- 相关文档：https://docs.aws.amazon.com/translate/latest/dg/what-is.html
+- 相关库：https://www.npmjs.com/package/@aws-sdk/client-translate
+ 
+#### BaiduEngineOption
+
+```typescript
+export interface BaiduEngineOption extends BaseEngineOption {
+  appId: string;
+  secretKey: string;
+}
+```
+
+> 说明：option param 请从对应平台获取
+
+- 相关文档：https://fanyi-api.baidu.com/product/121
+
+## 🤝 贡献
+
+> 特别注意：请基于master创建一个新分支，在新分支上开发，开发完后创建PR至master
+
+- 安装依赖
+
+  ```bash
+  pnpm install
+  ```
+
+- 添加新Engine
+
+  - 添加新平台engine插件
+    ```typescript
+    export interface XXEngineOption extends BaseEngineOption {
+      key: string;
+    }
+
+    export function xx(options: XXEngineOption): Engine {
+      const { key } = options;
+      const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+      return {
+        name: "yandex",
+        async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
+          const { from, to } = opts;
+          if (!Array.isArray(text)) {
+            text = [text];
+          }
+          //TODO: 调用平台翻译api
+          const translations: string[] = [];
+          //TODO: 解析平台API相应结果，将结果解析至translations返回
+          for (const translation of body.text) {
+            if (translation) {
+              translations.push(translation);
+            }
+          }
+          return translations;
+        },
+      };
+    }
+    ```
+  - 将插件添加至engines(位置：```/src/engines/index.ts```)
+  
+    ```typescript
+    import { xx } from "./xx";
+    export const engines = {
+      google,
+      azure,
+      amazon,
+      baidu,
+      xx
+    } as const;
+    ```
+- 打包
+  ```bash
+  pnpm build
+  ```
+
+- 测试
+  ```bash
+  pnpm test
+  ```
+
+> **提示：目前库已可以正常使用，欢迎大家体验、如果你有任何问题和建议都可以提Issue给我反馈。
+如果你感兴趣，特别欢迎你的加入，让我们一起完善好这个工具。
+帮忙点个star⭐，让更多人知道这个工具，感谢大家🙏**
 
 ## 📄 许可证
 

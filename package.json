@@ -25,12 +25,24 @@
     "prepare": "husky"
   },
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/node/index.cjs",
+  "module": "./dist/node/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.js"
+    ".": {
+      "types": {
+        "require": "./dist/index.d.ts",
+        "default": "./dist/index.d.ts"
+      },
+      "browser": {
+        "require": "./dist/browser/index.cjs",
+        "default": "./dist/browser/index.js"
+      },
+      "default": {
+        "require": "./dist/node/index.cjs",
+        "default": "./dist/node/index.js"
+      }
+    }
   },
   "files": [
     "dist",
@@ -65,11 +77,13 @@
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/crypto-js": "^4.2.2",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.5.0",
     "@vitest/coverage-v8": "^2.0.5",
+    "chalk": "^5.3.0",
     "changelogen": "^0.5.5",
     "commitlint": "^19.4.0",
     "dotenv": "^16.4.5",
@@ -77,6 +91,7 @@
     "globals": "^15.9.0",
     "husky": "^9.1.5",
     "lint-staged": "^15.2.9",
+    "maxmin": "^4.1.0",
     "prettier": "^3.3.3",
     "rollup": "^4.21.1",
     "rollup-plugin-dts": "^6.1.1",

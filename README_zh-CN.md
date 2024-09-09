@@ -268,6 +268,11 @@ export interface BaiduEngineOption extends BaseEngineOption {
 如果你感兴趣，特别欢迎你的加入，让我们一起完善好这个工具。
 帮忙点个star⭐，让更多人知道这个工具，感谢大家🙏**
 
+## 🌹 特别致谢
+- [franciscop/translate](https://github.com/franciscop/translate.git)
+
+> 说明：感谢[franciscop/translate](https://github.com/franciscop/translate.git)为我快速实现这个库提供了思路，同时也间接了他的部分代码。非常感谢🙏
+
 ## 📄 许可证
 
 Translate 是在 MIT 许可证下发布的。详情请见 [`LICENSE`](./LICENSE) 文件。

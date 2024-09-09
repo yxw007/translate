@@ -253,6 +253,12 @@ export interface BaiduEngineOption extends BaseEngineOption {
 
 > **Tips: At present, the library can be used normally. Welcome everyone to experience. If you have any questions and suggestions, you can mention the feedback to me.If you are interested, you are welcome to join, let us improve this tool together. Help to click star ⭐, let more people know this tool, thank you for everyone🙏**
 
+
+## 🌹 Thanks
+- [franciscop/translate](https://github.com/franciscop/translate.git)
+
+> Note：Thanks to [franciscop/translate](https://github.com/franciscop/translate.git) for giving me ideas for a quick implementation of this library, and also indirectly some of his code. Much appreciated.🙏
+
 ## 📄 License
 
 Translate is released under the MIT license. See the [`LICENSE`](./LICENSE) file.

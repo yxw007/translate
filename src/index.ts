@@ -19,7 +19,7 @@ class Translator {
     this.engines.set(engine.name, engine);
   }
   translate(text: string | string[], options: TranslateOptions) {
-    const { from, to, engine = "google", cache_time = 60 } = options;
+    const { from, to, engine = "google", cache_time = 60 * 1000 } = options;
 
     //1. Check if engine exists
     if (!this.engines.has(engine)) {
@@ -35,6 +35,11 @@ class Translator {
     }
 
     const key = `${from}:${to}:${engine}:${text}`;
+    //3. If the cache is matched, the cache is used directly
+    if (cache.get(key)) {
+      return cache.get(key)?.value;
+    }
+
     const engineInstance = this.engines.get(engine);
     if (!engineInstance) {
       throw new Error(`Engine ${engine} not found`);

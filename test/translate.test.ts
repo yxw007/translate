@@ -11,6 +11,12 @@ describe("translator", () => {
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
     expect(res2).toEqual(["你好", "好的"]);
+
+    //use cache
+    const start = Date.now();
+    const res3 = await translator.translate("hello", { from: "en", to: "zh", engine: "google" });
+    expect(Date.now() - start).toBeLessThan(1);
+    expect(res3).toEqual(["你好"]);
   });
 
   it.concurrent("azure translate", async () => {

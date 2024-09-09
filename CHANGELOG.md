@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.1-alpha.3
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.2...v0.0.1-alpha.3)
+
+### 🩹 Fixes
+
+- The cache is not used, and default cache time is set to 60s ([b1853c0](https://github.com/yxw007/translate/commit/b1853c0))
+
+### 📦 Build
+
+- Optimized packaging and support mini bundles ([d29bce6](https://github.com/yxw007/translate/commit/d29bce6))
+
+### 🏡 Chore
+
+- Improve readme ([43edf0d](https://github.com/yxw007/translate/commit/43edf0d))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.1-alpha.2
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.1...v0.0.1-alpha.2)

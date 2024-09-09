@@ -59,43 +59,71 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 
 ## 📖 使用
 
-- ESM
+### Browser
 
+- ESM
   ```typescript
   import { translator, engines } from "@yxw007/translate"
-
-  translator.use(engines.google());
-  const res1 = await translator.translate("hello", { from: "en", to: "zh" });
-  console.log(res1);
-
-  const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
-  console.log(res2);
   ```
-
-  输出结果
-  ```bash
-  ['你好']
-  ["你好", "好的"]
-  ```
-
 - Commonjs
-
   ```typescript
   const { translator, engines }  = required("@yxw007/translate")
-
+  ```
+- example
+  ```typescript
   translator.use(engines.google());
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
   console.log(res1);
 
   const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
   console.log(res2);
-
   ```
 
   输出结果
   ```bash
   ['你好']
   ["你好", "好的"]
+  ```
+
+### Browser
+
+使用 jsDelivr CDN 
+
+- `development`
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+  ```
+  
+- `production`
+
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.min.js"></script>
+  ```
+
+- example
+
+  ```html
+  <!DOCTYPE html>
+  ...
+
+  <head>
+    ...
+    <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+  </head>
+
+  <body>
+    <script>
+      (async () => {
+        const { engines, translator } = translate;
+        translator.use(engines.google());
+        const res = await translator.translate("hello", { from: "en", to: "zh" });
+        console.log(res);
+      })();
+    </script>
+  </body>
+
+  </html>
+
   ```
 
 ## 📚 API 

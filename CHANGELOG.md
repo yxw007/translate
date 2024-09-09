@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.3...v0.0.1)
+
+### 📖 Documentation
+
+- Improve readme ([ccf276b](https://github.com/yxw007/translate/commit/ccf276b))
+
+### 📦 Build
+
+- Remove unnecessary mini bundle artifacts from the node ([df00364](https://github.com/yxw007/translate/commit/df00364))
+
+### 🏡 Chore
+
+- Update the browser playground ([6483d09](https://github.com/yxw007/translate/commit/6483d09))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.1-alpha.3
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.1-alpha.2...v0.0.1-alpha.3)

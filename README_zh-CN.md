@@ -59,16 +59,18 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 
 ## 📖 使用
 
-### Browser
+### Node
 
 - ESM
   ```typescript
   import { translator, engines } from "@yxw007/translate"
   ```
+
 - Commonjs
   ```typescript
   const { translator, engines }  = required("@yxw007/translate")
   ```
+
 - example
   ```typescript
   translator.use(engines.google());

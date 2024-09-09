@@ -83,6 +83,7 @@ export default defineConfig(() => {
 		//Node.js ESM Bundle 
 		...buildConfig({
 			browser: false,
+			minifiedVersion: false,
 			output: {
 				file: "dist/node/index.js",
 				format: "esm",
@@ -101,6 +102,7 @@ export default defineConfig(() => {
 		//Node.js CJS Bundle 
 		...buildConfig({
 			browser: false,
+			minifiedVersion: false,
 			output: {
 				file: "dist/node/index.cjs",
 				format: "cjs",

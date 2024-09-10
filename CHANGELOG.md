@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.3...v0.0.4)
+
+### 💅 Refactors
+
+- From is not passed, the default value is auto ([e405103](https://github.com/yxw007/translate/commit/e405103))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.3
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.2...v0.0.3)

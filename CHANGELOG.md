@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- Could not find declaration file ([8683b38](https://github.com/yxw007/translate/commit/8683b38))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.2
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.1...v0.0.2)

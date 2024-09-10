@@ -1,6 +1,6 @@
 {
   "name": "@yxw007/translate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple library that supports multiple translation engines",
   "author": "Potter<aa4790139@gmail.com>",
   "homepage": "https://github.com/yxw007/translate",

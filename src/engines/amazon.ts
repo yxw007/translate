@@ -13,7 +13,7 @@ export function amazon(options: AmazonEngineOption): Engine {
   return {
     name: "amazon",
     async translate(text: string | string[], opts: EngineTranslateOptions) {
-      const { from, to } = opts;
+      const { from = "auto", to } = opts;
       const translateClient = new TranslateClient({ region: region, credentials: { accessKeyId, secretAccessKey } });
       if (!Array.isArray(text)) {
         text = [text];

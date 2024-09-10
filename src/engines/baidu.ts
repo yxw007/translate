@@ -12,7 +12,7 @@ export function baidu(options: BaiduEngineOption): Engine {
   return {
     name: "baidu",
     async translate(text: string | string[], opts: EngineTranslateOptions) {
-      const { to, from, domain = "it" } = opts;
+      const { to, from = "auto", domain = "it" } = opts;
       if (!Array.isArray(text)) {
         text = [text];
       }

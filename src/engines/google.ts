@@ -5,7 +5,7 @@ export function google(options?: BaseEngineOption): Engine {
   return {
     name: "google",
     async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
-      const { from, to } = opts;
+      const { from = "auto", to } = opts;
       if (!Array.isArray(text)) {
         text = [text];
       }

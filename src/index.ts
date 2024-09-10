@@ -27,9 +27,6 @@ class Translator {
     }
 
     //2. Check if language exists
-    if (!language(from)) {
-      throw new Error(`Language ${from} not found`);
-    }
     if (!language(to)) {
       throw new Error(`Language ${to} not found`);
     }

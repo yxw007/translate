@@ -1,7 +1,7 @@
 import { Language } from "../language";
 
 export interface TranslateOptions {
-  from: Language;
+  from?: Language;
   to: Language;
   engine?: string;
   /**

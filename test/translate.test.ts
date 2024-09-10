@@ -9,7 +9,7 @@ describe("translator", () => {
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "google" });
     expect(res1).toEqual(["你好"]);
 
-    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "google" });
+    const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "google" });
     expect(res2).toEqual(["你好", "好的"]);
 
     //use cache
@@ -25,7 +25,7 @@ describe("translator", () => {
       region: process.env.AZURE_REGION as string
     }));
 
-    const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "azure" });
+    const res1 = await translator.translate("hello", { to: "zh", engine: "azure" });
     expect(res1).toEqual(["你好"]);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "azure" });
@@ -52,7 +52,7 @@ describe("translator", () => {
       secretKey: process.env.BAIDU_SECRET_KEY as string
     }));
 
-    const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "baidu" });
+    const res1 = await translator.translate("hello", { to: "zh", engine: "baidu" });
     expect(res1).toEqual(["你好"]);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });

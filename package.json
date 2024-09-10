@@ -1,6 +1,6 @@
 {
   "name": "@yxw007/translate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple library that supports multiple translation engines",
   "author": "Potter<aa4790139@gmail.com>",
   "homepage": "https://github.com/yxw007/translate",
@@ -32,11 +32,13 @@
     ".": {
       "browser": {
         "require": "./dist/browser/index.cjs",
-        "default": "./dist/browser/index.js"
+        "default": "./dist/browser/index.js",
+        "types": "./dist/index.d.ts"
       },
       "default": {
         "require": "./dist/node/index.cjs",
-        "default": "./dist/node/index.js"
+        "default": "./dist/node/index.js",
+        "types": "./dist/index.d.ts"
       }
     }
   },

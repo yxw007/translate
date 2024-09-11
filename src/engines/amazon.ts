@@ -19,8 +19,8 @@ export function amazon(options: AmazonEngineOption): Engine {
         text = [text];
       }
       const command = new TranslateTextCommand({
-        SourceLanguageCode: from,
-        TargetLanguageCode: to,
+        SourceLanguageCode: from as string,
+        TargetLanguageCode: to as string,
         Text: text.join("\n"),
       });
       const response: TranslateTextResponse = await translateClient.send(command);

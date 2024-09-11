@@ -22,8 +22,8 @@ export function baidu(options: BaiduEngineOption): Engine {
       const sign = md5(`${appId}${q}${salt}${domain}${secretKey}`).toString();
       const body = new URLSearchParams();
       body.append("q", q);
-      body.append("from", from);
-      body.append("to", to);
+      body.append("from", from as string);
+      body.append("to", to as string);
       body.append("appid", appId);
       body.append("salt", salt.toString());
       body.append("domain", domain);

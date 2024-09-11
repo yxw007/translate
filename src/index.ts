@@ -1,5 +1,5 @@
 import { engines } from "./engines";
-import language from "./language";
+import { languageNames, getISO, isValidLanguage } from "./language";
 import { Engine, TranslateOptions } from "./types";
 import { useLogger, Cache } from "./utils";
 
@@ -19,7 +19,10 @@ class Translator {
     this.engines.set(engine.name, engine);
   }
   translate(text: string | string[], options: TranslateOptions) {
-    const { from, to, engine = "google", cache_time = 60 * 1000 } = options;
+    const { engine = "google", cache_time = 60 * 1000 } = options;
+    let { from = "auto", to } = options;
+    from = options.from = getISO(from);
+    to = options.to = getISO(to);
 
     //1. Check if engine exists
     if (!this.engines.has(engine)) {
@@ -27,8 +30,11 @@ class Translator {
     }
 
     //2. Check if language exists
-    if (!language(to)) {
-      throw new Error(`Language ${to} not found`);
+    if (!isValidLanguage(to as string)) {
+      throw new Error(`The language "${to}" is not part of the ISO 639-1 or is not part of the language names`);
+    }
+    if (!isValidLanguage(from as string)) {
+      throw new Error(`The language "${from}" is not part of the ISO 639-1 or is not part of the language names`);
     }
 
     const key = `${from}:${to}:${engine}:${text}`;
@@ -54,5 +60,7 @@ const translator = new Translator();
 export default {
   engines,
   translator,
+  Cache,
+  languageNames,
 };
-export { engines, translator, Cache };
+export { engines, translator, Cache, languageNames };

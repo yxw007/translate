@@ -20,7 +20,7 @@ export function azure(options: AzureEngineOption): Engine {
     name: "azure",
     async translate(text, opts: EngineTranslateOptions): Promise<string[]> {
       const { from, to } = opts;
-      const url = `${base}&to=${to}${from ? `&from=${from}` : ""}`;
+      const url = `${base}&to=${to}${from && from !== "auto" ? `&from=${from}` : ""}`;
       if (!Array.isArray(text)) {
         text = [text];
       }

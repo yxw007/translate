@@ -40,7 +40,7 @@ class Translator {
     const key = `${from}:${to}:${engine}:${text}`;
     //3. If the cache is matched, the cache is used directly
     if (cache.get(key)) {
-      return cache.get(key)?.value;
+      return Promise.resolve(cache.get(key)?.value);
     }
 
     const engineInstance = this.engines.get(engine);

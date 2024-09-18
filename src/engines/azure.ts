@@ -33,7 +33,11 @@ export function azure(options: AzureEngineOption): Engine {
         },
         body: JSON.stringify(text.map((it) => ({ Text: it }))),
       });
-      const body: Translation[] = await (res as any).json();
+      const bodyRes = await (res as any).json();
+      if (bodyRes.error) {
+        throw new Error(`Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
+      }
+      const body: Translation[] = bodyRes;
       if (!body || body.length === 0) {
         throw new Error("Translate fail ! translate's result is null or empty");
       }

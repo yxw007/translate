@@ -58,5 +58,18 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });
     expect(res2).toEqual(["你好", "好的"]);
   });
+
+
+  it.concurrent("baidu translate", async () => {
+    translator.use(engines.deepl({
+      authKey: process.env.DEEPL_AUTH_KEY as string
+    }));
+
+    const res1 = await translator.translate("hello", { to: "zh", engine: "deepl" });
+    expect(res1).toEqual(["你好"]);
+
+    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "deepl" });
+    expect(res2).toEqual(["你好", "好的"]);
+  });
 });
 

@@ -104,6 +104,7 @@
   "dependencies": {
     "@aws-sdk/client-translate": "^3.637.0",
     "@smithy/smithy-client": "^3.2.0",
-    "crypto-js": "^4.2.0"
+    "crypto-js": "^4.2.0",
+    "deepl-node": "^1.14.0"
   }
 }

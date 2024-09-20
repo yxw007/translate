@@ -101,10 +101,11 @@
   "volta": {
     "node": "22.3.0"
   },
-  "dependencies": {
-    "@aws-sdk/client-translate": "^3.637.0",
-    "@smithy/smithy-client": "^3.2.0",
+  "dependencies": {},
+  "peerDependencies": {
     "crypto-js": "^4.2.0",
-    "deepl-node": "^1.14.0"
+    "@aws-sdk/client-translate": "^3.637.0",
+    "deepl-node": "^1.14.0",
+    "@smithy/smithy-client": "^3.2.0"
   }
 }

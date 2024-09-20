@@ -16,6 +16,7 @@ const pkgName = pkg.name;
 const libName = pkgName.split("/").pop();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const namedInput = "src/index.ts";
+const external = Object.keys(pkg.peerDependencies || {});
 
 function bundleSize() {
 	return {
@@ -62,6 +63,7 @@ function buildConfig({ browser = true, minifiedVersion = true, isBundle = true, 
 			...config.output,
 			file: `${path.dirname(file)}/${basename}.${(minified ? ['min', ...extArr] : extArr).join('.')}`
 		}],
+		external,
 		plugins: getPlugins(minified)
 	});
 

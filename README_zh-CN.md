@@ -34,6 +34,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 | azure translate  | √    | 已投产，可以正常使用                                                       |
 | amazon translate | √    | 已投产，可以正常使用                                                       |
 | baidu            | √    | 已投产，可以正常使用                                                       |
+| deepl            | √    | 已投产，可以正常使用                                                       |
 | yandex           |      | 由于我没有平台支持的银行账号，所以未调通（欢迎有条件的朋友帮忙调通，感谢） |
 
 
@@ -93,13 +94,13 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 
 - `development`
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   ```
   
 - `production`
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.min.js"></script>
   ```
 
 - example
@@ -110,7 +111,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 
   <head>
     ...
-    <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   </head>
 
   <body>
@@ -172,7 +173,7 @@ translate(text: string | string[], options: TranslateOptions)
 export interface TranslateOptions {
   from: Language;
   to: Language;
-  engine?: string;
+  engine?: Engines;
    /**
    * Cache time in milliseconds
    */
@@ -231,6 +232,18 @@ export interface BaiduEngineOption extends BaseEngineOption {
 
 - 相关文档：https://fanyi-api.baidu.com/product/121
 
+#### DeeplEngineOption
+
+```typescript
+export interface DeeplEngineOption {
+  key: string;
+}
+```
+
+> 说明：option param 请从对应平台获取
+
+- 相关文档：https://www.deepl.com/en/your-account/keys
+
 ## 🤝 贡献
 
 > 特别注意：请基于master创建一个新分支，在新分支上开发，开发完后创建PR至master
@@ -281,6 +294,7 @@ export interface BaiduEngineOption extends BaseEngineOption {
       azure,
       amazon,
       baidu,
+      deepl,
       xx
     } as const;
     ```

@@ -80,13 +80,13 @@ use jsDelivr CDN
 
 - `development`
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   ```
   
 - `production`
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.min.js"></script>
   ```
 
 - example
@@ -97,7 +97,7 @@ use jsDelivr CDN
 
   <head>
     ...
-    <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   </head>
 
   <body>
@@ -160,7 +160,7 @@ translate(text: string | string[], options: TranslateOptions)
 export interface TranslateOptions {
   from: Language;
   to: Language;
-  engine?: string;
+  engine?: Engines;
    /**
    * Cache time in milliseconds
    */
@@ -203,7 +203,7 @@ interface AmazonEngineOption extends BaseEngineOption{
 
 > Note: Option Param, please get it from the corresponding platform
 
-- Related documentationtive document：https://docs.aws.amazon.com/translate/latest/dg/what-is.html
+- Related document：https://docs.aws.amazon.com/translate/latest/dg/what-is.html
 - Related library：https://www.npmjs.com/package/@aws-sdk/client-translate
  
 #### BaiduEngineOption
@@ -217,7 +217,19 @@ export interface BaiduEngineOption extends BaseEngineOption {
 
 > Note: Option Param, please get it from the corresponding platform
 
-- Related documentation：https://fanyi-api.baidu.com/product/121
+- Related document：https://fanyi-api.baidu.com/product/121
+
+#### DeeplEngineOption
+
+```typescript
+export interface DeeplEngineOption {
+  key: string;
+}
+```
+
+> Note: Option Param, please get it from the corresponding platform
+
+- Related document：https://www.deepl.com/en/your-account/keys
 
 ## 🤝 Contribute
 
@@ -269,6 +281,7 @@ export interface BaiduEngineOption extends BaseEngineOption {
       azure,
       amazon,
       baidu,
+      deepl,
       xx
     } as const;
     ```

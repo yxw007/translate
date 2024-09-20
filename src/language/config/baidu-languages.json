@@ -1,0 +1,1047 @@
+[
+  {
+    "id": "zh",
+    "zh-name": "中文(简体)",
+    "name": "Chinese"
+  },
+  {
+    "id": "en",
+    "zh-name": "英语",
+    "name": "English"
+  },
+  {
+    "id": "jp",
+    "zh-name": "日语",
+    "name": "Japanese"
+  },
+  {
+    "id": "th",
+    "zh-name": "泰语",
+    "name": "Thai"
+  },
+  {
+    "id": "spa",
+    "zh-name": "西班牙语",
+    "name": "Spanish"
+  },
+  {
+    "id": "ara",
+    "zh-name": "阿拉伯语",
+    "name": "Arabic"
+  },
+  {
+    "id": "fra",
+    "zh-name": "法语",
+    "name": "French"
+  },
+  {
+    "id": "kor",
+    "zh-name": "韩语",
+    "name": "Korean"
+  },
+  {
+    "id": "ru",
+    "zh-name": "俄语",
+    "name": "Russian"
+  },
+  {
+    "id": "de",
+    "zh-name": "德语",
+    "name": "German"
+  },
+  {
+    "id": "pt",
+    "zh-name": "葡萄牙语",
+    "name": "Portuguese"
+  },
+  {
+    "id": "it",
+    "zh-name": "意大利语",
+    "name": "Italian"
+  },
+  {
+    "id": "el",
+    "zh-name": "希腊语",
+    "name": "Greek"
+  },
+  {
+    "id": "nl",
+    "zh-name": "荷兰语",
+    "name": "Dutch"
+  },
+  {
+    "id": "pl",
+    "zh-name": "波兰语",
+    "name": "Polish"
+  },
+  {
+    "id": "fin",
+    "zh-name": "芬兰语",
+    "name": "Finnish"
+  },
+  {
+    "id": "cs",
+    "zh-name": "捷克语",
+    "name": "Czech"
+  },
+  {
+    "id": "bul",
+    "zh-name": "保加利亚语",
+    "name": "Bulgarian"
+  },
+  {
+    "id": "dan",
+    "zh-name": "丹麦语",
+    "name": "Danish"
+  },
+  {
+    "id": "est",
+    "zh-name": "爱沙尼亚语",
+    "name": "Estonian"
+  },
+  {
+    "id": "hu",
+    "zh-name": "匈牙利语",
+    "name": "Hungarian"
+  },
+  {
+    "id": "rom",
+    "zh-name": "罗马尼亚语",
+    "name": "Romanian"
+  },
+  {
+    "id": "slo",
+    "zh-name": "斯洛文尼亚语",
+    "name": "Slovenian"
+  },
+  {
+    "id": "swe",
+    "zh-name": "瑞典语",
+    "name": "Swedish"
+  },
+  {
+    "id": "vie",
+    "zh-name": "越南语",
+    "name": "Vietnamese"
+  },
+  {
+    "id": "yue",
+    "zh-name": "中文(粤语)",
+    "name": "Cantonese"
+  },
+  {
+    "id": "cht",
+    "zh-name": "中文(繁体)",
+    "name": "Traditional Chinese"
+  },
+  {
+    "id": "wyw",
+    "zh-name": "中文(文言文)",
+    "name": "Classical Chinese"
+  },
+  {
+    "id": "afr",
+    "zh-name": "南非荷兰语",
+    "name": "Afrikaans"
+  },
+  {
+    "id": "alb",
+    "zh-name": "阿尔巴尼亚语",
+    "name": "Albanian"
+  },
+  {
+    "id": "amh",
+    "zh-name": "阿姆哈拉语",
+    "name": "Amharic"
+  },
+  {
+    "id": "arm",
+    "zh-name": "亚美尼亚语",
+    "name": "Armenian"
+  },
+  {
+    "id": "asm",
+    "zh-name": "阿萨姆语",
+    "name": "Assamese"
+  },
+  {
+    "id": "ast",
+    "zh-name": "阿斯图里亚斯语",
+    "name": "Asturian"
+  },
+  {
+    "id": "aze",
+    "zh-name": "阿塞拜疆语",
+    "name": "Azerbaijani"
+  },
+  {
+    "id": "baq",
+    "zh-name": "巴斯克语",
+    "name": "Basque"
+  },
+  {
+    "id": "bel",
+    "zh-name": "白俄罗斯语",
+    "name": "Belarusian"
+  },
+  {
+    "id": "ben",
+    "zh-name": "孟加拉语",
+    "name": "Bengali"
+  },
+  {
+    "id": "bos",
+    "zh-name": "波斯尼亚语",
+    "name": "Bosnian"
+  },
+  {
+    "id": "bur",
+    "zh-name": "缅甸语",
+    "name": "Burmese"
+  },
+  {
+    "id": "cat",
+    "zh-name": "加泰罗尼亚语",
+    "name": "Catalan"
+  },
+  {
+    "id": "ceb",
+    "zh-name": "宿务语",
+    "name": "Cebuano"
+  },
+  {
+    "id": "hrv",
+    "zh-name": "克罗地亚语",
+    "name": "Croatian"
+  },
+  {
+    "id": "dzo",
+    "zh-name": "不丹语",
+    "name": "Dzongkha"
+  },
+  {
+    "id": "mon",
+    "zh-name": "蒙古语",
+    "name": "Mongolian"
+  },
+  {
+    "id": "tib",
+    "zh-name": "藏语",
+    "name": "Tibetan"
+  },
+  {
+    "id": "uig",
+    "zh-name": "维吾尔语",
+    "name": "Uyghur"
+  },
+  {
+    "id": "bui",
+    "zh-name": "布里亚特语",
+    "name": "Buriat"
+  },
+  {
+    "id": "che",
+    "zh-name": "车臣语",
+    "name": "Chechen"
+  },
+  {
+    "id": "kam",
+    "zh-name": "卡尔梅克语",
+    "name": "Kalmyk"
+  },
+  {
+    "id": "moc",
+    "zh-name": "蒙古语",
+    "name": "Mongolian"
+  },
+  {
+    "id": "epo",
+    "zh-name": "世界语",
+    "name": "Esperanto"
+  },
+  {
+    "id": "fao",
+    "zh-name": "法罗语",
+    "name": "Faroese"
+  },
+  {
+    "id": "fil",
+    "zh-name": "菲律宾语",
+    "name": "Filipino"
+  },
+  {
+    "id": "glg",
+    "zh-name": "加利西亚语",
+    "name": "Galician"
+  },
+  {
+    "id": "geo",
+    "zh-name": "格鲁吉亚语",
+    "name": "Georgian"
+  },
+  {
+    "id": "guj",
+    "zh-name": "古吉拉特语",
+    "name": "Gujarati"
+  },
+  {
+    "id": "hau",
+    "zh-name": "豪萨语",
+    "name": "Hausa"
+  },
+  {
+    "id": "heb",
+    "zh-name": "希伯来语",
+    "name": "Hebrew"
+  },
+  {
+    "id": "hi",
+    "zh-name": "印地语",
+    "name": "Hindi"
+  },
+  {
+    "id": "ice",
+    "zh-name": "冰岛语",
+    "name": "Icelandic"
+  },
+  {
+    "id": "ibo",
+    "zh-name": "伊博语",
+    "name": "Igbo"
+  },
+  {
+    "id": "id",
+    "zh-name": "印尼语",
+    "name": "Indonesian"
+  },
+  {
+    "id": "gle",
+    "zh-name": "爱尔兰语",
+    "name": "Irish"
+  },
+  {
+    "id": "kan",
+    "zh-name": "卡纳达语",
+    "name": "Kannada"
+  },
+  {
+    "id": "kli",
+    "zh-name": "克林贡语",
+    "name": "Klingon"
+  },
+  {
+    "id": "kur",
+    "zh-name": "库尔德语",
+    "name": "Kurdish"
+  },
+  {
+    "id": "lao",
+    "zh-name": "老挝语",
+    "name": "Lao"
+  },
+  {
+    "id": "lat",
+    "zh-name": "拉丁语",
+    "name": "Latin"
+  },
+  {
+    "id": "lav",
+    "zh-name": "拉脱维亚语",
+    "name": "Latvian"
+  },
+  {
+    "id": "lit",
+    "zh-name": "立陶宛语",
+    "name": "Lithuanian"
+  },
+  {
+    "id": "ltz",
+    "zh-name": "卢森堡语",
+    "name": "Luxembourgish"
+  },
+  {
+    "id": "mac",
+    "zh-name": "马其顿语",
+    "name": "Macedonian"
+  },
+  {
+    "id": "mg",
+    "zh-name": "马拉加斯语",
+    "name": "Malagasy"
+  },
+  {
+    "id": "may",
+    "zh-name": "马来语",
+    "name": "Malay"
+  },
+  {
+    "id": "mal",
+    "zh-name": "马拉雅拉姆语",
+    "name": "Malayalam"
+  },
+  {
+    "id": "mlt",
+    "zh-name": "马耳他语",
+    "name": "Maltese"
+  },
+  {
+    "id": "mar",
+    "zh-name": "马拉地语",
+    "name": "Marathi"
+  },
+  {
+    "id": "nep",
+    "zh-name": "尼泊尔语",
+    "name": "Nepali"
+  },
+  {
+    "id": "nno",
+    "zh-name": "新挪威语",
+    "name": "Nynorsk"
+  },
+  {
+    "id": "per",
+    "zh-name": "波斯语",
+    "name": "Persian"
+  },
+  {
+    "id": "srd",
+    "zh-name": "萨丁尼亚语",
+    "name": "Sardinian"
+  },
+  {
+    "id": "srp",
+    "zh-name": "塞尔维亚语(拉丁文)",
+    "name": "Serbian"
+  },
+  {
+    "id": "sin",
+    "zh-name": "僧伽罗语 ",
+    "name": "Sinhala"
+  },
+  {
+    "id": "sk",
+    "zh-name": "斯洛伐克语",
+    "name": "Slovak"
+  },
+  {
+    "id": "som",
+    "zh-name": "索马里语",
+    "name": "Somali"
+  },
+  {
+    "id": "swa",
+    "zh-name": "斯瓦希里语",
+    "name": "Swahili"
+  },
+  {
+    "id": "tgl",
+    "zh-name": "他加禄语",
+    "name": "Tagalog"
+  },
+  {
+    "id": "tgk",
+    "zh-name": "塔吉克语",
+    "name": "Tajik"
+  },
+  {
+    "id": "tam",
+    "zh-name": "泰米尔语",
+    "name": "Tamil"
+  },
+  {
+    "id": "tat",
+    "zh-name": "鞑靼语",
+    "name": "Tatar"
+  },
+  {
+    "id": "tel",
+    "zh-name": "泰卢固语",
+    "name": "Telugu"
+  },
+  {
+    "id": "tr",
+    "zh-name": "土耳其语",
+    "name": "Turkish"
+  },
+  {
+    "id": "tuk",
+    "zh-name": "土库曼语",
+    "name": "Turkmen"
+  },
+  {
+    "id": "ukr",
+    "zh-name": "乌克兰语",
+    "name": "Ukrainian"
+  },
+  {
+    "id": "urd",
+    "zh-name": "乌尔都语",
+    "name": "Urdu"
+  },
+  {
+    "id": "oci",
+    "zh-name": "奥克语",
+    "name": "Occitan"
+  },
+  {
+    "id": "kir",
+    "zh-name": "吉尔吉斯语",
+    "name": "Kyrgyz"
+  },
+  {
+    "id": "pus",
+    "zh-name": "普什图语",
+    "name": "Pashto"
+  },
+  {
+    "id": "hkm",
+    "zh-name": "高棉语",
+    "name": "Khmer"
+  },
+  {
+    "id": "ht",
+    "zh-name": "海地语",
+    "name": "Haitian Creole"
+  },
+  {
+    "id": "nob",
+    "zh-name": "书面挪威语",
+    "name": "Bokmål"
+  },
+  {
+    "id": "pan",
+    "zh-name": "旁遮普语",
+    "name": "Punjabi"
+  },
+  {
+    "id": "arq",
+    "zh-name": "阿尔及利亚阿拉伯语",
+    "name": "Algerian Arabic"
+  },
+  {
+    "id": "bis",
+    "zh-name": "比斯拉马语",
+    "name": "Bislama"
+  },
+  {
+    "id": "frn",
+    "zh-name": "加拿大法语",
+    "name": "Canadian French"
+  },
+  {
+    "id": "hak",
+    "zh-name": "哈卡钦语",
+    "name": "Hakha Chin"
+  },
+  {
+    "id": "hup",
+    "zh-name": "胡帕语",
+    "name": "Hupa"
+  },
+  {
+    "id": "ing",
+    "zh-name": "印古什语",
+    "name": "Ingush"
+  },
+  {
+    "id": "lag",
+    "zh-name": "拉特加莱语",
+    "name": "Latgalian"
+  },
+  {
+    "id": "mau",
+    "zh-name": "毛里求斯克里奥尔语",
+    "name": "Mauritian Creole"
+  },
+  {
+    "id": "mot",
+    "zh-name": "黑山语",
+    "name": "Montenegrin"
+  },
+  {
+    "id": "pot",
+    "zh-name": "巴西葡萄牙语",
+    "name": "Brazilian Portuguese"
+  },
+  {
+    "id": "ruy",
+    "zh-name": "卢森尼亚语",
+    "name": "Rusyn"
+  },
+  {
+    "id": "sec",
+    "zh-name": "塞尔维亚-克罗地亚语",
+    "name": "Serbo-Croatian"
+  },
+  {
+    "id": "sil",
+    "zh-name": "西里西亚语",
+    "name": "Silesian"
+  },
+  {
+    "id": "tua",
+    "zh-name": "突尼斯阿拉伯语",
+    "name": "Tunisian Arabic"
+  },
+  {
+    "id": "ach",
+    "zh-name": "亚齐语",
+    "name": "Achinese"
+  },
+  {
+    "id": "aka",
+    "zh-name": "阿肯语",
+    "name": "Akan"
+  },
+  {
+    "id": "arg",
+    "zh-name": "阿拉贡语",
+    "name": "Aragonese"
+  },
+  {
+    "id": "aym",
+    "zh-name": "艾马拉语",
+    "name": "Aymara"
+  },
+  {
+    "id": "bal",
+    "zh-name": "俾路支语",
+    "name": "Baluchi"
+  },
+  {
+    "id": "bak",
+    "zh-name": "巴什基尔语",
+    "name": "Bashkir"
+  },
+  {
+    "id": "bem",
+    "zh-name": "本巴语",
+    "name": "Bemba"
+  },
+  {
+    "id": "ber",
+    "zh-name": "柏柏尔语",
+    "name": "Berber languages"
+  },
+  {
+    "id": "bho",
+    "zh-name": "博杰普尔语",
+    "name": "Bhojpuri"
+  },
+  {
+    "id": "bli",
+    "zh-name": "比林语",
+    "name": "Blin"
+  },
+  {
+    "id": "bre",
+    "zh-name": "布列塔尼语",
+    "name": "Breton"
+  },
+  {
+    "id": "chr",
+    "zh-name": "切罗基语",
+    "name": "Cherokee"
+  },
+  {
+    "id": "nya",
+    "zh-name": "齐切瓦语",
+    "name": "Chichewa"
+  },
+  {
+    "id": "chv",
+    "zh-name": "楚瓦什语",
+    "name": "Chuvash"
+  },
+  {
+    "id": "cor",
+    "zh-name": "康瓦尔语",
+    "name": "Cornish"
+  },
+  {
+    "id": "cos",
+    "zh-name": "科西嘉语",
+    "name": "Corsican"
+  },
+  {
+    "id": "cre",
+    "zh-name": "克里克语",
+    "name": "Creek"
+  },
+  {
+    "id": "cri",
+    "zh-name": "克里米亚鞑靼语",
+    "name": "Crimean Tatar"
+  },
+  {
+    "id": "div",
+    "zh-name": "迪维希语",
+    "name": "Divehi"
+  },
+  {
+    "id": "eno",
+    "zh-name": "古英语",
+    "name": "Old English"
+  },
+  {
+    "id": "frm",
+    "zh-name": "中古法语",
+    "name": "Middle French"
+  },
+  {
+    "id": "fri",
+    "zh-name": "弗留利语",
+    "name": "Friulian"
+  },
+  {
+    "id": "ful",
+    "zh-name": "富拉尼语",
+    "name": "Fulani"
+  },
+  {
+    "id": "gla",
+    "zh-name": "盖尔语",
+    "name": "Gaelic"
+  },
+  {
+    "id": "lug",
+    "zh-name": "卢干达语",
+    "name": "Luganda"
+  },
+  {
+    "id": "gra",
+    "zh-name": "古希腊语",
+    "name": "Ancient Greek"
+  },
+  {
+    "id": "grn",
+    "zh-name": "瓜拉尼语",
+    "name": "Guarani"
+  },
+  {
+    "id": "haw",
+    "zh-name": "夏威夷语",
+    "name": "Hawaiian"
+  },
+  {
+    "id": "hil",
+    "zh-name": "希利盖农语",
+    "name": "Hiligaynon"
+  },
+  {
+    "id": "ido",
+    "zh-name": "伊多语",
+    "name": "Ido"
+  },
+  {
+    "id": "ina",
+    "zh-name": "因特语",
+    "name": "Interlingua "
+  },
+  {
+    "id": "iku",
+    "zh-name": "伊努克提图特语",
+    "name": "Inuktitut"
+  },
+  {
+    "id": "jav",
+    "zh-name": "爪哇语",
+    "name": "Javanese"
+  },
+  {
+    "id": "kab",
+    "zh-name": "卡拜尔语",
+    "name": "Kabyle"
+  },
+  {
+    "id": "kal",
+    "zh-name": "格陵兰语",
+    "name": "Kalaallisut"
+  },
+  {
+    "id": "kau",
+    "zh-name": "卡努里语",
+    "name": "Kanuri"
+  },
+  {
+    "id": "kas",
+    "zh-name": "克什米尔语",
+    "name": "Kashmiri"
+  },
+  {
+    "id": "kah",
+    "zh-name": "卡舒比语",
+    "name": "Kashubian"
+  },
+  {
+    "id": "kin",
+    "zh-name": "卢旺达语",
+    "name": "Kinyarwanda"
+  },
+  {
+    "id": "kon",
+    "zh-name": "刚果语",
+    "name": "Kongo"
+  },
+  {
+    "id": "kok",
+    "zh-name": "孔卡尼语",
+    "name": "Konkani"
+  },
+  {
+    "id": "lim",
+    "zh-name": "林堡语",
+    "name": "Limburgish"
+  },
+  {
+    "id": "lin",
+    "zh-name": "林加拉语",
+    "name": "Lingala"
+  },
+  {
+    "id": "loj",
+    "zh-name": "逻辑语",
+    "name": "Lojban"
+  },
+  {
+    "id": "log",
+    "zh-name": "低地德语",
+    "name": "Low German"
+  },
+  {
+    "id": "los",
+    "zh-name": "下索布语",
+    "name": "Lower Sorbian"
+  },
+  {
+    "id": "mai",
+    "zh-name": "迈蒂利语",
+    "name": "Maithili"
+  },
+  {
+    "id": "glv",
+    "zh-name": "曼克斯语",
+    "name": "Manx"
+  },
+  {
+    "id": "mao",
+    "zh-name": "毛利语",
+    "name": "Maori"
+  },
+  {
+    "id": "mah",
+    "zh-name": "马绍尔语",
+    "name": "Marshallese"
+  },
+  {
+    "id": "nbl",
+    "zh-name": "南恩德贝莱语",
+    "name": "Southern Ndebele"
+  },
+  {
+    "id": "nea",
+    "zh-name": "那不勒斯语",
+    "name": "Neapolitan"
+  },
+  {
+    "id": "nqo",
+    "zh-name": "西非书面语",
+    "name": "N'Ko"
+  },
+  {
+    "id": "sme",
+    "zh-name": "北方萨米语",
+    "name": "Northern Sami"
+  },
+  {
+    "id": "nor",
+    "zh-name": "挪威语",
+    "name": "Norwegian"
+  },
+  {
+    "id": "oji",
+    "zh-name": "奥杰布瓦语",
+    "name": "Ojibwa"
+  },
+  {
+    "id": "ori",
+    "zh-name": "奥里亚语",
+    "name": "Oriya"
+  },
+  {
+    "id": "orm",
+    "zh-name": "奥罗莫语",
+    "name": "Oromo"
+  },
+  {
+    "id": "oss",
+    "zh-name": "奥塞梯语",
+    "name": "Ossetian"
+  },
+  {
+    "id": "pam",
+    "zh-name": "邦板牙语",
+    "name": "Pampanga"
+  },
+  {
+    "id": "pap",
+    "zh-name": "帕皮阿门托语",
+    "name": "Papiamento"
+  },
+  {
+    "id": "ped",
+    "zh-name": "北索托语",
+    "name": "Northern Sotho"
+  },
+  {
+    "id": "que",
+    "zh-name": "克丘亚语",
+    "name": "Quechua"
+  },
+  {
+    "id": "roh",
+    "zh-name": "罗曼什语",
+    "name": "Romansh"
+  },
+  {
+    "id": "ro",
+    "zh-name": "罗姆语",
+    "name": "Romany"
+  },
+  {
+    "id": "sm",
+    "zh-name": "萨摩亚语",
+    "name": "Samoan"
+  },
+  {
+    "id": "san",
+    "zh-name": "梵语",
+    "name": "Sanskrit"
+  },
+  {
+    "id": "sco",
+    "zh-name": "苏格兰语",
+    "name": "Scots"
+  },
+  {
+    "id": "sha",
+    "zh-name": "掸语",
+    "name": "Shan"
+  },
+  {
+    "id": "sna",
+    "zh-name": "修纳语",
+    "name": "Shona"
+  },
+  {
+    "id": "snd",
+    "zh-name": "信德语",
+    "name": "Sindhi"
+  },
+  {
+    "id": "sol",
+    "zh-name": "桑海语",
+    "name": "Songhai languages"
+  },
+  {
+    "id": "sot",
+    "zh-name": "南索托语",
+    "name": "Southern Sotho"
+  },
+  {
+    "id": "syr",
+    "zh-name": "叙利亚语",
+    "name": "Syriac"
+  },
+  {
+    "id": "tet",
+    "zh-name": "德顿语",
+    "name": "Tetum"
+  },
+  {
+    "id": "tir",
+    "zh-name": "提格利尼亚语",
+    "name": "Tigrinya"
+  },
+  {
+    "id": "tso",
+    "zh-name": "聪加语",
+    "name": "Tsonga"
+  },
+  {
+    "id": "twi",
+    "zh-name": "契维语",
+    "name": "Twi"
+  },
+  {
+    "id": "ups",
+    "zh-name": "高地索布语",
+    "name": "Upper Sorbian"
+  },
+  {
+    "id": "ven",
+    "zh-name": "文达语",
+    "name": "Venda"
+  },
+  {
+    "id": "wln",
+    "zh-name": "瓦隆语",
+    "name": "Walloon"
+  },
+  {
+    "id": "wel",
+    "zh-name": "威尔士语",
+    "name": "Welsh"
+  },
+  {
+    "id": "fry",
+    "zh-name": "西弗里斯语",
+    "name": "Western Frisian"
+  },
+  {
+    "id": "wol",
+    "zh-name": "沃洛夫语",
+    "name": "Wolof"
+  },
+  {
+    "id": "xho",
+    "zh-name": "科萨语",
+    "name": "Xhosa"
+  },
+  {
+    "id": "yid",
+    "zh-name": "意第绪语",
+    "name": "Yiddish"
+  },
+  {
+    "id": "yor",
+    "zh-name": "约鲁巴语",
+    "name": "Yoruba"
+  },
+  {
+    "id": "zaz",
+    "zh-name": "扎扎其语",
+    "name": "Zaza"
+  },
+  {
+    "id": "zul",
+    "zh-name": "祖鲁语",
+    "name": "Zulu"
+  },
+  {
+    "id": "sun",
+    "zh-name": "巽他语",
+    "name": "BasaSunda"
+  },
+  {
+    "id": "hmn",
+    "zh-name": "苗语",
+    "name": "Hmong"
+  },
+  {
+    "id": "src",
+    "zh-name": "塞尔维亚语(西里尔文)",
+    "name": "Serb(Cyrillic)"
+  }
+]

@@ -1,0 +1,974 @@
+[
+  {
+    "id": "ab",
+    "zh-name": "阿布哈兹语"
+  },
+  {
+    "id": "sq",
+    "zh-name": "阿尔巴尼亚语"
+  },
+  {
+    "id": "aa",
+    "zh-name": "阿法尔语"
+  },
+  {
+    "id": "ar",
+    "zh-name": "阿拉伯语"
+  },
+  {
+    "id": "alz",
+    "zh-name": "阿卢尔语"
+  },
+  {
+    "id": "am",
+    "zh-name": "阿姆哈拉语"
+  },
+  {
+    "id": "ach",
+    "zh-name": "阿乔利语"
+  },
+  {
+    "id": "as",
+    "zh-name": "阿萨姆语"
+  },
+  {
+    "id": "az",
+    "zh-name": "阿塞拜疆语"
+  },
+  {
+    "id": "awa",
+    "zh-name": "阿瓦德语"
+  },
+  {
+    "id": "av",
+    "zh-name": "阿瓦尔语"
+  },
+  {
+    "id": "ee",
+    "zh-name": "埃维语"
+  },
+  {
+    "id": "ay",
+    "zh-name": "艾马拉语"
+  },
+  {
+    "id": "ga",
+    "zh-name": "爱尔兰语"
+  },
+  {
+    "id": "et",
+    "zh-name": "爱沙尼亚语"
+  },
+  {
+    "id": "oc",
+    "zh-name": "奥克语"
+  },
+  {
+    "id": "or",
+    "zh-name": "奥利亚语"
+  },
+  {
+    "id": "om",
+    "zh-name": "奥罗莫语"
+  },
+  {
+    "id": "os",
+    "zh-name": "奥塞梯语"
+  },
+  {
+    "id": "tpi",
+    "zh-name": "巴布亚皮钦语"
+  },
+  {
+    "id": "bew",
+    "zh-name": "巴达维语"
+  },
+  {
+    "id": "ban",
+    "zh-name": "巴厘语"
+  },
+  {
+    "id": "ba",
+    "zh-name": "巴什基尔语"
+  },
+  {
+    "id": "eu",
+    "zh-name": "巴斯克语"
+  },
+  {
+    "id": "btx",
+    "zh-name": "巴塔克卡罗语"
+  },
+  {
+    "id": "bbc",
+    "zh-name": "巴塔克托巴语"
+  },
+  {
+    "id": "bts",
+    "zh-name": "巴塔克西马隆贡语"
+  },
+  {
+    "id": "bci",
+    "zh-name": "巴乌雷语"
+  },
+  {
+    "id": "be",
+    "zh-name": "白俄罗斯语"
+  },
+  {
+    "id": "bm",
+    "zh-name": "班巴拉语"
+  },
+  {
+    "id": "pag",
+    "zh-name": "邦阿西楠语"
+  },
+  {
+    "id": "pam",
+    "zh-name": "邦板牙语"
+  },
+  {
+    "id": "bg",
+    "zh-name": "保加利亚语"
+  },
+  {
+    "id": "nso",
+    "zh-name": "北索托语"
+  },
+  {
+    "id": "bem",
+    "zh-name": "奔巴语"
+  },
+  {
+    "id": "bik",
+    "zh-name": "比科尔语"
+  },
+  {
+    "id": "bal",
+    "zh-name": "俾路支语"
+  },
+  {
+    "id": "is",
+    "zh-name": "冰岛语"
+  },
+  {
+    "id": "pl",
+    "zh-name": "波兰语"
+  },
+  {
+    "id": "bs",
+    "zh-name": "波斯尼亚语"
+  },
+  {
+    "id": "fa",
+    "zh-name": "波斯语"
+  },
+  {
+    "id": "bho",
+    "zh-name": "博杰普尔语"
+  },
+  {
+    "id": "bua",
+    "zh-name": "布里亚特语"
+  },
+  {
+    "id": "br",
+    "zh-name": "布列塔尼语"
+  },
+  {
+    "id": "bo",
+    "zh-name": "藏语"
+  },
+  {
+    "id": "chm",
+    "zh-name": "草原马里语"
+  },
+  {
+    "id": "ch",
+    "zh-name": "查莫罗语"
+  },
+  {
+    "id": "ce",
+    "zh-name": "车臣语"
+  },
+  {
+    "id": "chk",
+    "zh-name": "楚克语"
+  },
+  {
+    "id": "cv",
+    "zh-name": "楚瓦什语"
+  },
+  {
+    "id": "tn",
+    "zh-name": "茨瓦纳语"
+  },
+  {
+    "id": "ts",
+    "zh-name": "聪加语"
+  },
+  {
+    "id": "fa-AF",
+    "zh-name": "达里语"
+  },
+  {
+    "id": "tt",
+    "zh-name": "鞑靼语"
+  },
+  {
+    "id": "da",
+    "zh-name": "丹麦语"
+  },
+  {
+    "id": "shn",
+    "zh-name": "掸语"
+  },
+  {
+    "id": "tet",
+    "zh-name": "德顿语"
+  },
+  {
+    "id": "de",
+    "zh-name": "德语"
+  },
+  {
+    "id": "dv",
+    "zh-name": "迪维希语"
+  },
+  {
+    "id": "dyu",
+    "zh-name": "迪尤拉语"
+  },
+  {
+    "id": "tiv",
+    "zh-name": "蒂夫语"
+  },
+  {
+    "id": "din",
+    "zh-name": "丁卡语"
+  },
+  {
+    "id": "doi",
+    "zh-name": "多格拉语"
+  },
+  {
+    "id": "ru",
+    "zh-name": "俄语"
+  },
+  {
+    "id": "ndc-ZW",
+    "zh-name": "恩道语"
+  },
+  {
+    "id": "nr",
+    "zh-name": "恩德贝莱语（南部）"
+  },
+  {
+    "id": "dov",
+    "zh-name": "恩敦贝语"
+  },
+  {
+    "id": "bm-Nkoo",
+    "zh-name": "恩科字母（西非书面文字）"
+  },
+  {
+    "id": "fo",
+    "zh-name": "法罗语"
+  },
+  {
+    "id": "fr",
+    "zh-name": "法语"
+  },
+  {
+    "id": "sa",
+    "zh-name": "梵语"
+  },
+  {
+    "id": "tl",
+    "zh-name": "菲律宾语"
+  },
+  {
+    "id": "fj",
+    "zh-name": "斐济语"
+  },
+  {
+    "id": "fi",
+    "zh-name": "芬兰语"
+  },
+  {
+    "id": "fon",
+    "zh-name": "丰语"
+  },
+  {
+    "id": "fy",
+    "zh-name": "弗里西语"
+  },
+  {
+    "id": "fur",
+    "zh-name": "弗留利语"
+  },
+  {
+    "id": "ff",
+    "zh-name": "富拉尼语"
+  },
+  {
+    "id": "kg",
+    "zh-name": "刚果语"
+  },
+  {
+    "id": "km",
+    "zh-name": "高棉语"
+  },
+  {
+    "id": "kl",
+    "zh-name": "格陵兰语"
+  },
+  {
+    "id": "ka",
+    "zh-name": "格鲁吉亚语"
+  },
+  {
+    "id": "gom",
+    "zh-name": "贡根语"
+  },
+  {
+    "id": "gu",
+    "zh-name": "古吉拉特语"
+  },
+  {
+    "id": "gn",
+    "zh-name": "瓜拉尼语"
+  },
+  {
+    "id": "cnh",
+    "zh-name": "哈卡钦语"
+  },
+  {
+    "id": "kk",
+    "zh-name": "哈萨克语"
+  },
+  {
+    "id": "ht",
+    "zh-name": "海地克里奥尔语"
+  },
+  {
+    "id": "ko",
+    "zh-name": "韩语"
+  },
+  {
+    "id": "ha",
+    "zh-name": "豪萨语"
+  },
+  {
+    "id": "nl",
+    "zh-name": "荷兰语"
+  },
+  {
+    "id": "hrx",
+    "zh-name": "洪斯吕克语"
+  },
+  {
+    "id": "ky",
+    "zh-name": "吉尔吉斯语"
+  },
+  {
+    "id": "ktu",
+    "zh-name": "吉土巴语"
+  },
+  {
+    "id": "gl",
+    "zh-name": "加利西亚语"
+  },
+  {
+    "id": "ca",
+    "zh-name": "加泰罗尼亚语"
+  },
+  {
+    "id": "gaa",
+    "zh-name": "加语"
+  },
+  {
+    "id": "cs",
+    "zh-name": "捷克语"
+  },
+  {
+    "id": "kac",
+    "zh-name": "景颇语"
+  },
+  {
+    "id": "kn",
+    "zh-name": "卡纳达语"
+  },
+  {
+    "id": "kr",
+    "zh-name": "卡努里语"
+  },
+  {
+    "id": "kha",
+    "zh-name": "卡西语"
+  },
+  {
+    "id": "kek",
+    "zh-name": "凯克其语"
+  },
+  {
+    "id": "kv",
+    "zh-name": "科米语"
+  },
+  {
+    "id": "xh",
+    "zh-name": "科萨语"
+  },
+  {
+    "id": "co",
+    "zh-name": "科西嘉语"
+  },
+  {
+    "id": "crh",
+    "zh-name": "克里米亚鞑靼语"
+  },
+  {
+    "id": "hr",
+    "zh-name": "克罗地亚语"
+  },
+  {
+    "id": "qu",
+    "zh-name": "克丘亚语"
+  },
+  {
+    "id": "ku",
+    "zh-name": "库尔德语（库尔曼吉语）"
+  },
+  {
+    "id": "ckb",
+    "zh-name": "库尔德语（索拉尼）"
+  },
+  {
+    "id": "trp",
+    "zh-name": "廓克博若克语"
+  },
+  {
+    "id": "la",
+    "zh-name": "拉丁语"
+  },
+  {
+    "id": "ltg",
+    "zh-name": "拉特加莱语"
+  },
+  {
+    "id": "lv",
+    "zh-name": "拉脱维亚语"
+  },
+  {
+    "id": "lo",
+    "zh-name": "老挝语"
+  },
+  {
+    "id": "lt",
+    "zh-name": "立陶宛语"
+  },
+  {
+    "id": "lij",
+    "zh-name": "利古里亚语"
+  },
+  {
+    "id": "li",
+    "zh-name": "林堡语"
+  },
+  {
+    "id": "ln",
+    "zh-name": "林加拉语"
+  },
+  {
+    "id": "rn",
+    "zh-name": "隆迪语"
+  },
+  {
+    "id": "luo",
+    "zh-name": "卢奥语"
+  },
+  {
+    "id": "lg",
+    "zh-name": "卢干达语"
+  },
+  {
+    "id": "lb",
+    "zh-name": "卢森堡语"
+  },
+  {
+    "id": "rw",
+    "zh-name": "卢旺达语"
+  },
+  {
+    "id": "lmo",
+    "zh-name": "伦巴第语"
+  },
+  {
+    "id": "ro",
+    "zh-name": "罗马尼亚语"
+  },
+  {
+    "id": "rom",
+    "zh-name": "罗姆语"
+  },
+  {
+    "id": "mad",
+    "zh-name": "马都拉语"
+  },
+  {
+    "id": "gv",
+    "zh-name": "马恩岛语"
+  },
+  {
+    "id": "mg",
+    "zh-name": "马尔加什语"
+  },
+  {
+    "id": "mwr",
+    "zh-name": "马尔瓦迪语"
+  },
+  {
+    "id": "mt",
+    "zh-name": "马耳他语"
+  },
+  {
+    "id": "mr",
+    "zh-name": "马拉地语"
+  },
+  {
+    "id": "ml",
+    "zh-name": "马拉雅拉姆语"
+  },
+  {
+    "id": "ms",
+    "zh-name": "马来语"
+  },
+  {
+    "id": "ms-Arab",
+    "zh-name": "马来语（爪夷文）"
+  },
+  {
+    "id": "mk",
+    "zh-name": "马其顿语"
+  },
+  {
+    "id": "mh",
+    "zh-name": "马绍尔语"
+  },
+  {
+    "id": "mam",
+    "zh-name": "玛姆语"
+  },
+  {
+    "id": "mai",
+    "zh-name": "迈蒂利语"
+  },
+  {
+    "id": "mfe",
+    "zh-name": "毛里裘斯克里奥耳语"
+  },
+  {
+    "id": "mi",
+    "zh-name": "毛利语"
+  },
+  {
+    "id": "mni-Mtei",
+    "zh-name": "梅泰语（曼尼普尔语）"
+  },
+  {
+    "id": "mn",
+    "zh-name": "蒙古语"
+  },
+  {
+    "id": "bn",
+    "zh-name": "孟加拉语"
+  },
+  {
+    "id": "min",
+    "zh-name": "米南语"
+  },
+  {
+    "id": "lus",
+    "zh-name": "米佐语"
+  },
+  {
+    "id": "my",
+    "zh-name": "缅甸语"
+  },
+  {
+    "id": "hmn",
+    "zh-name": "苗语"
+  },
+  {
+    "id": "nhe",
+    "zh-name": "纳瓦特尔语（东部瓦斯特卡）"
+  },
+  {
+    "id": "af",
+    "zh-name": "南非荷兰语"
+  },
+  {
+    "id": "st",
+    "zh-name": "南索托语"
+  },
+  {
+    "id": "ne",
+    "zh-name": "尼泊尔语"
+  },
+  {
+    "id": "new",
+    "zh-name": "尼泊尔语言（尼瓦尔语）"
+  },
+  {
+    "id": "nus",
+    "zh-name": "努尔语"
+  },
+  {
+    "id": "no",
+    "zh-name": "挪威语"
+  },
+  {
+    "id": "pap",
+    "zh-name": "帕皮阿门托语"
+  },
+  {
+    "id": "pa",
+    "zh-name": "旁遮普语（果鲁穆奇文）"
+  },
+  {
+    "id": "pa-Arab",
+    "zh-name": "旁遮普语（沙木基文）"
+  },
+  {
+    "id": "pt",
+    "zh-name": "葡萄牙语（巴西）"
+  },
+  {
+    "id": "pt-PT",
+    "zh-name": "葡萄牙语（葡萄牙）"
+  },
+  {
+    "id": "ps",
+    "zh-name": "普什图语"
+  },
+  {
+    "id": "ny",
+    "zh-name": "齐切瓦语"
+  },
+  {
+    "id": "cgg",
+    "zh-name": "奇加语"
+  },
+  {
+    "id": "ak",
+    "zh-name": "契维语"
+  },
+  {
+    "id": "ja",
+    "zh-name": "日语"
+  },
+  {
+    "id": "sv",
+    "zh-name": "瑞典语"
+  },
+  {
+    "id": "zap",
+    "zh-name": "萨巴特克语"
+  },
+  {
+    "id": "se",
+    "zh-name": "萨米语（北部）"
+  },
+  {
+    "id": "sm",
+    "zh-name": "萨摩亚语"
+  },
+  {
+    "id": "sr",
+    "zh-name": "塞尔维亚语"
+  },
+  {
+    "id": "kri",
+    "zh-name": "塞拉利昂克里奥尔语"
+  },
+  {
+    "id": "crs",
+    "zh-name": "塞舌尔克里奥尔语"
+  },
+  {
+    "id": "sg",
+    "zh-name": "桑戈语"
+  },
+  {
+    "id": "sat-Latn",
+    "zh-name": "桑塔利语"
+  },
+  {
+    "id": "si",
+    "zh-name": "僧伽罗语"
+  },
+  {
+    "id": "eo",
+    "zh-name": "世界语"
+  },
+  {
+    "id": "sk",
+    "zh-name": "斯洛伐克语"
+  },
+  {
+    "id": "sl",
+    "zh-name": "斯洛文尼亚语"
+  },
+  {
+    "id": "ss",
+    "zh-name": "斯瓦特语"
+  },
+  {
+    "id": "sw",
+    "zh-name": "斯瓦希里语"
+  },
+  {
+    "id": "gd",
+    "zh-name": "苏格兰盖尔语"
+  },
+  {
+    "id": "sus",
+    "zh-name": "苏苏语"
+  },
+  {
+    "id": "ceb",
+    "zh-name": "宿务语"
+  },
+  {
+    "id": "so",
+    "zh-name": "索马里语"
+  },
+  {
+    "id": "tg",
+    "zh-name": "塔吉克语"
+  },
+  {
+    "id": "ber",
+    "zh-name": "塔马齐格特语（提非纳文）"
+  },
+  {
+    "id": "ber-Latn",
+    "zh-name": "塔马塞特语"
+  },
+  {
+    "id": "ty",
+    "zh-name": "塔希提语"
+  },
+  {
+    "id": "te",
+    "zh-name": "泰卢固语"
+  },
+  {
+    "id": "ta",
+    "zh-name": "泰米尔语"
+  },
+  {
+    "id": "th",
+    "zh-name": "泰语"
+  },
+  {
+    "id": "to",
+    "zh-name": "汤加语"
+  },
+  {
+    "id": "ti",
+    "zh-name": "提格里尼亚语"
+  },
+  {
+    "id": "tcy",
+    "zh-name": "图鲁语"
+  },
+  {
+    "id": "tum",
+    "zh-name": "图姆布卡语"
+  },
+  {
+    "id": "tyv",
+    "zh-name": "图瓦语"
+  },
+  {
+    "id": "tr",
+    "zh-name": "土耳其语"
+  },
+  {
+    "id": "tk",
+    "zh-name": "土库曼语"
+  },
+  {
+    "id": "war",
+    "zh-name": "瓦瑞语"
+  },
+  {
+    "id": "mak",
+    "zh-name": "望加锡语"
+  },
+  {
+    "id": "cy",
+    "zh-name": "威尔士语"
+  },
+  {
+    "id": "vec",
+    "zh-name": "威尼斯语"
+  },
+  {
+    "id": "ug",
+    "zh-name": "维吾尔语"
+  },
+  {
+    "id": "ve",
+    "zh-name": "文达语"
+  },
+  {
+    "id": "wo",
+    "zh-name": "沃洛夫语"
+  },
+  {
+    "id": "udm",
+    "zh-name": "乌德穆尔特语"
+  },
+  {
+    "id": "ur",
+    "zh-name": "乌尔都语"
+  },
+  {
+    "id": "uk",
+    "zh-name": "乌克兰语"
+  },
+  {
+    "id": "uz",
+    "zh-name": "乌兹别克语"
+  },
+  {
+    "id": "es",
+    "zh-name": "西班牙语"
+  },
+  {
+    "id": "szl",
+    "zh-name": "西里西亚语"
+  },
+  {
+    "id": "scn",
+    "zh-name": "西西里语"
+  },
+  {
+    "id": "iw",
+    "zh-name": "希伯来语"
+  },
+  {
+    "id": "el",
+    "zh-name": "希腊语"
+  },
+  {
+    "id": "hil",
+    "zh-name": "希利盖农语"
+  },
+  {
+    "id": "haw",
+    "zh-name": "夏威夷语"
+  },
+  {
+    "id": "sd",
+    "zh-name": "信德语"
+  },
+  {
+    "id": "hu",
+    "zh-name": "匈牙利语"
+  },
+  {
+    "id": "sn",
+    "zh-name": "修纳语"
+  },
+  {
+    "id": "su",
+    "zh-name": "巽他语"
+  },
+  {
+    "id": "jam",
+    "zh-name": "牙买加土语"
+  },
+  {
+    "id": "sah",
+    "zh-name": "雅库特语"
+  },
+  {
+    "id": "hy",
+    "zh-name": "亚美尼亚语"
+  },
+  {
+    "id": "ace",
+    "zh-name": "亚齐语"
+  },
+  {
+    "id": "iba",
+    "zh-name": "伊班语"
+  },
+  {
+    "id": "ig",
+    "zh-name": "伊博语"
+  },
+  {
+    "id": "ilo",
+    "zh-name": "伊洛卡诺语"
+  },
+  {
+    "id": "it",
+    "zh-name": "意大利语"
+  },
+  {
+    "id": "yi",
+    "zh-name": "意第绪语"
+  },
+  {
+    "id": "hi",
+    "zh-name": "印地语"
+  },
+  {
+    "id": "id",
+    "zh-name": "印尼语"
+  },
+  {
+    "id": "en",
+    "zh-name": "英语"
+  },
+  {
+    "id": "yua",
+    "zh-name": "尤卡坦玛雅语"
+  },
+  {
+    "id": "yo",
+    "zh-name": "约鲁巴语"
+  },
+  {
+    "id": "yue",
+    "zh-name": "粤语"
+  },
+  {
+    "id": "vi",
+    "zh-name": "越南语"
+  },
+  {
+    "id": "jw",
+    "zh-name": "爪哇语"
+  },
+  {
+    "id": "zh-TW",
+    "zh-name": "中文（繁体）"
+  },
+  {
+    "id": "zh-CN",
+    "zh-name": "中文（简体）"
+  },
+  {
+    "id": "dz",
+    "zh-name": "宗卡语"
+  },
+  {
+    "id": "zu",
+    "zh-name": "祖鲁语"
+  }
+]

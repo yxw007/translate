@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.0.7
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.6...v0.0.7)
+
+### 🚀 Enhancements
+
+- Support deepl  translate engine ([6e476d0](https://github.com/yxw007/translate/commit/6e476d0))
+
+### 🩹 Fixes
+
+- Engine no type prompt ([53539ed](https://github.com/yxw007/translate/commit/53539ed))
+
+### 📦 Build
+
+- Relative dependencies move to peerDependencies ([9c49c8c](https://github.com/yxw007/translate/commit/9c49c8c))
+
+### 🏡 Chore
+
+- Update playground ([48ee919](https://github.com/yxw007/translate/commit/48ee919))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.6
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.5...v0.0.6)

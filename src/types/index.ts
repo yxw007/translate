@@ -1,9 +1,10 @@
 import { Language } from "../language";
+import { Engines } from "../engines";
 
 export interface TranslateOptions {
   from?: Language;
   to: Language;
-  engine?: string;
+  engine?: Engines;
   /**
    * Cache time in milliseconds
    */

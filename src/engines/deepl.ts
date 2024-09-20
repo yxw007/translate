@@ -3,12 +3,12 @@ import { default as deeplEngine } from "deepl-node";
 import { TargetLanguageCode } from "deepl-node";
 
 export interface DeeplEngineOption {
-  authKey: string;
+  key: string;
 }
 
 export function deepl(options: DeeplEngineOption) {
-  const { authKey } = options;
-  const translator = new deeplEngine.Translator(authKey);
+  const { key } = options;
+  const translator = new deeplEngine.Translator(key);
   return {
     name: "deepl",
     async translate(text: string | string[], opts: EngineTranslateOptions) {
@@ -19,8 +19,9 @@ export function deepl(options: DeeplEngineOption) {
 
       const translations: string[] = [];
       const res = await translator.translateText(text, null, to as TargetLanguageCode);
-      console.log(res);
-
+      for (const item of res) {
+        translations.push(item.text);
+      }
       return translations;
     },
   };

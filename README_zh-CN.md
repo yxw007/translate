@@ -142,7 +142,7 @@ class Translator {
   use(engine: Engine) {
    ...
   }
-  translate(text: string | string[], options: TranslateOptions) {
+  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
     ...
   }
 }
@@ -153,9 +153,9 @@ class Translator {
 给translator添加翻译引擎
 
 ```typescript
-type Engine = {
+export type Engine = {
   name: string;
-  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
+  translate: <T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) => Promise<string[]>;
 };
 ```
 
@@ -164,23 +164,31 @@ type Engine = {
 可以传一个文本or传一个文本数组，将返回一个翻译后的Promise<string[]>
 
 ```typescript
-translate(text: string | string[], options: TranslateOptions)
+translate: <T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) => Promise<string[]>;
 ```
 
 #### TranslateOptions
 
 ```typescript
-export interface TranslateOptions {
-  from: Language;
-  to: Language;
-  engine?: Engines;
-   /**
+export type TranslateOptions<T extends Engines> = {
+  from?: FromLanguage<T>;
+  to: ToLanguage<T>;
+  engine?: T;
+  /**
    * Cache time in milliseconds
    */
-  cache_time?: number;
-  domain?: string;
-}
+  cache_time?: number | undefined;
+  /**
+   * Domain to use for translation
+   */
+  domain?: string | undefined;
+};
 ```
+
+> 提示：如需了解各Engine语言支持情况，请到以下目录查看对应配置
+
+- from: [https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts](https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts)
+- to: [https://github.com/yxw007/translate/blob/master/src/language/target/index.ts](https://github.com/yxw007/translate/blob/master/src/language/target/index.ts)
 
 ### 各翻译Engine的Option
 
@@ -266,8 +274,8 @@ export interface DeeplEngineOption {
       const { key } = options;
       const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
       return {
-        name: "yandex",
-        async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
+        name: "xx",
+        async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
           const { from, to } = opts;
           if (!Array.isArray(text)) {
             text = [text];
@@ -288,16 +296,73 @@ export interface DeeplEngineOption {
   - 将插件添加至engines(位置：```/src/engines/index.ts```)
   
     ```typescript
-    import { xx } from "./xx";
+    import { xxx } from "./xxx";
     export const engines = {
       google,
       azure,
       amazon,
       baidu,
       deepl,
-      xx
+      xxx
     } as const;
     ```
+  - 添加对应Engine支持的origin语言配置
+ 
+    ```typescript
+    //说明：如果origin与target语言都一样，那么可以直接用target语言配置即可，否则请单独配置
+    //src/language/origin/index.ts  
+    import azure from "../target/azure";
+    ...
+    import xxx from "../target/xxx"
+    
+    export const originLanguages = {
+      azure: azure,
+      ...
+      xxx: xxx,
+    } as const;
+
+    export type originLanguageMapNames = {
+      amazon: keyof typeof amazon;
+      ...
+      xxx: keyof typeof xxx;
+    };
+
+    export type originLanguageMapValues = {
+      amazon: ValuesOf<typeof amazon>;
+      ...
+      xxx: ValuesOf<typeof xxx>;
+    };
+
+    ```
+
+  - 添加对应Engine支持的target语言配置
+ 
+    ```typescript
+    //src/language/target/index.ts  
+    import azure from "./azure";
+    ...
+    import xxx from "./amazon";
+
+    export const targetLanguages = {
+      azure: azure,
+      ...
+      xxx: xxx,
+    } as const;
+
+    export type targetLanguageMapNames = {
+      amazon: keyof typeof amazon;
+      ...
+      xxx: keyof typeof xxx;
+    };
+
+    export type targetLanguageMapValues = {
+      amazon: ValuesOf<typeof amazon>;
+      ...
+      xxx: ValuesOf<typeof xxx>;
+    };
+
+  ```
+
 - 打包
   ```bash
   pnpm build

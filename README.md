@@ -129,7 +129,7 @@ class Translator {
   use(engine: Engine) {
    ...
   }
-  translate(text: string | string[], options: TranslateOptions) {
+  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
     ...
   }
 }
@@ -142,7 +142,7 @@ Add a translation engine to transitorion engine to translator
 ```typescript
 type Engine = {
   name: string;
-  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
+  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
 };
 ```
 
@@ -151,23 +151,31 @@ type Engine = {
 You can pass a text or pass a text array, which will return a translated ```Promise<string[]>```
 
 ```typescript
-translate(text: string | string[], options: TranslateOptions)
+translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>)
 ```
 
 #### TranslateOptions
 
 ```typescript
 export interface TranslateOptions {
-  from: Language;
-  to: Language;
+  from?: FromLanguage<T>;
+  to: ToLanguage<T>;
   engine?: Engines;
    /**
    * Cache time in milliseconds
    */
   cache_time?: number;
+  /**
+   * Domain to use for translation
+   */
   domain?: string;
 }
 ```
+
+> Note: To learn more about the support of each engine language, go to the following directory to view the corresponding configurations
+
+- from: [https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts](https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts)
+- to: [https://github.com/yxw007/translate/blob/master/src/language/target/index.ts](https://github.com/yxw007/translate/blob/master/src/language/target/index.ts)
 
 ### Each translation of Engine's Option
 
@@ -254,7 +262,7 @@ export interface DeeplEngineOption {
       const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
       return {
         name: "yandex",
-        async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
+        async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
           const { from, to } = opts;
           if (!Array.isArray(text)) {
             text = [text];
@@ -285,6 +293,61 @@ export interface DeeplEngineOption {
       xx
     } as const;
     ```
+  - Add the origin language configuration supported by the engine
+ 
+    ```typescript
+    //Note: If the origin and target languages are the same, you can directly use the target language to configure them, otherwise please configure them separately
+    //src/language/origin/index.ts  
+    import azure from "../target/azure";
+    ...
+    import xxx from "../target/xxx"
+    
+    export const originLanguages = {
+      azure: azure,
+      ...
+      xxx: xxx,
+    } as const;
+
+    export type originLanguageMapNames = {
+      amazon: keyof typeof amazon;
+      ...
+      xxx: keyof typeof xxx;
+    };
+
+    export type originLanguageMapValues = {
+      amazon: ValuesOf<typeof amazon>;
+      ...
+      xxx: ValuesOf<typeof xxx>;
+    };
+
+    ```
+
+  - Add the target language that is supported by the engine
+ 
+    ```typescript
+    //src/language/target/index.ts  
+    import azure from "./azure";
+    ...
+    import xxx from "./amazon";
+
+    export const targetLanguages = {
+      azure: azure,
+      ...
+      xxx: xxx,
+    } as const;
+
+    export type targetLanguageMapNames = {
+      amazon: keyof typeof amazon;
+      ...
+      xxx: keyof typeof xxx;
+    };
+
+    export type targetLanguageMapValues = {
+      amazon: ValuesOf<typeof amazon>;
+      ...
+      xxx: ValuesOf<typeof xxx>;
+    };
+
 - Build
   ```bash
   pnpm build

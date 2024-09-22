@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.0.8
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.7...v0.0.8)
+
+### 🚀 Enhancements
+
+- Add platform configuration to avoid language inconsistency ([05ed908](https://github.com/yxw007/translate/commit/05ed908))
+
+### 🩹 Fixes
+
+- Can't get deepl key ([b0ac43d](https://github.com/yxw007/translate/commit/b0ac43d))
+
+### 💅 Refactors
+
+- Language configuration ([a33aa86](https://github.com/yxw007/translate/commit/a33aa86))
+
+### 📖 Documentation
+
+- Sync deepl relative document ([a05397b](https://github.com/yxw007/translate/commit/a05397b))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.7
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.6...v0.0.7)

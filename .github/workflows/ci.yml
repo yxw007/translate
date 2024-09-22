@@ -17,6 +17,7 @@ env:
   AMAZON_SECRET_ACCESS_KEY: ${{ secrets.AMAZON_SECRET_ACCESS_KEY }}
   BAIDU_APP_ID: ${{ secrets.BAIDU_APP_ID }}
   BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
+  DEEPL_KEY: ${{ secrets.DEEPL_KEY }}
 
 jobs:
   build:

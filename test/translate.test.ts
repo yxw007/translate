@@ -14,7 +14,7 @@ describe("translator", () => {
 
     //use cache
     const start = Date.now();
-    const res3 = await translator.translate("hello", { from: "en", to: "zh-CN", engine: "google" });
+    const res3 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
     expect(Date.now() - start).toBeLessThan(1);
     expect(res3).toEqual(["你好"]);
   });

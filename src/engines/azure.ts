@@ -3,6 +3,7 @@
  */
 
 import { Engine, EngineTranslateOptions, BaseEngineOption } from "../types";
+import { Engines } from "../engines";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;
@@ -18,7 +19,7 @@ export function azure(options: AzureEngineOption): Engine {
   const base = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
   return {
     name: "azure",
-    async translate(text, opts: EngineTranslateOptions): Promise<string[]> {
+    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
       const { from, to } = opts;
       const url = `${base}&to=${to}${from && from !== "auto" ? `&from=${from}` : ""}`;
       if (!Array.isArray(text)) {

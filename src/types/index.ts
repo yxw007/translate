@@ -1,35 +1,31 @@
-import { Language } from "../language";
-import { Engines } from "../engines";
+import { Engines } from "@/engines";
+import type { FromLanguage, ToLanguage } from "../language";
 
-export interface TranslateOptions {
-  from?: Language;
-  to: Language;
-  engine?: Engines;
+export type TranslateOptions<T extends Engines> = {
+  from?: FromLanguage<T>;
+  to: ToLanguage<T>;
+  engine?: T;
   /**
    * Cache time in milliseconds
    */
-  cache_time?: number;
+  cache_time?: number | undefined;
   /**
    * Domain to use for translation
    */
-  domain?: string;
-}
+  domain?: string | undefined;
+};
 
 export interface BaseEngineOption {}
 
-export type EngineTranslateOptions = Omit<TranslateOptions, "engine">;
+export type EngineTranslateOptions<T extends Engines> = Omit<TranslateOptions<T>, "engine">;
 
 export type Engine = {
   name: string;
-  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
+  translate: <T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) => Promise<string[]>;
 };
 
 export interface CacheRecord {
   value: unknown;
   timeout?: number;
   expire: number;
-}
-
-export interface Languages {
-  [key: string]: string;
 }

@@ -1,4 +1,5 @@
 import { Engine, BaseEngineOption, EngineTranslateOptions } from "../types";
+import { Engines } from ".";
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;
@@ -9,7 +10,7 @@ export function yandex(options: YandexEngineOption): Engine {
   const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
   return {
     name: "yandex",
-    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
+    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
       const { from, to } = opts;
       if (!Array.isArray(text)) {
         text = [text];

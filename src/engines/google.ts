@@ -1,10 +1,11 @@
 import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
+import { Engines } from ".";
 
 export function google(options?: BaseEngineOption): Engine {
   const base = "https://translate.googleapis.com/translate_a/single";
   return {
     name: "google",
-    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
+    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
       const { from = "auto", to } = opts;
       if (!Array.isArray(text)) {
         text = [text];

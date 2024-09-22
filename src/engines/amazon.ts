@@ -1,5 +1,6 @@
 import { Engine, EngineTranslateOptions } from "../types";
 import { TranslateClient, TranslateTextCommand, TranslateTextResponse } from "@aws-sdk/client-translate";
+import { Engines } from "../engines";
 
 export interface AmazonEngineOption {
   region: string;
@@ -9,10 +10,9 @@ export interface AmazonEngineOption {
 
 export function amazon(options: AmazonEngineOption): Engine {
   const { region, accessKeyId, secretAccessKey } = options;
-
   return {
     name: "amazon",
-    async translate(text: string | string[], opts: EngineTranslateOptions) {
+    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
       const { from = "auto", to } = opts;
       const translateClient = new TranslateClient({ region: region, credentials: { accessKeyId, secretAccessKey } });
       if (!Array.isArray(text)) {

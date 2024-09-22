@@ -1,7 +1,7 @@
-import { engines } from "./engines";
-import { languageNames, getISO, isValidLanguage } from "./language";
+import { Engines, engines } from "./engines";
 import { Engine, TranslateOptions } from "./types";
 import { useLogger, Cache } from "./utils";
+import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
 
 const logger = useLogger();
 const cache = new Cache();
@@ -18,34 +18,33 @@ class Translator {
     }
     this.engines.set(engine.name, engine);
   }
-  translate(text: string | string[], options: TranslateOptions) {
+  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
     const { engine = "google", cache_time = 60 * 1000 } = options;
     let { from = "auto", to } = options;
-    from = options.from = getISO(from);
-    to = options.to = getISO(to);
+    from = options.from = normalFromLanguage(from, engine) as FromLanguage<T>;
+    to = options.to = normalToLanguage(to, engine) as ToLanguage<T>;
 
     //1. Check if engine exists
     if (!this.engines.has(engine)) {
       throw new Error(`Engine ${engine} not found`);
     }
 
-    //2. Check if language exists
-    if (!isValidLanguage(to as string)) {
-      throw new Error(`The language "${to}" is not part of the ISO 639-1 or is not part of the language names`);
-    }
-    if (!isValidLanguage(from as string)) {
-      throw new Error(`The language "${from}" is not part of the ISO 639-1 or is not part of the language names`);
-    }
-
-    const key = `${from}:${to}:${engine}:${text}`;
-    //3. If the cache is matched, the cache is used directly
-    if (cache.get(key)) {
-      return Promise.resolve(cache.get(key)?.value);
-    }
-
     const engineInstance = this.engines.get(engine);
     if (!engineInstance) {
       throw new Error(`Engine ${engine} not found`);
+    }
+
+    if (!from) {
+      throw new Error(`Invalid origin language ${from as string}`);
+    }
+    if (!to) {
+      throw new Error(`Invalid target language ${to as string}`);
+    }
+
+    const key = `${from as string}:${to as string}:${engine}:${text}`;
+    //3. If the cache is matched, the cache is used directly
+    if (cache.get(key)) {
+      return Promise.resolve(cache.get(key)?.value);
     }
 
     return engineInstance.translate(text, options).then((translated) => {
@@ -61,6 +60,6 @@ export default {
   engines,
   translator,
   Cache,
-  languageNames,
+  getLanguage,
 };
-export { engines, translator, Cache, languageNames };
+export { engines, translator, Cache, getLanguage };

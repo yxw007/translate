@@ -1,48 +1,67 @@
-import { Reverse } from "../utils/typescript";
-import iso from "./iso";
-import names from "./names";
+import { originLanguages, originLanguageMapNames, originLanguageMapValues } from "./origin";
+import { targetLanguages, targetLanguageMapNames, targetLanguageMapValues } from "./target";
+import { Engines } from "../engines";
 
-type Name = keyof typeof names;
-type Iso = keyof typeof iso;
+export type KeysOfTarget<T extends keyof targetLanguageMapNames> = targetLanguageMapNames[T];
+export type KeysOfOrigin<T extends keyof originLanguageMapNames> = originLanguageMapNames[T];
 
-const nameKeys = Object.keys(names).sort();
-const isoKeys = Object.keys(iso).sort();
-const iosValues = Object.values(iso);
-export type Language = Name | Iso | Reverse<typeof iosValues> | "auto";
-export { names as languageNames };
+export type FromLanguage<T extends Engines> = KeysOfOrigin<T> | originLanguageMapValues[T] | "auto";
+export type ToLanguage<T extends Engines> = KeysOfTarget<T> | targetLanguageMapValues[T];
 
-export function isValidLanguage(name: string) {
-  if (!name) {
-    return false;
+export function normalFromLanguage<T extends Engines>(from: FromLanguage<T>, engine: Engines) {
+  if (from === "auto") {
+    return "auto";
   }
 
-  if (name === "auto") {
-    return true;
+  const engineLanguages = originLanguages[engine];
+  if (!engineLanguages) {
+    throw new Error(`Engine ${engine} not found`);
   }
 
-  if (name.length > 100) {
-    throw new Error(`The "language" is too long at ${name.length} characters`);
+  const keys = Object.keys(originLanguages[engine]);
+  if (keys.includes(from)) {
+    return engineLanguages[from as keyof typeof engineLanguages];
   }
 
-  return isoKeys.includes(name) || nameKeys.includes(name) || iosValues.includes(name as (typeof iosValues)[number]);
+  const values = Object.values(originLanguages[engine]) as string[];
+  if (values.includes(from)) {
+    return from;
+  }
+
+  throw new Error(`Invalid from language ${engine} ${from}`);
 }
 
-export function getISO(name: Language): Language {
-  if (name === "auto") {
-    return name;
+export function normalToLanguage<T extends Engines>(to: ToLanguage<T>, engine: Engines) {
+  const engineLanguages = targetLanguages[engine];
+  if (!engineLanguages) {
+    throw new Error(`Engine ${engine} not found`);
   }
 
-  if (nameKeys.includes(name as keyof typeof names)) {
-    return names[name as keyof typeof names];
+  const keys = Object.keys(targetLanguages[engine]);
+  if (keys.includes(to)) {
+    return engineLanguages[to as keyof typeof engineLanguages];
   }
 
-  if (isoKeys.includes(name as keyof typeof iso)) {
-    return iso[name as keyof typeof iso];
+  const values = Object.values(targetLanguages[engine]) as string[];
+  if (values.includes(to)) {
+    return to;
   }
 
-  if (iosValues.includes(name as (typeof iosValues)[number])) {
-    return name as (typeof iosValues)[number];
-  }
-
-  return name as Language;
+  throw new Error(`Invalid to language ${engine} ${to}`);
 }
+
+export function getLanguage(engine: Engines) {
+  return {
+    from: originLanguages[engine],
+    to: targetLanguages[engine],
+  };
+}
+
+export {
+  originLanguages,
+  originLanguageMapNames,
+  originLanguageMapValues,
+  targetLanguages,
+  targetLanguageMapNames,
+  targetLanguageMapValues,
+};

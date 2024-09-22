@@ -6,15 +6,15 @@ describe("translator", () => {
   it.concurrent("google translate", async () => {
     translator.use(engines.google());
 
-    const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "google" });
+    const res1 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
     expect(res1).toEqual(["你好"]);
 
-    const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "google" });
+    const res2 = await translator.translate(["hello", "good"], { to: "zh-CN", engine: "google" });
     expect(res2).toEqual(["你好", "好的"]);
 
     //use cache
     const start = Date.now();
-    const res3 = await translator.translate("hello", { from: "en", to: "zh", engine: "google" });
+    const res3 = await translator.translate("hello", { from: "en", to: "zh-CN", engine: "google" });
     expect(Date.now() - start).toBeLessThan(1);
     expect(res3).toEqual(["你好"]);
   });
@@ -25,10 +25,10 @@ describe("translator", () => {
       region: process.env.AZURE_REGION as string
     }));
 
-    const res1 = await translator.translate("hello", { to: "zh", engine: "azure" });
+    const res1 = await translator.translate("hello", { to: "Chinese", engine: "azure" });
     expect(res1).toEqual(["你好"]);
 
-    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "azure" });
+    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh-Hans", engine: "azure" });
     expect(res2).toEqual(["你好", "好"]);
   });
 
@@ -42,7 +42,7 @@ describe("translator", () => {
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "amazon" });
     expect(res1).toEqual(["你好"]);
 
-    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "amazon" });
+    const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "amazon" });
     expect(res2).toEqual(["你好", "好"]);
   });
 
@@ -65,7 +65,7 @@ describe("translator", () => {
       key: process.env.DEEPL_KEY as string
     }));
 
-    const res1 = await translator.translate("hello", { to: "zh", engine: "deepl" });
+    const res1 = await translator.translate("hello", { to: "Chinese", engine: "deepl" });
     expect(res1).toEqual(["你好"]);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "deepl" });

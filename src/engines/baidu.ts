@@ -1,5 +1,6 @@
 import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
 import md5 from "crypto-js/md5";
+import { Engines } from ".";
 
 export interface BaiduEngineOption extends BaseEngineOption {
   appId: string;
@@ -11,7 +12,7 @@ export function baidu(options: BaiduEngineOption): Engine {
   const url = "https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate";
   return {
     name: "baidu",
-    async translate(text: string | string[], opts: EngineTranslateOptions) {
+    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
       const { to, from = "auto", domain = "it" } = opts;
       if (!Array.isArray(text)) {
         text = [text];

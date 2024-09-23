@@ -1,5 +1,6 @@
 import { Engines } from "@/engines";
 import type { FromLanguage, ToLanguage } from "../language";
+export * from "./typescript";
 
 export type TranslateOptions<T extends Engines> = {
   from?: FromLanguage<T>;
@@ -29,3 +30,5 @@ export interface CacheRecord {
   timeout?: number;
   expire: number;
 }
+
+export { FromLanguage, ToLanguage };

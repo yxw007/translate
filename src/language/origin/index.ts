@@ -3,7 +3,7 @@ import google from "../target/google";
 import baidu from "../target/baidu";
 import deepl from "./deepl";
 import amazon from "../target/amazon";
-import { ValuesOf } from "../../utils/typescript";
+import { ValuesOf } from "../../types/typescript";
 
 export const originLanguages = {
   azure: azure,

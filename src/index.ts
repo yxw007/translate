@@ -2,6 +2,7 @@ import { Engines, engines } from "./engines";
 import { Engine, TranslateOptions } from "./types";
 import { useLogger, Cache } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
+export * from "./types";
 
 const logger = useLogger();
 const cache = new Cache();

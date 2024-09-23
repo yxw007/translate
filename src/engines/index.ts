@@ -11,5 +11,3 @@ export const engines = {
   baidu,
   deepl,
 } as const;
-
-export type Engines = keyof typeof engines;

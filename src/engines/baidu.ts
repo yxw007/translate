@@ -1,6 +1,6 @@
 import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
 import md5 from "crypto-js/md5";
-import { Engines } from ".";
+import { Engines } from "..";
 
 export interface BaiduEngineOption extends BaseEngineOption {
   appId: string;

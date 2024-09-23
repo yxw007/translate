@@ -1,5 +1,5 @@
 import { Engine, BaseEngineOption, EngineTranslateOptions } from "../types";
-import { Engines } from ".";
+import { Engines } from "..";
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;

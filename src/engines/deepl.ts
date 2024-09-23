@@ -1,7 +1,7 @@
 import { EngineTranslateOptions } from "@/types";
 import { default as deeplEngine, SourceLanguageCode } from "deepl-node";
 import { TargetLanguageCode } from "deepl-node";
-import { Engines } from ".";
+import { Engines } from "..";
 
 export interface DeeplEngineOption {
   key: string;

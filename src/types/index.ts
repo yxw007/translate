@@ -1,6 +1,7 @@
-import { Engines } from "@/engines";
+import { engines } from "../engines";
 import type { FromLanguage, ToLanguage } from "../language";
 export * from "./typescript";
+export type Engines = keyof typeof engines;
 
 export type TranslateOptions<T extends Engines> = {
   from?: FromLanguage<T>;

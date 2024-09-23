@@ -3,7 +3,7 @@
  */
 
 import { Engine, EngineTranslateOptions, BaseEngineOption } from "../types";
-import { Engines } from "../engines";
+import { Engines } from "..";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;

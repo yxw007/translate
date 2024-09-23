@@ -1,5 +1,5 @@
 import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
-import { Engines } from ".";
+import { Engines } from "..";
 
 export function google(options?: BaseEngineOption): Engine {
   const base = "https://translate.googleapis.com/translate_a/single";

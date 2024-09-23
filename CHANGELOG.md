@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.11
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.10...v0.0.11)
+
+### 🩹 Fixes
+
+- Type prompt error ([59c9aea](https://github.com/yxw007/translate/commit/59c9aea))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.10
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.9...v0.0.10)

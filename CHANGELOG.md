@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.10
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.9...v0.0.10)
+
+### 🚀 Enhancements
+
+- Export the type for upper-layer use ([567e822](https://github.com/yxw007/translate/commit/567e822))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.9
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.8...v0.0.9)

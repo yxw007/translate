@@ -1,5 +1,4 @@
 export default {
-  Auto: "auto",
   "American English": "en-US",
   "Brazilian Portuguese": "pt-BR",
   "British English": "en-GB",

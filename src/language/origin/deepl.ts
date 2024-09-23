@@ -1,5 +1,4 @@
 export default {
-  Deepl: "auto",
   English: "en",
   Bulgarian: "bg",
   Chinese: "zh",

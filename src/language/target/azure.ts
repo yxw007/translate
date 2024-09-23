@@ -1,5 +1,4 @@
 export default {
-  Auto: "auto",
   Afrikaans: "af",
   Albanian: "sq",
   Amharic: "am",

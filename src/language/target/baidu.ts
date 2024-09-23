@@ -1,5 +1,4 @@
 export default {
-  Auto: "auto",
   Achinese: "ach",
   Afrikaans: "afr",
   Akan: "aka",

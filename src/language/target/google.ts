@@ -1,5 +1,4 @@
 export default {
-  Auto: "auto",
   Abkhazian: "ab",
   Acehnese: "ace",
   "Acholi language": "ach",

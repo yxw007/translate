@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.9
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.8...v0.0.9)
+
+### 🩹 Fixes
+
+- Config param mistake ([f4f5575](https://github.com/yxw007/translate/commit/f4f5575))
+
+### 📖 Documentation
+
+- Sync update document ([5dc172c](https://github.com/yxw007/translate/commit/5dc172c))
+
+### 🏡 Chore
+
+- Remove test language config ([64252ff](https://github.com/yxw007/translate/commit/64252ff))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.8
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.7...v0.0.8)

@@ -24,6 +24,17 @@ English | [简体中文](./README_zh-CN.md)
 - 📦 **Batch translation**: one api request, translate more content, reduce http requests to improve translation efficiency
 - 🔓 **completely open source**.
 
+## 💻Translation engines, integration cases
+
+| Name             | Support | Description                                                                                                                                               |
+| ---------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| google           | √       | Commissioned and ready for use                                                                                                                            |
+| azure translate  | √       | Commissioned and ready for use                                                                                                                            |
+| amazon translate | √       | Commissioned and ready for use                                                                                                                            |
+| baidu            | √       | Commissioned and ready for use                                                                                                                            |
+| deepl            | √       | Commissioned and ready for use                                                                                                                            |
+| yandex           |         | I have not tuned in as I do not have a bank account supported by the platform (help from those who are in a position to do so is welcome and appreciated) |
+
 ## 🚀 Install
 
 - npm

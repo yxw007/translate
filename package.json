@@ -21,7 +21,7 @@
     "clean": "rm -rf dist",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
-    "release": "pnpm changelogen --release -i --prerelease",
+    "release": "pnpm changelogen --release -i",
     "prepare": "husky"
   },
   "type": "module",

@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.0.12
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.11...v0.0.12)
+
+### 🚀 Enhancements
+
+- Translator can set the cache time uniformly via the constructor ([300dc02](https://github.com/yxw007/translate/commit/300dc02))
+- Translator can set the cache time uniformly via the constructor ([e0a5af3](https://github.com/yxw007/translate/commit/e0a5af3))
+
+### 🩹 Fixes
+
+- Update translation test timeout ([5181237](https://github.com/yxw007/translate/commit/5181237))
+
+### 📖 Documentation
+
+- Improve document ([026ffdb](https://github.com/yxw007/translate/commit/026ffdb))
+
+### 🏡 Chore
+
+- Add github sponsor config ([0d6bb21](https://github.com/yxw007/translate/commit/0d6bb21))
+- Add issue templates ([4e98f7c](https://github.com/yxw007/translate/commit/4e98f7c))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.11
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.10...v0.0.11)

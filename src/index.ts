@@ -66,4 +66,4 @@ export default {
   Cache,
   getLanguage,
 };
-export { engines, translator, Cache, getLanguage };
+export { engines, translator, Translator, Cache, getLanguage };

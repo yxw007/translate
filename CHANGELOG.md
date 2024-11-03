@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.13
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.12...v0.0.13)
+
+### 🩹 Fixes
+
+- No Translator export ([3f77ef9](https://github.com/yxw007/translate/commit/3f77ef9))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.12
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.11...v0.0.12)

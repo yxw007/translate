@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.14
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.13...v0.0.14)
+
+### 🩹 Fixes
+
+- Deepl can't translate empty-string and not error prompt ([b212ba9](https://github.com/yxw007/translate/commit/b212ba9))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.13
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.12...v0.0.13)

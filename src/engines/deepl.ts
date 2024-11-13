@@ -17,7 +17,6 @@ export function deepl(options: DeeplEngineOption) {
       if (!Array.isArray(text)) {
         text = [text];
       }
-
       const translations: string[] = [];
       const res = await translator.translateText(text, (from === "auto" ? null : from) as SourceLanguageCode, to as TargetLanguageCode);
       for (const item of res) {

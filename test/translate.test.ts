@@ -17,6 +17,10 @@ describe("translator", () => {
     const res3 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
     expect(Date.now() - start).toBeLessThan(2);
     expect(res3).toEqual(["你好"]);
+
+    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const res4 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "google" });
+    expect(res4).toEqual(["该函数将两个数字相加", "@参数", "— 第一个数字", "@参数", "— 第二个数字"]);
   });
 
   it.concurrent("azure translate", async () => {
@@ -30,6 +34,10 @@ describe("translator", () => {
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh-Hans", engine: "azure" });
     expect(res2).toEqual(["你好", "好"]);
+
+    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "azure" });
+    expect(res3).toEqual(["此函数将两个数字相加", "@param", "", "— 第一个数字", "@param", "", "— 第二个数字"]);
   });
 
   it.concurrent("amazon translate", async () => {
@@ -44,6 +52,10 @@ describe("translator", () => {
 
     const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "amazon" });
     expect(res2).toEqual(["你好", "好"]);
+
+    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Chinese (Simplified)", engine: "amazon" });
+    expect(res3).toEqual(["此函数将两个数字相加", "@param", "", "— 第一个数字", "@param", "", "— 第二个数字"]);
   });
 
   it.concurrent("baidu translate", async () => {
@@ -57,6 +69,10 @@ describe("translator", () => {
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });
     expect(res2).toEqual(["你好", "好的"]);
+
+    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "baidu" });
+    expect(res3).toEqual(["此函数将两个数字相加", "@参数", "-第一个数字", "@参数", "-第二个数字"]);
   });
 
 
@@ -70,6 +86,17 @@ describe("translator", () => {
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "deepl" });
     expect(res2).toEqual(["你好", "好"]);
+
+    let translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
+    expect(res3).toEqual(["此函数将两个数字相加", "@ 参数", "", "- 第一位", "@ 参数", "", "- 二号"]);
+
+    translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    try {
+      await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
+    } catch (error) {
+      expect(error.message).toEqual("texts parameter must be a non-empty string or array of non-empty strings");
+    }
   });
 });
 

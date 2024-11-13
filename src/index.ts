@@ -1,6 +1,6 @@
 import { engines } from "./engines";
 import { Engine, TranslateOptions, Engines } from "./types";
-import { useLogger, Cache } from "./utils";
+import { useLogger, Cache, getGapLine } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
 export * from "./types";
 
@@ -19,7 +19,7 @@ class Translator {
     }
     this.engines.set(engine.name, engine);
   }
-  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
+  async translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>): Promise<string[]> {
     const { engine = "google", cache_time = 60 * 1000 } = options;
     let { from = "auto", to } = options;
     from = options.from = normalFromLanguage(from, engine) as FromLanguage<T>;
@@ -45,13 +45,21 @@ class Translator {
     const key = `${from as string}:${to as string}:${engine}:${text}`;
     //3. If the cache is matched, the cache is used directly
     if (cache.get(key)) {
-      return Promise.resolve(cache.get(key)?.value);
+      return Promise.resolve(cache.get(key)?.value as string[]);
     }
 
-    return engineInstance.translate(text, options).then((translated) => {
-      cache.set(key, translated, cache_time);
-      return translated;
-    });
+    return engineInstance
+      .translate(text, options)
+      .then((translated) => {
+        cache.set(key, translated, cache_time);
+        return translated;
+      })
+      .catch((e) => {
+        logger.error(
+          `Translate Failed: from=${from},to=${to},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${e.message}`
+        );
+        throw e;
+      });
   }
 }
 

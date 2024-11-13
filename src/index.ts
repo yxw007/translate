@@ -9,8 +9,10 @@ const cache = new Cache();
 
 class Translator {
   private engines: Map<string, Engine>;
-  constructor() {
+  private cache_time: number;
+  constructor(cache_time: number = 60 * 1000) {
     this.engines = new Map<string, Engine>();
+    this.cache_time = cache_time;
   }
   use(engine: Engine) {
     if (this.engines.has(engine.name)) {
@@ -68,7 +70,8 @@ const translator = new Translator();
 export default {
   engines,
   translator,
+  Translator,
   Cache,
   getLanguage,
 };
-export { engines, translator, Cache, getLanguage };
+export { engines, translator, Translator, Cache, getLanguage };

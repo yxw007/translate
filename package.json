@@ -1,6 +1,6 @@
 {
   "name": "@yxw007/translate",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "description": "A simple library that supports multiple translation engines",
   "author": "Potter<aa4790139@gmail.com>",
   "homepage": "https://github.com/yxw007/translate",
@@ -21,7 +21,7 @@
     "clean": "rm -rf dist",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
-    "release": "pnpm changelogen --release -i --prerelease",
+    "release": "pnpm changelogen --release -i",
     "prepare": "husky"
   },
   "type": "module",

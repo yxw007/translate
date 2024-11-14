@@ -70,7 +70,7 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });
     expect(res2).toEqual(["你好", "好的"]);
 
-    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "baidu" });
     expect(res3).toEqual(["此函数将两个数字相加", "@参数", "-第一个数字", "@参数", "-第二个数字"]);
   });
@@ -95,7 +95,7 @@ describe("translator", () => {
     try {
       await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     } catch (error) {
-      expect(error.message).toEqual("texts parameter must be a non-empty string or array of non-empty strings");
+      expect(error.message).toEqual("Translate: Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
     }
   });
 });

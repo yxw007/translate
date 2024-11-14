@@ -32,4 +32,13 @@ export interface CacheRecord {
   expire: number;
 }
 
+export class TranslationError extends Error {
+  region: string;
+  constructor(region: string, message: string) {
+    super(`${region}: ${message}`);
+    this.region = region;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 export { FromLanguage, ToLanguage };

@@ -1,4 +1,4 @@
-import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
+import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import md5 from "crypto-js/md5";
 import { Engines } from "..";
 
@@ -10,9 +10,18 @@ export interface BaiduEngineOption extends BaseEngineOption {
 export function baidu(options: BaiduEngineOption): Engine {
   const { appId, secretKey } = options;
   const url = "https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate";
+  const name = "baidu";
+  const checkOptions = () => {
+    if (!appId || !secretKey) {
+      throw new TranslationError(name, `${name} appId and secretKey is required`);
+    }
+  };
+  checkOptions();
+
   return {
-    name: "baidu",
+    name,
     async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
+      checkOptions();
       const { to, from = "auto", domain = "it" } = opts;
       if (!Array.isArray(text)) {
         text = [text];
@@ -39,7 +48,7 @@ export function baidu(options: BaiduEngineOption): Engine {
       });
       const data = await (res as any).json();
       if (!data || data.error_code || !data.trans_result || data.trans_result.length === 0) {
-        throw new Error("Failed to translate text");
+        throw new TranslationError(this.name, `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg}`);
       }
 
       const translations: string[] = [];

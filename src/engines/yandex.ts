@@ -1,4 +1,4 @@
-import { Engine, BaseEngineOption, EngineTranslateOptions } from "../types";
+import { Engine, BaseEngineOption, EngineTranslateOptions, TranslationError } from "../types";
 import { Engines } from "..";
 
 export interface YandexEngineOption extends BaseEngineOption {
@@ -7,10 +7,19 @@ export interface YandexEngineOption extends BaseEngineOption {
 
 export function yandex(options: YandexEngineOption): Engine {
   const { key } = options;
+  const name = "yandex";
+  const checkOptions = () => {
+    if (!key) {
+      throw new TranslationError(name, `${name} key is required`);
+    }
+  };
+  checkOptions();
   const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+
   return {
-    name: "yandex",
+    name,
     async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+      checkOptions();
       const { from, to } = opts;
       if (!Array.isArray(text)) {
         text = [text];
@@ -20,7 +29,7 @@ export function yandex(options: YandexEngineOption): Engine {
       const res = await fetch(url);
       const body = await (res as any).json();
       if (!body || body.code !== 200 || !body.text || body.text.length === 0) {
-        throw new Error("Translate fail ! translate's result is null or empty");
+        throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
       const translations: string[] = [];
       for (const translation of body.text) {

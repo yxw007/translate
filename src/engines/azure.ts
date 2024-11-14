@@ -2,7 +2,7 @@
  * Azure translate documentation: https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/v3-0-translate
  */
 
-import { Engine, EngineTranslateOptions, BaseEngineOption } from "../types";
+import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError } from "../types";
 import { Engines } from "..";
 
 interface Translation {
@@ -16,10 +16,19 @@ export interface AzureEngineOption extends BaseEngineOption {
 
 export function azure(options: AzureEngineOption): Engine {
   const { key, region } = options;
+  const name = "azure";
+  const checkOptions = () => {
+    if (!key || !region) {
+      throw new TranslationError(name, `${name} key and region is required`);
+    }
+  };
+  checkOptions();
   const base = "https://api.cognitive.microsofttranslator.com/translate?api-version=3.0";
+
   return {
-    name: "azure",
+    name,
     async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+      checkOptions();
       const { from, to } = opts;
       const url = `${base}&to=${to}${from && from !== "auto" ? `&from=${from}` : ""}`;
       if (!Array.isArray(text)) {
@@ -36,11 +45,11 @@ export function azure(options: AzureEngineOption): Engine {
       });
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
-        throw new Error(`Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
+        throw new TranslationError(this.name, `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
       }
       const body: Translation[] = bodyRes;
       if (!body || body.length === 0) {
-        throw new Error("Translate fail ! translate's result is null or empty");
+        throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
       const translations: string[] = [];
       for (const translation of body) {

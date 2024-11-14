@@ -1,4 +1,4 @@
-import { BaseEngineOption, Engine, EngineTranslateOptions } from "../types";
+import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import { Engines } from "..";
 
 export function google(options?: BaseEngineOption): Engine {
@@ -12,11 +12,12 @@ export function google(options?: BaseEngineOption): Engine {
       }
       const textStr = text.join("\n");
       const url = `${base}?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(textStr)}`;
-      const res: Response = await fetch(url);
+      const res = await fetch(url);
       const body = await (res as any).json();
       if (!body || body.length === 0) {
-        throw new Error("Translate fail ! translate's result is null or empty");
+        throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
+
       const translations: string[] = [];
       for (let i = 0; body[0] && i < body[0].length; i++) {
         const item = body[0][i];

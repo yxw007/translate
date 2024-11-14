@@ -1,7 +1,8 @@
 import { engines } from "./engines";
-import { Engine, TranslateOptions, Engines } from "./types";
-import { useLogger, Cache, getGapLine } from "./utils";
+import { Engine, TranslateOptions, Engines, TranslationError } from "./types";
+import { useLogger, Cache, getGapLine, getErrorMessages } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
+import { appName } from "./utils/constant";
 export * from "./types";
 
 const logger = useLogger();
@@ -29,19 +30,19 @@ class Translator {
 
     //1. Check if engine exists
     if (!this.engines.has(engine)) {
-      throw new Error(`Engine ${engine} not found`);
+      throw new TranslationError(appName, `Engine ${engine} not found`);
     }
 
     const engineInstance = this.engines.get(engine);
     if (!engineInstance) {
-      throw new Error(`Engine ${engine} not found`);
+      throw new TranslationError(appName, `Engine ${engine} not found`);
     }
 
     if (!from) {
-      throw new Error(`Invalid origin language ${from as string}`);
+      throw new TranslationError(appName, `Invalid origin language ${from as string}`);
     }
     if (!to) {
-      throw new Error(`Invalid target language ${to as string}`);
+      throw new TranslationError(appName, `Invalid target language ${to as string}`);
     }
 
     const key = `${from as string}:${to as string}:${engine}:${text}`;
@@ -53,14 +54,18 @@ class Translator {
     return engineInstance
       .translate(text, options)
       .then((translated) => {
-        cache.set(key, translated, cache_time);
+        cache.set(key, translated, cache_time ?? this.cache_time);
         return translated;
       })
       .catch((e) => {
         logger.error(
-          `Translate Failed: from=${from},to=${to},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${e.message}`
+          `${appName} Failed: from=${from},to=${to},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
         );
-        throw e;
+        if (e instanceof TranslationError) {
+          throw e;
+        } else {
+          throw new TranslationError(appName, getErrorMessages(e));
+        }
       });
   }
 }

@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.15
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.14...v0.0.15)
+
+### 🚀 Enhancements
+
+- Add TranslationError class and improve error handling across translation engines ([d61d9a1](https://github.com/yxw007/translate/commit/d61d9a1))
+
+### ❤️ Contributors
+
+- Potter ([@yxw007](http://github.com/yxw007))
+
 ## v0.0.14
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.13...v0.0.14)

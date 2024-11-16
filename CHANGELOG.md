@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.18
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.17...v0.0.18)
+
+### 🩹 Fixes
+
+- **test:** Error message formatting in translation tests ([913e80d](https://github.com/yxw007/translate/commit/913e80d))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.17
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.16...v0.0.17)

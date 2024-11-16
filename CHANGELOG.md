@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v0.0.17
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.16...v0.0.17)
+
+### 🏡 Chore
+
+- Refine error message formatting ([cdace9b](https://github.com/yxw007/translate/commit/cdace9b))
+- Refine error message formatting ([396f3d2](https://github.com/yxw007/translate/commit/396f3d2))
+- Update build script to use tsx directly and enhance package keywords ([038577c](https://github.com/yxw007/translate/commit/038577c))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.16
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.15...v0.0.16)

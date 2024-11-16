@@ -120,13 +120,33 @@ export default defineConfig(() => {
 			]
 		}),
 
-		//Browser ESM Bundle
+		//Browser umd Bundle
 		...buildConfig({
 			browser: true,
 			output:
 			{
 				file: "dist/browser/index.umd.js",
 				format: "umd",
+				name: libName,
+				sourcemap: true,
+				banner,
+				inlineDynamicImports: true,
+			},
+			plugins: [
+				typescript({
+					tsconfig: "./tsconfig.json",
+					sourceMap: true,
+				})
+			]
+		}),
+
+		//Browser ESM Bundle
+		...buildConfig({
+			browser: true,
+			output:
+			{
+				file: "dist/browser/index.esm.js",
+				format: "esm",
 				name: libName,
 				sourcemap: true,
 				banner,

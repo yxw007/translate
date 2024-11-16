@@ -6,8 +6,8 @@ export interface DeeplEngineOption {
 }
 
 interface Translation {
-   text: string; 
-   detected_source_language: string;
+  text: string;
+  detected_source_language: string;
 }
 
 export function deepl(options: DeeplEngineOption) {
@@ -19,7 +19,7 @@ export function deepl(options: DeeplEngineOption) {
     }
   };
   checkOptions();
-  let base = "https://api-free.deepl.com/v2/translate";
+  const url = "https://api-free.deepl.com/v2/translate";
 
   return {
     name,
@@ -29,15 +29,14 @@ export function deepl(options: DeeplEngineOption) {
       if (!Array.isArray(text)) {
         text = [text];
       }
-      const url = `${base}`
       const res = await fetch(url, {
-        method: "POST", 
+        method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
-          "Authorization": `DeepL-Auth-Key ${key}`,
-          "Accept": "*/*",
-          "Host": "api-free.deepl.com",
-          "Connection": "keep-alive"
+          Authorization: `DeepL-Auth-Key ${key}`,
+          Accept: "*/*",
+          Host: "api-free.deepl.com",
+          Connection: "keep-alive",
         },
         body: JSON.stringify({
           text: text,

@@ -35,7 +35,7 @@ export interface CacheRecord {
 export class TranslationError extends Error {
   region: string;
   constructor(region: string, message: string) {
-    super(`${region}: ${message}`);
+    super(message);
     this.region = region;
     Error.captureStackTrace(this, this.constructor);
   }

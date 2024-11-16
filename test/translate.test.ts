@@ -95,7 +95,7 @@ describe("translator", () => {
     try {
       await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     } catch (error) {
-      expect(error.message).toEqual("Translate: Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
+      expect(error.message).toEqual("Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
     }
   });
 });

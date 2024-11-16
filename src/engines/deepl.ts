@@ -1,10 +1,13 @@
 import { EngineTranslateOptions, TranslationError } from "@/types";
-import { default as deeplEngine, SourceLanguageCode } from "deepl-node";
-import { TargetLanguageCode } from "deepl-node";
 import { Engines } from "..";
 
 export interface DeeplEngineOption {
   key: string;
+}
+
+interface Translation {
+   text: string; 
+   detected_source_language: string;
 }
 
 export function deepl(options: DeeplEngineOption) {
@@ -16,21 +19,41 @@ export function deepl(options: DeeplEngineOption) {
     }
   };
   checkOptions();
+  let base = "https://api-free.deepl.com/v2/translate";
 
-  const translator = new deeplEngine.Translator(key);
   return {
     name,
     async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
       checkOptions();
-      const { to, from = "auto" } = opts;
+      const { to, from } = opts;
       if (!Array.isArray(text)) {
         text = [text];
       }
-      const translations: string[] = [];
-      const res = await translator.translateText(text, (from === "auto" ? null : from) as SourceLanguageCode, to as TargetLanguageCode);
-      for (const item of res) {
-        translations.push(item.text);
+      const url = `${base}`
+      const res = await fetch(url, {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Authorization": `DeepL-Auth-Key ${key}`,
+          "Accept": "*/*",
+          "Host": "api-free.deepl.com",
+          "Connection": "keep-alive"
+        },
+        body: JSON.stringify({
+          text: text,
+          source_lang: from === "auto" ? undefined : from,
+          target_lang: to,
+        }),
+      });
+      const bodyRes = await (res as any).json();
+      if (bodyRes.error) {
+        throw new TranslationError(this.name, `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
       }
+      const body: Translation[] = bodyRes.translations;
+      if (!body || body.length === 0) {
+        throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
+      }
+      const translations: string[] = body.map((t) => t.text);
       return translations;
     },
   };

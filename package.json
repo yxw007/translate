@@ -103,6 +103,7 @@
     "rollup": "^4.21.1",
     "rollup-plugin-dts": "^6.1.1",
     "tslib": "^2.7.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.3.0",
     "vitest": "^2.0.5"
@@ -110,11 +111,9 @@
   "volta": {
     "node": "22.3.0"
   },
-  "dependencies": {},
   "peerDependencies": {
-    "crypto-js": "^4.2.0",
     "@aws-sdk/client-translate": "^3.637.0",
-    "deepl-node": "^1.14.0",
-    "@smithy/smithy-client": "^3.2.0"
+    "@smithy/smithy-client": "^3.2.0",
+    "crypto-js": "^4.2.0"
   }
 }

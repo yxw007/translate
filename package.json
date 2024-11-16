@@ -17,7 +17,7 @@
   "scripts": {
     "lint": "eslint . && prettier -c src",
     "lint:fix": "eslint . --fix && prettier -w src",
-    "build": "pnpm clean && npx tsx script/build.ts",
+    "build": "pnpm clean && tsx script/build.ts",
     "clean": "rm -rf dist",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
@@ -49,13 +49,22 @@
     "package.json"
   ],
   "keywords": [
+    "typescript",
+    "node",
+    "browser",
     "translate",
     "translation",
     "google",
     "i18n",
     "l10n",
     "localization",
-    "internationalization"
+    "internationalization",
+    "azure",
+    "amazon",
+    "baidu",
+    "yandex",
+    "ai",
+    "deepl"
   ],
   "husky": {
     "hooks": {

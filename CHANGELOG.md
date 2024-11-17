@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.0.19
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.18...v0.0.19)
+
+### 🔥 Performance
+
+- Move out of remove deepl-node and use the api interface provided by deepl directly ([98bf3e5](https://github.com/yxw007/translate/commit/98bf3e5))
+
+### 📦 Build
+
+- Support browser esm bundle ([41a345e](https://github.com/yxw007/translate/commit/41a345e))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.18
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.17...v0.0.18)

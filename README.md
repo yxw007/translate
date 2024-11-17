@@ -24,6 +24,8 @@ English | [简体中文](./README_zh-CN.md)
 - 📦 **Batch translation**: one api request, translate more content, reduce http requests to improve translation efficiency
 - 🔓 **completely open source**.
 
+> **Special reminder: although the library has supported the use of the browser environment, but please only use the google engine translation (google does not need key), the use of other translation engine need to configure the key, the use of the front-end will lead to key leakage, do not do it**
+
 ## 💻Translation engines, integration cases
 
 | Name             | Support | Description                                                                                                                                               |

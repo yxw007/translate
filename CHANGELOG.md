@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.0.20
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.19...v0.0.20)
+
+### 🩹 Fixes
+
+- Cannot read properties of undefined reading 'message' ([b346599](https://github.com/yxw007/translate/commit/b346599))
+
+### 📖 Documentation
+
+- Update README.md with a special reminder for using translation engines in the browser ([ec8d51b](https://github.com/yxw007/translate/commit/ec8d51b))
+
+### ✅ Tests
+
+- Add vue-demo playground ([6e61fab](https://github.com/yxw007/translate/commit/6e61fab))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.19
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.18...v0.0.19)

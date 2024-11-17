@@ -6,4 +6,3 @@ dist
 /**/coverage
 /**/test-temp
 .env
-playground/vue-demo

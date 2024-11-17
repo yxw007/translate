@@ -8,7 +8,7 @@ export function getGapLine() {
 
 export function getErrorMessages<T extends Error>(e: T, prefix = "Translate fail ! "): string {
   if (e instanceof TypeError) {
-    return prefix + ((e.cause as any).message ?? e.message);
+    return prefix + ((e.cause as any)?.message ?? e.message);
   }
   return prefix + e.message;
 }

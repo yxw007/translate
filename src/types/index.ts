@@ -17,7 +17,7 @@ export type TranslateOptions<T extends Engines> = {
   domain?: string | undefined;
 };
 
-export interface BaseEngineOption {}
+export interface BaseEngineOption { }
 
 export type EngineTranslateOptions<T extends Engines> = Omit<TranslateOptions<T>, "engine">;
 
@@ -42,3 +42,32 @@ export class TranslationError extends Error {
 }
 
 export { FromLanguage, ToLanguage };
+
+export const OPEN_AI_MODELS = [
+  "o1-preview",
+  "o1-preview-2024-09-12",
+  "o1-mini-2024-09-12",
+  "o1-mini",
+  "dall-e-2",
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-0125",
+  "babbage-002",
+  "davinci-002",
+  "dall-e-3",
+  "text-embedding-3-large",
+  "gpt-3.5-turbo-16k",
+  "tts-1-hd-1106",
+  "text-embedding-ada-002",
+  "text-embedding-3-small",
+  "tts-1-hd",
+  "whisper-1",
+  "gpt-3.5-turbo-1106",
+  "gpt-3.5-turbo-instruct",
+  "gpt-4o-mini-2024-07-18",
+  "gpt-4o-mini",
+  "tts-1",
+  "tts-1-1106",
+  "gpt-3.5-turbo-instruct-0914"
+] as const;
+
+export type OpenAIModel = typeof OPEN_AI_MODELS[number];

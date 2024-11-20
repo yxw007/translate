@@ -1,4 +1,4 @@
-import { engines } from "./engines";
+import { engines, OpenAIModel } from "./engines";
 import { Engine, TranslateOptions, Engines, TranslationError } from "./types";
 import { useLogger, Cache, getGapLine, getErrorMessages } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";

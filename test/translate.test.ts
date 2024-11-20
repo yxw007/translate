@@ -1,6 +1,6 @@
 
 import { describe, expect, it } from "vitest";
-import { translator, engines } from "../src"
+import { translator, engines, OpenAIModel } from "../src"
 
 describe("translator", () => {
   it.concurrent("google translate", async () => {
@@ -97,6 +97,23 @@ describe("translator", () => {
     } catch (error) {
       expect(error.message).toEqual("Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
     }
+  });
+
+  it.concurrent("openai translate", async () => {
+    translator.use(engines.openai({
+      apiKey: process.env.OPEN_AI_API_KEY as string,
+      model: process.env.OPEN_AI_MODEL as OpenAIModel
+    }));
+
+    const res1 = await translator.translate("hello", { to: "Chinese", engine: "openai" });
+    expect(res1).toEqual(["你好"]);
+
+    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Chinese", engine: "openai" });
+    expect(res2).toEqual(["你好", "好的"]);
+
+    const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "openai" });
+    expect(res3).toEqual(["此函数将两个数字相加", "@参数", "-第一个数字", "@参数", "-第二个数字"]);
   });
 });
 

@@ -3,6 +3,7 @@ import google from "../target/google";
 import baidu from "../target/baidu";
 import deepl from "./deepl";
 import amazon from "../target/amazon";
+import openai from "../target/google";
 import { ValuesOf } from "../../types/typescript";
 
 export const originLanguages = {
@@ -11,6 +12,7 @@ export const originLanguages = {
   baidu: baidu,
   deepl: deepl,
   amazon: amazon,
+  openai: openai,
 } as const;
 
 export type originLanguageMapNames = {
@@ -19,6 +21,7 @@ export type originLanguageMapNames = {
   google: keyof typeof google;
   baidu: keyof typeof baidu;
   deepl: keyof typeof deepl;
+  openai: keyof typeof openai;
 };
 
 export type originLanguageMapValues = {
@@ -27,4 +30,5 @@ export type originLanguageMapValues = {
   google: ValuesOf<typeof google>;
   baidu: ValuesOf<typeof baidu>;
   deepl: ValuesOf<typeof deepl>;
+  openai: ValuesOf<typeof openai>;
 };

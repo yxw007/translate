@@ -1,4 +1,4 @@
-import { engines, OpenAIModel } from "./engines";
+import { engines } from "./engines";
 import { Engine, TranslateOptions, Engines, TranslationError } from "./types";
 import { useLogger, Cache, getGapLine, getErrorMessages } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
@@ -15,12 +15,27 @@ class Translator {
     this.engines = new Map<string, Engine>();
     this.cache_time = cache_time;
   }
+  /**
+   * This method is obsolete, please use the addEngine method
+   * @param engine {@link Engine}  instance
+   * @deprecated Use {@link addEngine} instead.
+   */
   use(engine: Engine) {
+    this.addEngine(engine);
+  }
+  addEngine(engine: Engine) {
     if (this.engines.has(engine.name)) {
       logger.warn("Engine already exists");
       return;
     }
     this.engines.set(engine.name, engine);
+  }
+  removeEngine(engineName: string) {
+    if (!engineName || !this.engines.has(engineName)) {
+      logger.warn("Engine name is required or not found");
+      return false;
+    }
+    this.engines.delete(engineName);
   }
   async translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>): Promise<string[]> {
     const { engine = "google", cache_time = 60 * 1000 } = options;

@@ -37,16 +37,16 @@ export function openai(options: OpenAIEngineOption): Engine {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
           messages: [
             { role: "system", content: "You are a translator" },
-            { role: "user", content: prompt }
+            { role: "user", content: prompt },
           ],
           max_tokens: 1000,
-        })
+        }),
       });
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
@@ -63,6 +63,6 @@ export function openai(options: OpenAIEngineOption): Engine {
         translations.push(choice.message.content.trim());
       }
       return translations;
-    }
-  }
+    },
+  };
 }

@@ -3,7 +3,7 @@ import { azure } from "./azure";
 import { amazon } from "./amazon";
 import { baidu } from "./baidu";
 import { deepl } from "./deepl";
-import { openai } from "./openai"
+import { openai } from "./openai";
 
 export const engines = {
   google,
@@ -11,5 +11,5 @@ export const engines = {
   amazon,
   baidu,
   deepl,
-  openai
+  openai,
 } as const;

@@ -17,7 +17,7 @@ export type TranslateOptions<T extends Engines> = {
   domain?: string | undefined;
 };
 
-export interface BaseEngineOption { }
+export interface BaseEngineOption {}
 
 export type EngineTranslateOptions<T extends Engines> = Omit<TranslateOptions<T>, "engine">;
 
@@ -67,7 +67,7 @@ export const OPEN_AI_MODELS = [
   "gpt-4o-mini",
   "tts-1",
   "tts-1-1106",
-  "gpt-3.5-turbo-instruct-0914"
+  "gpt-3.5-turbo-instruct-0914",
 ] as const;
 
-export type OpenAIModel = typeof OPEN_AI_MODELS[number];
+export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];

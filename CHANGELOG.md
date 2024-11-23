@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.0...v0.1.1)
+
+### ✅ Tests
+
+- Adjust open ai test judgment ([c0b2afe](https://github.com/yxw007/translate/commit/c0b2afe))
+
+### 🤖 CI
+
+- Add OpenAI engine support and environment variables for OpenAI API key and model ([a87a384](https://github.com/yxw007/translate/commit/a87a384))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.0
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.20...v0.1.0)

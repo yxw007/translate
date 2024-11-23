@@ -31,7 +31,18 @@ export function openai(options: OpenAIEngineOption): Engine {
         text = [text];
       }
 
-      const prompt = `Translate the following text from ${from} to ${to}: ${text.join(" ")}`;
+      const prompt = {
+        role: "user",
+        content: `Translate the following texts from ${from} to ${to}: 
+          -$s$-
+          ${text.join("\n")} 
+          -$e$-
+          Translated content is between the start marker -$s$- and the end marker -$e$-, do not return the start and end markers, only the translated text is returned.
+          Connect multiple text with newline character, keep the original order when return. 
+          `,
+      };
+
+      console.log("prompt:", prompt.content);
 
       const res = await fetch(url, {
         method: "POST",
@@ -40,28 +51,23 @@ export function openai(options: OpenAIEngineOption): Engine {
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are a translator" },
-            { role: "user", content: prompt },
-          ],
-          max_tokens: 1000,
+          model,
+          messages: [{ role: "system", content: "You are a professional IT translator" }, prompt],
+          max_tokens: 2000,
         }),
       });
+
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
         throw new TranslationError(this.name, `Translate fail! message: ${bodyRes.error.message}`);
       }
-      if (!bodyRes || !bodyRes.choice || bodyRes.choice.length === 0) {
+      if (!bodyRes || !bodyRes.choices || bodyRes.choices.length === 0 || !bodyRes.choices[0]?.message?.content) {
         throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
-      const translations: string[] = [];
-      for (const choice of bodyRes.choices) {
-        if (!choice?.message?.content) {
-          continue;
-        }
-        translations.push(choice.message.content.trim());
-      }
+      const content = bodyRes.choices[0].message.content;
+      const translations = content.trim().split("\n").map((item: string) => item.trim());
+      console.log("translations:", translations);
+
       return translations;
     },
   };

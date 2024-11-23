@@ -18,6 +18,8 @@ env:
   BAIDU_APP_ID: ${{ secrets.BAIDU_APP_ID }}
   BAIDU_SECRET_KEY: ${{ secrets.BAIDU_SECRET_KEY }}
   DEEPL_KEY: ${{ secrets.DEEPL_KEY }}
+  OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
+  OPEN_AI_MODEL: ${{ secrets.OPEN_AI_MODEL }}
 
 jobs:
   build:

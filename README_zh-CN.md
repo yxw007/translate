@@ -21,7 +21,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 ## ✨ 特点
 - 🌐 **多环境支持**：Node环境、浏览器环境
 - ✨ **简单易用**：提供了简洁的API，就可以轻松帮你翻译
-- 🌍 **支持多翻译引擎**：Google、Azure Translate等（未来将拓展更多）
+- 🌍 **支持多翻译引擎**：Google、Azure Translate、Amazon Translate、Deepl、Baidu、OpenAI等（未来将拓展更多）
 - 🛠️ **typescript**: 更友好的代码提示和质量保障
 - 📦 **批量翻译**：一次api请求，翻译更多内容，减少http请求提高翻译效率
 - 🔓 **完全开源**
@@ -37,6 +37,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 | amazon translate | √    | 已投产，可以正常使用                                                       |
 | baidu            | √    | 已投产，可以正常使用                                                       |
 | deepl            | √    | 已投产，可以正常使用                                                       |
+| openai           | √    | 已投产，可以正常使用                                                       |
 | yandex           |      | 由于我没有平台支持的银行账号，所以未调通（欢迎有条件的朋友帮忙调通，感谢） |
 
 
@@ -76,7 +77,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 
 - example
   ```typescript
-  translator.use(engines.google());
+  translator.addEngine(engines.google());
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
   console.log(res1);
 
@@ -120,7 +121,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
     <script>
       (async () => {
         const { engines, translator } = translate;
-        translator.use(engines.google());
+        translator.addEngine(engines.google());
         const res = await translator.translate("hello", { from: "en", to: "zh" });
         console.log(res);
       })();
@@ -141,7 +142,18 @@ class Translator {
   constructor() {
     this.engines = new Map<string, Engine>();
   }
+  /**
+   * This method is obsolete, please use the addEngine method
+   * @param engine {@link Engine}  instance
+   * @deprecated Use {@link addEngine} instead.
+   */
   use(engine: Engine) {
+    this.addEngine(engine);
+  }
+  addEngine(engine: Engine) {
+   ...
+  }
+  removeEngine(engineName: string) {
    ...
   }
   translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
@@ -254,6 +266,48 @@ export interface DeeplEngineOption {
 
 - 相关文档：https://www.deepl.com/en/your-account/keys
 
+#### OpenAIEngineOption
+
+```typescript
+export interface OpenAIEngineOption {
+  apiKey: string;
+  model: OpenAIModel;
+}
+
+export const OPEN_AI_MODELS = [
+  "o1-preview",
+  "o1-preview-2024-09-12",
+  "o1-mini-2024-09-12",
+  "o1-mini",
+  "dall-e-2",
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-0125",
+  "babbage-002",
+  "davinci-002",
+  "dall-e-3",
+  "text-embedding-3-large",
+  "gpt-3.5-turbo-16k",
+  "tts-1-hd-1106",
+  "text-embedding-ada-002",
+  "text-embedding-3-small",
+  "tts-1-hd",
+  "whisper-1",
+  "gpt-3.5-turbo-1106",
+  "gpt-3.5-turbo-instruct",
+  "gpt-4o-mini-2024-07-18",
+  "gpt-4o-mini",
+  "tts-1",
+  "tts-1-1106",
+  "gpt-3.5-turbo-instruct-0914",
+] as const;
+
+export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];
+```
+
+> 说明：option param 请从对应平台获取
+
+- 相关文档：https://platform.openai.com/settings/organization/api-keys
+
 ## 🤝 贡献
 
 > 特别注意：请基于master创建一个新分支，在新分支上开发，开发完后创建PR至master
@@ -305,6 +359,7 @@ export interface DeeplEngineOption {
       amazon,
       baidu,
       deepl,
+      openai,
       xxx
     } as const;
     ```
@@ -362,9 +417,8 @@ export interface DeeplEngineOption {
       ...
       xxx: ValuesOf<typeof xxx>;
     };
-
   ```
-
+  
 - 打包
   ```bash
   pnpm build

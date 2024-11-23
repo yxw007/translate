@@ -65,7 +65,10 @@ export function openai(options: OpenAIEngineOption): Engine {
         throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
       const content = bodyRes.choices[0].message.content;
-      const translations = content.trim().split("\n").map((item: string) => item.trim());
+      const translations = content
+        .trim()
+        .split("\n")
+        .map((item: string) => item.trim());
       console.log("translations:", translations);
 
       return translations;

@@ -19,7 +19,7 @@ English | [简体中文](./README_zh-CN.md)
 ## ✨ Features
 - 🌐 **Multi-environment support**: Node environment, browser environment
 - ✨ **Easy to use**: provides a concise API, you can easily help you to translate
-- 🌍 **Multi-translation engine support**: Google, Azure Translate, etc. (will expand more in the future)
+- 🌍 **Multi-translation engine support**: Google, Azure Translate, Amazon Translate, Deepl, Baidu, OpenAI, etc. (will expand more in the future)
 - 🛠️ **typescript**: friendlier code hints and quality assurance
 - 📦 **Batch translation**: one api request, translate more content, reduce http requests to improve translation efficiency
 - 🔓 **completely open source**.
@@ -35,6 +35,7 @@ English | [简体中文](./README_zh-CN.md)
 | amazon translate | √       | Commissioned and ready for use                                                                                                                            |
 | baidu            | √       | Commissioned and ready for use                                                                                                                            |
 | deepl            | √       | Commissioned and ready for use                                                                                                                            |
+| openai           | √       | Commissioned and ready for use                                                                                                                            |
 | yandex           |         | I have not tuned in as I do not have a bank account supported by the platform (help from those who are in a position to do so is welcome and appreciated) |
 
 ## 🚀 Install
@@ -73,7 +74,7 @@ English | [简体中文](./README_zh-CN.md)
 
 - example
   ```typescript
-  translator.use(engines.google());
+  translator.addEngine(engines.google());
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
   console.log(res1);
 
@@ -117,7 +118,7 @@ use jsDelivr CDN
     <script>
       (async () => {
         const { engines, translator } = translate;
-        translator.use(engines.google());
+        translator.addEngine(engines.google());
         const res = await translator.translate("hello", { from: "en", to: "zh" });
         console.log(res);
       })();
@@ -139,7 +140,18 @@ class Translator {
   constructor() {
     this.engines = new Map<string, Engine>();
   }
+  /**
+   * This method is obsolete, please use the addEngine method
+   * @param engine {@link Engine}  instance
+   * @deprecated Use {@link addEngine} instead.
+   */
   use(engine: Engine) {
+    this.addEngine(engine);
+  }
+  addEngine(engine: Engine) {
+   ...
+  }
+  removeEngine(engineName: string) {
    ...
   }
   translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
@@ -252,6 +264,48 @@ export interface DeeplEngineOption {
 
 - Related document：https://www.deepl.com/en/your-account/keys
 
+#### OpenAIEngineOption
+
+```typescript
+export interface OpenAIEngineOption {
+  apiKey: string;
+  model: OpenAIModel;
+}
+
+export const OPEN_AI_MODELS = [
+  "o1-preview",
+  "o1-preview-2024-09-12",
+  "o1-mini-2024-09-12",
+  "o1-mini",
+  "dall-e-2",
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-0125",
+  "babbage-002",
+  "davinci-002",
+  "dall-e-3",
+  "text-embedding-3-large",
+  "gpt-3.5-turbo-16k",
+  "tts-1-hd-1106",
+  "text-embedding-ada-002",
+  "text-embedding-3-small",
+  "tts-1-hd",
+  "whisper-1",
+  "gpt-3.5-turbo-1106",
+  "gpt-3.5-turbo-instruct",
+  "gpt-4o-mini-2024-07-18",
+  "gpt-4o-mini",
+  "tts-1",
+  "tts-1-1106",
+  "gpt-3.5-turbo-instruct-0914",
+] as const;
+
+export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];
+```
+
+> Description：option param Please get it from the corresponding platform.
+
+- Related document：https://platform.openai.com/settings/organization/api-keys
+
 ## 🤝 Contribute
 
 > Special attention: Please create a new branch based on the master, develop on the new branch, and create PR to Master after development.
@@ -303,6 +357,7 @@ export interface DeeplEngineOption {
       amazon,
       baidu,
       deepl,
+      openai,
       xx
     } as const;
     ```

@@ -42,8 +42,6 @@ export function openai(options: OpenAIEngineOption): Engine {
           `,
       };
 
-      console.log("prompt:", prompt.content);
-
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -69,7 +67,6 @@ export function openai(options: OpenAIEngineOption): Engine {
         .trim()
         .split("\n")
         .map((item: string) => item.trim());
-      console.log("translations:", translations);
 
       return translations;
     },

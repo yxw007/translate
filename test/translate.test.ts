@@ -105,13 +105,14 @@ describe("translator", () => {
       model: process.env.OPEN_AI_MODEL as OpenAIModel
     }));
 
+    // Note: Since open ai has different translation results for the same parameters, we only test if the result is returned here.
+
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "openai" });
-    expect(res1).toEqual(["你好"]);
+    expect(res1.length >= 1).toBe(true);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Chinese", engine: "openai" });
-    expect(res2).toEqual(["你好", "好"]);
+    expect(res2.length >= 2).toBe(true);
 
-    // Note: Since open ai has different translation results for the same parameters, we only test if the result is returned here.
     const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "openai" });
     expect(res3.length != 0).toBe(true);

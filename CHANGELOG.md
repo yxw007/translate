@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.0.20...v0.1.0)
+
+### 🚀 Enhancements
+
+- Add OpenAI engine support ([83b4b05](https://github.com/yxw007/translate/commit/83b4b05))
+- Add addEngine and removeEngine function in Translator ([85afe9d](https://github.com/yxw007/translate/commit/85afe9d))
+- Add OpenAI engine support ([269746b](https://github.com/yxw007/translate/commit/269746b))
+
+### 📖 Documentation
+
+- Improve README ([3f2e236](https://github.com/yxw007/translate/commit/3f2e236))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.0.20
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.0.19...v0.0.20)

@@ -108,14 +108,14 @@ describe("translator", () => {
     // Note: Since open ai has different translation results for the same parameters, we only test if the result is returned here.
 
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "openai" });
-    expect(res1.length >= 1).toBe(true);
+    expect(res1).toEqual(["你好"]);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Chinese", engine: "openai" });
-    expect(res2.length >= 2).toBe(true);
+    expect(res2).toEqual(["你好", "好"]);
 
     const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "openai" });
-    expect(res3.length != 0).toBe(true);
+    expect(res3).toEqual(['这个函数添加两个数字', '@param', '— 第一个数字', '@param', '— 第二个数字']);
   });
 });
 

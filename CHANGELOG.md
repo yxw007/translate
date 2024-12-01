@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.2
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.1...v0.1.2)
+
+### 🔥 Performance
+
+- **openai:** Improve prompt and add maxTokens option ([84807fd](https://github.com/yxw007/translate/commit/84807fd))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.1
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.0...v0.1.1)

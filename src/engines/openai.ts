@@ -1,14 +1,18 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, OpenAIModel, OPEN_AI_MODELS } from "../types";
 import { Engines } from "..";
+import { useLogger } from "@/utils";
 
 export interface OpenAIEngineOption extends BaseEngineOption {
   apiKey: string;
   model: OpenAIModel;
   maxTokens?: number;
+  outputLog?: boolean;
 }
 
+const logger = useLogger("openai");
+
 export function openai(options: OpenAIEngineOption): Engine {
-  const { apiKey, model, maxTokens = 2000 } = options;
+  const { apiKey, model, maxTokens = 2000, outputLog = false } = options;
 
   const name = "openai";
   const checkOptions = () => {
@@ -52,6 +56,10 @@ export function openai(options: OpenAIEngineOption): Engine {
           `,
       };
 
+      if (outputLog) {
+        logger.info("prompt:", prompt);
+      }
+
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -81,6 +89,10 @@ export function openai(options: OpenAIEngineOption): Engine {
         .map((item: string) => item.trim())
         .filter(Boolean)
         .filter((it: string) => !marks.includes(it));
+
+      if (outputLog) {
+        logger.info("translations:", translations);
+      }
 
       return translations;
     },

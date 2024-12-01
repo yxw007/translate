@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.3...v0.1.4)
+
+### 🔥 Performance
+
+- **openai:** Improve the accuracy of openai prompt ([aa8a3e9](https://github.com/yxw007/translate/commit/aa8a3e9))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.3
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.2...v0.1.3)

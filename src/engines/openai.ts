@@ -39,14 +39,13 @@ export function openai(options: OpenAIEngineOption): Engine {
       const prompt = {
         role: "user",
         content: `
-          翻译要求：
+          满足以下4点翻译要求：
           1.将每段文本从${from}翻译为${to}
           2.文本内容以换行符\n进行段落分割，并以段落分割顺序进行翻译
-          3.仅翻译分割出的段落，其他任何不相关的内容都移除，比如：段落前后的空格、所有标点符号
+          3.仅翻译分割出的段落，其他任何不相关的内容都移除，比如：段落前后的空格、所有标点符号\n
           4.仅返回要翻译的文本内容，不要返回任何其他内容
-         
-          
-          如何提取翻译文本:
+
+          如何提取翻译文本,满足以下2点要求:
           1.翻译从-$s$-字符标记开始至-$e$-字符标记结束，提取-$s$-至-$e$-之间的内容
           2.-$s$-和-$e$-这2个标记不要返回，只是用来标记翻译的起始和结束位置
 
@@ -55,10 +54,6 @@ export function openai(options: OpenAIEngineOption): Engine {
           -$e$-
           `,
       };
-
-      if (outputLog) {
-        logger.info("prompt:", prompt);
-      }
 
       const res = await fetch(url, {
         method: "POST",
@@ -83,7 +78,7 @@ export function openai(options: OpenAIEngineOption): Engine {
       }
       const content = bodyRes.choices[0].message.content;
       const marks = ["-$s$-", "-$e$-"];
-      const translations = content
+      const translations: string[] = content
         .trim()
         .split("\n")
         .map((item: string) => item.trim())
@@ -91,7 +86,8 @@ export function openai(options: OpenAIEngineOption): Engine {
         .filter((it: string) => !marks.includes(it));
 
       if (outputLog) {
-        logger.info("translations:", translations);
+        logger.info("prompt:", JSON.stringify(prompt, null, 2));
+        logger.info("translations:", JSON.stringify(translations, null, 2));
       }
 
       return translations;

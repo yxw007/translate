@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.2...v0.1.3)
+
+### 💅 Refactors
+
+- **openai:** Improve prompt logging and add option to toggle output log ([7005059](https://github.com/yxw007/translate/commit/7005059))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.2
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.1...v0.1.2)

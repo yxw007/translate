@@ -1,6 +1,6 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, OpenAIModel, OPEN_AI_MODELS } from "../types";
 import { Engines } from "..";
-import { useLogger } from "@/utils";
+import { throwResponseError, useLogger } from "@/utils";
 
 export interface OpenAIEngineOption extends BaseEngineOption {
   apiKey: string;
@@ -55,7 +55,7 @@ export function openai(options: OpenAIEngineOption): Engine {
           `,
       };
 
-      const res = await fetch(url, {
+      const res: any = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,13 +69,19 @@ export function openai(options: OpenAIEngineOption): Engine {
         }),
       });
 
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
         throw new TranslationError(this.name, `Translate fail! message: ${bodyRes.error.message}`);
       }
+
       if (!bodyRes || !bodyRes.choices || bodyRes.choices.length === 0 || !bodyRes.choices[0]?.message?.content) {
         throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }
+
       const content = bodyRes.choices[0].message.content;
       const marks = ["-$s$-", "-$e$-"];
       const translations: string[] = content

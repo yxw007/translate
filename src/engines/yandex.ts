@@ -1,5 +1,6 @@
 import { Engine, BaseEngineOption, EngineTranslateOptions, TranslationError } from "../types";
 import { Engines } from "..";
+import { throwResponseError } from "@/utils";
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;
@@ -26,8 +27,11 @@ export function yandex(options: YandexEngineOption): Engine {
       }
       const textStr = JSON.stringify(text);
       const url = `${base}?key=${key}&lang=${from}-${to}&text=${encodeURIComponent(textStr)}`;
-      const res = await fetch(url);
-      const body = await (res as any).json();
+      const res: any = await fetch(url);
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+      const body = await res.json();
       if (!body || body.code !== 200 || !body.text || body.text.length === 0) {
         throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }

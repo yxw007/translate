@@ -1,5 +1,6 @@
 import { EngineTranslateOptions, TranslationError } from "@/types";
 import { Engines } from "..";
+import { throwResponseError } from "@/utils";
 
 export interface DeeplEngineOption {
   key: string;
@@ -29,26 +30,25 @@ export function deepl(options: DeeplEngineOption) {
       if (!Array.isArray(text)) {
         text = [text];
       }
-      const res = await fetch(url, {
+      const requestBody = JSON.stringify({
+        text,
+        source_lang: from === "auto" ? undefined : from,
+        target_lang: to,
+      });
+      const res: any = await fetch(url, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=UTF-8",
+          "Content-Type": "application/json; charset=UTF-8;",
           Authorization: `DeepL-Auth-Key ${key}`,
-          Accept: "*/*",
-          Host: "api-free.deepl.com",
           Connection: "keep-alive",
         },
-        body: JSON.stringify({
-          text: text,
-          source_lang: from === "auto" ? undefined : from,
-          target_lang: to,
-        }),
+        body: requestBody,
       });
-      const bodyRes = await (res as any).json();
-      if (bodyRes.error) {
-        throw new TranslationError(this.name, `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
       }
-      const body: Translation[] = bodyRes.translations;
+      const bodyRes = await res.json();
+      const body: Translation[] = bodyRes?.translations;
       if (!body || body.length === 0) {
         throw new TranslationError(this.name, "Translate fail ! translate's result is null or empty");
       }

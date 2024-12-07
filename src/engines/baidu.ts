@@ -1,6 +1,7 @@
 import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import md5 from "crypto-js/md5";
 import { Engines } from "..";
+import { throwResponseError } from "@/utils";
 
 export interface BaiduEngineOption extends BaseEngineOption {
   appId: string;
@@ -39,14 +40,17 @@ export function baidu(options: BaiduEngineOption): Engine {
       body.append("domain", domain);
       body.append("sign", sign);
 
-      const res = await fetch(url, {
+      const res: any = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         body: body.toString(),
       });
-      const data = await (res as any).json();
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+      const data = await res.json();
       if (!data || data.error_code || !data.trans_result || data.trans_result.length === 0) {
         throw new TranslationError(this.name, `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg}`);
       }

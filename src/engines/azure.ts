@@ -4,6 +4,7 @@
 
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError } from "../types";
 import { Engines } from "..";
+import { throwResponseError } from "@/utils";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;
@@ -34,7 +35,7 @@ export function azure(options: AzureEngineOption): Engine {
       if (!Array.isArray(text)) {
         text = [text];
       }
-      const res = await fetch(url, {
+      const res: any = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -43,6 +44,9 @@ export function azure(options: AzureEngineOption): Engine {
         },
         body: JSON.stringify(text.map((it) => ({ Text: it }))),
       });
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
         throw new TranslationError(this.name, `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);

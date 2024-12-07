@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.4...v0.1.5)
+
+### 🩹 Fixes
+
+- Failure of the request cause : translate fail ! Unexpected token ([e68aca9](https://github.com/yxw007/translate/commit/e68aca9))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.4
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.3...v0.1.4)

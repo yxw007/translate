@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.5...v0.1.6)
+
+### 🩹 Fixes
+
+- **deepl:** Bad Request Parameter 'text' not specified ([675cf2b](https://github.com/yxw007/translate/commit/675cf2b))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.5
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.4...v0.1.5)

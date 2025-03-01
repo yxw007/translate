@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Cache } from "../src";
-import { delay } from "../src/utils";
+import { sleep } from "../src/utils";
 
 describe("cache", () => {
   it.concurrent("should set and get a value", () => {
@@ -37,7 +37,7 @@ describe("cache", () => {
   it.concurrent("should expire a value after the specified time", async () => {
     const cache = new Cache();
     cache.set("key", "value", 10);
-    await delay(15);
+    await sleep(15);
     const value = cache.get("key");
     expect(value).toBeUndefined();
   });
@@ -45,9 +45,9 @@ describe("cache", () => {
   it.concurrent("should reset the timeout if the same key is set again", async () => {
     const cache = new Cache();
     cache.set("key", "value1", 20);
-    await delay(10);
+    await sleep(10);
     cache.set("key", "value2", 20);
-    await delay(15);
+    await sleep(15);
     const value = cache.get("key");
     expect(value?.value).toBe("value2");
   });

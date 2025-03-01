@@ -15,6 +15,11 @@ export type TranslateOptions<T extends Engines> = {
    * Domain to use for translation
    */
   domain?: string | undefined;
+  /**
+   * Maximum number of characters
+   * default: 1000, -1 means no limit
+   */
+  max_character_num?: number | undefined;
 };
 
 export interface BaseEngineOption {}

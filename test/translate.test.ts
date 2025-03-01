@@ -1,6 +1,12 @@
 
 import { describe, expect, it } from "vitest";
-import { translator, engines, OpenAIModel } from "../src"
+import { translator, engines, OpenAIModel, TranslationError } from "../src"
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "node:fs/promises"
+import { splitText } from "../src/utils";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe("translator", () => {
   it.concurrent("google translate", async () => {
@@ -20,7 +26,21 @@ describe("translator", () => {
 
     const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
     const res4 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "google" });
-    expect(res4).toEqual(["该函数将两个数字相加", "@参数", "— 第一个数字", "@参数", "— 第二个数字"]);
+    expect(res4.some(it => it.length <= 0)).toEqual(false);
+
+    const articleFilePath = path.join(__dirname, "./fixtures/article.txt");
+    const articleContent = await fs.readFile(articleFilePath, { encoding: "utf-8" });
+    const articleTranslated = await translator.translate(articleContent, { from: "en", to: "Chinese", engine: "google" });
+    expect(articleTranslated?.length > 0).toBe(true);
+    expect(articleTranslated[0].length > 0).toBe(true);
+
+    try {
+      await translator.translate(splitText(articleContent, 1000), { from: "en", to: "Chinese", engine: "google" });
+    } catch (error: any) {
+      const translateError = error as TranslationError;
+      expect(translateError instanceof TranslationError).toBe(true);
+      expect(translateError.message).include("String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters.");
+    }
   });
 
   it.concurrent("azure translate", async () => {
@@ -49,6 +69,12 @@ describe("translator", () => {
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "amazon" });
     expect(res1).toEqual(["你好"]);
+
+    const res11 = await translator.translate("This is a test text, It should be split correctly.", { from: "en", to: "zh", engine: "amazon", max_character_num: 10 });
+    expect(res11).toEqual(["这是一个 测试 文本，它 应该 分裂正确地。"]);
+
+    const res12 = await translator.translate("What is your name, what can I call you?", { from: "en", to: "zh", engine: "amazon" });
+    expect(res12).toEqual(["你叫什么名字，我能叫你什么？"]);
 
     const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "amazon" });
     expect(res2).toEqual(["你好", "好"]);

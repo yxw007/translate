@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.1.6...v0.2.0)
+
+### 🚀 Enhancements
+
+- Implement extra long string translation ([d8579a3](https://github.com/yxw007/translate/commit/d8579a3))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.1.6
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.1.5...v0.1.6)

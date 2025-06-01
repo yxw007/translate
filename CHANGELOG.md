@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.2.1...v0.2.2)
+
+### 🩹 Fixes
+
+- **tsconfig:** Ensure comments are not removed during compilation ([da5835d](https://github.com/yxw007/translate/commit/da5835d))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.2.1
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.2.0...v0.2.1)

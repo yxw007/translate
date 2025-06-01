@@ -16,6 +16,7 @@
 		"noEmit": true,
 		"allowImportingTsExtensions": false,
 		"preserveSymlinks": true,
+		"removeComments": false,
 		"baseUrl": "./src",
 		"paths": {
 			"@/*": [

@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.2
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.3.1...v0.3.2)
+
+### 📖 Documentation
+
+- Fix minor detail issues ([b1f4859](https://github.com/yxw007/translate/commit/b1f4859))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.3.1
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.3.0...v0.3.1)

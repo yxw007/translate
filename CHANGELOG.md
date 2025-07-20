@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.2.2...v0.3.0)
+
+### 🚀 Enhancements
+
+- Add tencent translate engine ([4dab22b](https://github.com/yxw007/translate/commit/4dab22b))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.2.2
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.2.1...v0.2.2)

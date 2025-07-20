@@ -4,6 +4,7 @@ import { amazon } from "./amazon";
 import { baidu } from "./baidu";
 import { deepl } from "./deepl";
 import { openai } from "./openai";
+import { tencent } from "./tencent";
 
 export const engines = {
   google,
@@ -12,4 +13,5 @@ export const engines = {
   baidu,
   deepl,
   openai,
+  tencent,
 } as const;

@@ -306,6 +306,39 @@ export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];
 
 - Related document：https://platform.openai.com/settings/organization/api-keys
 
+#### TencentEnginOption
+
+```typescript
+export interface TencentEngineOption extends BaseEngineOption {
+	secretId: string;
+	secretKey: string;
+	region?: string;
+}
+```
+
+> Description: Option Param Please obtain it from the corresponding platform. 
+- Related documentation：https://console.cloud.tencent.com/cam/capi
+
+- Region Configuration table
+  | 地域                   | 取值             |
+  | ---------------------- | ---------------- |
+  | 亚太东南（曼谷）       | ap-bangkok       |
+  | 华北地区（北京）       | ap-beijing       |
+  | 西南地区（成都）       | ap-chengdu       |
+  | 西南地区（重庆）       | ap-chongqing     |
+  | 华南地区（广州）       | ap-guangzhou     |
+  | 港澳台地区（中国香港） | ap-hongkong      |
+  | 亚太东北（首尔）       | ap-seoul         |
+  | 华东地区（上海）       | ap-shanghai      |
+  | 华东地区（上海金融）   | ap-shanghai-fsi  |
+  | 华南地区（深圳金融）   | ap-shenzhen-fsi  |
+  | 亚太东南（新加坡）     | ap-singapore     |
+  | 亚太东北（东京）       | ap-tokyo         |
+  | 欧洲地区（法兰克福）   | eu-frankfurt     |
+  | 美国东部（弗吉尼亚）   | na-ashburn       |
+  | 美国西部（硅谷）       | na-siliconvalley |
+
+
 ## 🤝 Contribute
 
 > Special attention: Please create a new branch based on the master, develop on the new branch, and create PR to Master after development.

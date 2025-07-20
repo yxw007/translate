@@ -38,6 +38,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
 | baidu            | √    | 已投产，可以正常使用                                                       |
 | deepl            | √    | 已投产，可以正常使用                                                       |
 | openai           | √    | 已投产，可以正常使用                                                       |
+| tencent          | √    | 已投产，可以正常使用                                                       |
 | yandex           |      | 由于我没有平台支持的银行账号，所以未调通（欢迎有条件的朋友帮忙调通，感谢） |
 
 
@@ -307,6 +308,39 @@ export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];
 > 说明：option param 请从对应平台获取
 
 - 相关文档：https://platform.openai.com/settings/organization/api-keys
+
+#### TencentEnginOption
+
+```typescript
+export interface TencentEngineOption extends BaseEngineOption {
+	secretId: string;
+	secretKey: string;
+	region?: string;
+}
+```
+
+> 说明：option param 请从对应平台获取。 
+- 相关文档：https://console.cloud.tencent.com/cam/capi
+
+- region 配置表
+  | 地域                   | 取值             |
+  | ---------------------- | ---------------- |
+  | 亚太东南（曼谷）       | ap-bangkok       |
+  | 华北地区（北京）       | ap-beijing       |
+  | 西南地区（成都）       | ap-chengdu       |
+  | 西南地区（重庆）       | ap-chongqing     |
+  | 华南地区（广州）       | ap-guangzhou     |
+  | 港澳台地区（中国香港） | ap-hongkong      |
+  | 亚太东北（首尔）       | ap-seoul         |
+  | 华东地区（上海）       | ap-shanghai      |
+  | 华东地区（上海金融）   | ap-shanghai-fsi  |
+  | 华南地区（深圳金融）   | ap-shenzhen-fsi  |
+  | 亚太东南（新加坡）     | ap-singapore     |
+  | 亚太东北（东京）       | ap-tokyo         |
+  | 欧洲地区（法兰克福）   | eu-frankfurt     |
+  | 美国东部（弗吉尼亚）   | na-ashburn       |
+  | 美国西部（硅谷）       | na-siliconvalley |
+
 
 ## 🤝 贡献
 

@@ -143,5 +143,26 @@ describe("translator", () => {
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "openai" });
     expect(res3).toEqual(['这个函数添加两个数字', '@param', '— 第一个数字', '@param', '— 第二个数字']);
   });
+
+  it.concurrent("tencent translate", async () => {
+    if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
+      throw new Error("Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.");
+    }
+    translator.addEngine(engines.tencent({
+      secretId: process.env.TENCENT_SECRET_ID as string,
+      secretKey: process.env.TENCENT_SECRET_KEY as string,
+      region: "ap-shenzhen-fsi"
+    }));
+
+    const res1 = await translator.translate("hello", { to: "Simplified Chinese", engine: "tencent", from: "en" });
+    expect(res1).toEqual(["你好"]);
+
+    const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Simplified Chinese", engine: "tencent" });
+    expect(res2).toEqual(["你好", "好"]);
+
+    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const res3 = await translator.translate(translateText, { from: "en", to: "Simplified Chinese", engine: "tencent" });
+    expect(res3).toEqual(["该功能添加两个数字", "@param", "", "- 第一数量", "@param", "", "- 二数目"]);
+  });
 });
 

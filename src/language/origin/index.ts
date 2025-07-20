@@ -2,6 +2,7 @@ import azure from "../target/azure";
 import google from "../target/google";
 import baidu from "../target/baidu";
 import deepl from "./deepl";
+import tencent from "./tencent";
 import amazon from "../target/amazon";
 import openai from "../target/google";
 import { ValuesOf } from "../../types/typescript";
@@ -13,6 +14,7 @@ export const originLanguages = {
   deepl: deepl,
   amazon: amazon,
   openai: openai,
+  tencent: tencent,
 } as const;
 
 export type originLanguageMapNames = {
@@ -22,6 +24,7 @@ export type originLanguageMapNames = {
   baidu: keyof typeof baidu;
   deepl: keyof typeof deepl;
   openai: keyof typeof openai;
+  tencent: keyof typeof tencent;
 };
 
 export type originLanguageMapValues = {
@@ -31,4 +34,5 @@ export type originLanguageMapValues = {
   baidu: ValuesOf<typeof baidu>;
   deepl: ValuesOf<typeof deepl>;
   openai: ValuesOf<typeof openai>;
+  tencent: ValuesOf<typeof tencent>;
 };

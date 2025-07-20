@@ -4,6 +4,7 @@ import baidu from "./baidu";
 import deepl from "./deepl";
 import amazon from "./amazon";
 import openai from "./google";
+import tencent from "./tencent";
 import { ValuesOf } from "../../utils";
 
 export const targetLanguages = {
@@ -13,6 +14,7 @@ export const targetLanguages = {
   deepl: deepl,
   amazon: amazon,
   openai: openai,
+  tencent: tencent,
 } as const;
 
 export type targetLanguageMapNames = {
@@ -22,6 +24,7 @@ export type targetLanguageMapNames = {
   baidu: keyof typeof baidu;
   deepl: keyof typeof deepl;
   openai: keyof typeof openai;
+  tencent: keyof typeof tencent;
 };
 
 export type targetLanguageMapValues = {
@@ -31,4 +34,5 @@ export type targetLanguageMapValues = {
   baidu: ValuesOf<typeof baidu>;
   deepl: ValuesOf<typeof deepl>;
   openai: ValuesOf<typeof openai>;
+  tencent: ValuesOf<typeof tencent>;
 };

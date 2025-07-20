@@ -20,6 +20,8 @@ env:
   DEEPL_KEY: ${{ secrets.DEEPL_KEY }}
   OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
   OPEN_AI_MODEL: ${{ secrets.OPEN_AI_MODEL }}
+  TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
+  TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
 
 jobs:
   build:

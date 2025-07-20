@@ -64,7 +64,8 @@
     "baidu",
     "yandex",
     "ai",
-    "deepl"
+    "deepl",
+    "tencent"
   ],
   "husky": {
     "hooks": {

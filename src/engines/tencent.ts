@@ -99,7 +99,7 @@ export function tencent(options: TencentEngineOption): Engine {
     async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
       checkOptions();
       const { from = "auto", to } = opts;
-      const source = from === "auto" ? "" : from;
+      const source = from === "auto" ? "auto" : from;
       const payloadObj = {
         SourceText: Array.isArray(text) ? text.join("\n") : text,
         Source: source,

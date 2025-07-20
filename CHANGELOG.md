@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.3.0...v0.3.1)
+
+### 🩹 Fixes
+
+- The source parameter of Tencent Translate is missing the default value ([1673869](https://github.com/yxw007/translate/commit/1673869))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.3.0
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.2.2...v0.3.0)

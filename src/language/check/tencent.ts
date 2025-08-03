@@ -1,8 +1,8 @@
 export default {
   Chinese: "zh",
   English: "en",
-  Japanese: "ja",
-  Korean: "ko",
+  Japanese: "jp",
+  Korean: "kr",
   German: "de",
   French: "fr",
   Spanish: "es",

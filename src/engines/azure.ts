@@ -49,7 +49,10 @@ export function azure(options: AzureEngineOption): Engine {
       }
       const bodyRes = await (res as any).json();
       if (bodyRes.error) {
-        throw new TranslationError(this.name, `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message}`);
+        throw new TranslationError(
+          this.name,
+          `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`
+        );
       }
       const body: Translation[] = bodyRes;
       if (!body || body.length === 0) {
@@ -63,6 +66,36 @@ export function azure(options: AzureEngineOption): Engine {
         translations.push(...translation.translations.map((t) => t.text));
       }
       return translations;
+    },
+    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+      checkOptions();
+      const detectUrl = "https://api.cognitive.microsofttranslator.com/detect?api-version=3.0";
+
+      const res: any = await fetch(detectUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Ocp-Apim-Subscription-Key": key,
+          "Ocp-Apim-Subscription-Region": region,
+        },
+        body: JSON.stringify([{ Text: text }]),
+      });
+
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+
+      const response = await res.json();
+      if (!response || !Array.isArray(response) || response.length === 0) {
+        throw new TranslationError(this.name, "Check language fail! No result returned");
+      }
+
+      const detection = response[0];
+      if (!detection.language) {
+        throw new TranslationError(this.name, "Check language fail! Language not detected");
+      }
+
+      return detection.language;
     },
   };
 }

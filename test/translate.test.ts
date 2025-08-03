@@ -4,26 +4,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "node:fs/promises"
 import { sleep, splitText } from "../src/utils";
+import { languageTexts } from "./constant";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const languageTexts: Record<string, string> = {
-  zh: "你好",
-  en: "hello",
-  jp: "こんにちは",
-  kor: "안녕하세요",
-  th: "สวัสดี",
-  ru: "привет",
-  de: "Was dein name",
-  fr: "bonjour",
-  es: "hola",
-  it: "ciao",
-  tr: "merhaba",
-  pt: "olá",
-  vi: "xin chào",
-  id: "Siapa namamu",
-  ms: "Siapa nama awak",
-};
 
 function generateTestCases(checkLanguages: Record<string, string>) {
   return Object.entries(checkLanguages)
@@ -232,3 +215,17 @@ describe("tencent checkLanguage for common languages", () => {
     await runLanguageDetectionTests("tencent", testCases);
   });
 });
+
+describe("azure checkLanguage for common languages", () => {
+  beforeAll(() => {
+    translator.addEngine(engines.azure({
+      key: process.env.AZURE_KEY as string,
+      region: process.env.AZURE_REGION as string
+    }));
+  });
+
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["azure"]);
+    await runLanguageDetectionTests("azure", testCases);
+  });
+});  

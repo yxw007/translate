@@ -52,7 +52,10 @@ export function baidu(options: BaiduEngineOption): Engine {
       }
       const data = await res.json();
       if (!data || data.error_code || !data.trans_result || data.trans_result.length === 0) {
-        throw new TranslationError(this.name, `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg}`);
+        throw new TranslationError(
+          this.name,
+          `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg} \n Go to https://fanyi-api.baidu.com/product/123 view details`
+        );
       }
 
       const translations: string[] = [];
@@ -87,8 +90,10 @@ export function baidu(options: BaiduEngineOption): Engine {
       }
       const response = await res.json();
       if (!response || response.error_code != 0) {
-        console.error(`Baidu appId:${appId} secretKey: ${secretKey}`);
-        throw new TranslationError(this.name, `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg}`);
+        throw new TranslationError(
+          this.name,
+          `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg} \n Go to https://fanyi-api.baidu.com/product/143 view details`
+        );
       }
 
       return response.data.src;

@@ -1,0 +1,17 @@
+export default {
+  Chinese: "zh",
+  English: "en",
+  Japanese: "ja",
+  Korean: "ko",
+  German: "de",
+  French: "fr",
+  Spanish: "es",
+  Italian: "it",
+  Turkish: "tr",
+  Russian: "ru",
+  Portuguese: "pt",
+  Vietnamese: "vi",
+  Indonesian: "id",
+  Malay: "ms",
+  Thai: "th",
+} as const;

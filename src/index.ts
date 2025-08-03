@@ -1,9 +1,10 @@
 import { engines } from "./engines";
-import { Engine, TranslateOptions, Engines, TranslationError } from "./types";
+import { Engine, TranslateOptions, Engines, TranslationError, CheckLanguageOptions, CheckLanguageError } from "./types";
 import { useLogger, Cache, getGapLine, getErrorMessages, splitText, isOverMaxCharacterNum, sleep } from "./utils";
 import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
 import { appName, defaultMaxCharacterNum } from "./utils/constant";
 export * from "./types";
+export * from "./language";
 
 const logger = useLogger();
 const cache = new Cache();
@@ -51,6 +52,46 @@ class Translator {
     }
     this.engines.delete(engineName);
   }
+  isSupportCheckLanguage(engineName: string): boolean {
+    if (!engineName || !this.engines.has(engineName)) {
+      logger.warn("Engine name is required or not found");
+      return false;
+    }
+    const engine = this.engines.get(engineName);
+    if (!engine) {
+      logger.warn(`Engine ${engineName} not found`);
+      return false;
+    }
+    return !!engine.checkLanguage;
+  }
+  async checkLanguage<T extends Engines>(text: string, options: CheckLanguageOptions<T>): Promise<string> {
+    const { engine = "google", max_character_num = defaultMaxCharacterNum } = options;
+    if (!this.engines.has(engine)) {
+      throw new CheckLanguageError(appName, `Engine ${engine} not found`);
+    }
+    const engineInstance = this.engines.get(engine);
+    if (!engineInstance) {
+      throw new CheckLanguageError(appName, `Engine ${engine} is null`);
+    }
+    if (!engineInstance.checkLanguage) {
+      throw new CheckLanguageError(appName, `Engine ${engine} does not support checkLanguage method`);
+    }
+
+    const sample = max_character_num > 0 ? text.substring(0, max_character_num) : text;
+    if (sample.length <= 0) {
+      throw new TranslationError(appName, "Text is empty or too short to check language");
+    }
+
+    return engineInstance
+      .checkLanguage(sample)
+      .then((r) => r)
+      .catch((e) => {
+        logger.error(
+          `${appName} Failed to check language for text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
+        );
+        throw e;
+      });
+  }
   async translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>): Promise<string[]> {
     const { engine = "google", cache_time = 60 * 1000 } = options;
     let { from = "auto", to } = options;
@@ -64,7 +105,7 @@ class Translator {
 
     const engineInstance = this.engines.get(engine);
     if (!engineInstance) {
-      throw new TranslationError(appName, `Engine ${engine} not found`);
+      throw new TranslationError(appName, `Engine ${engine} is null`);
     }
 
     if (!from) {

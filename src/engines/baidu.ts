@@ -64,5 +64,34 @@ export function baidu(options: BaiduEngineOption): Engine {
 
       return translations;
     },
+    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+      checkOptions();
+      const salt = Date.now();
+      const sign = md5(`${appId}${text}${salt}${secretKey}`).toString();
+      const body = new URLSearchParams();
+      body.append("q", text);
+      body.append("appid", appId);
+      body.append("salt", salt.toString());
+      body.append("sign", sign);
+
+      const res: any = await fetch("https://fanyi-api.baidu.com/api/trans/vip/language", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+      });
+
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+      const response = await res.json();
+      if (!response || response.error_code != 0) {
+        console.error(`Baidu appId:${appId} secretKey: ${secretKey}`);
+        throw new TranslationError(this.name, `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg}`);
+      }
+
+      return response.data.src;
+    },
   };
 }

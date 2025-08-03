@@ -1,6 +1,7 @@
 import { originLanguages, originLanguageMapNames, originLanguageMapValues } from "./origin";
 import { targetLanguages, targetLanguageMapNames, targetLanguageMapValues } from "./target";
 import { Engines } from "..";
+export * from "./check";
 
 export type KeysOfTarget<T extends keyof targetLanguageMapNames> = targetLanguageMapNames[T];
 export type KeysOfOrigin<T extends keyof originLanguageMapNames> = originLanguageMapNames[T];

@@ -1,12 +1,47 @@
-
-import { describe, expect, it } from "vitest";
-import { translator, engines, OpenAIModel, TranslationError } from "../src"
+import { beforeAll, describe, expect, it } from "vitest";
+import { translator, engines, OpenAIModel, TranslationError, checkLanguages } from "../src"
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "node:fs/promises"
-import { splitText } from "../src/utils";
+import { sleep, splitText } from "../src/utils";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const languageTexts: Record<string, string> = {
+  zh: "你好",
+  en: "hello",
+  jp: "こんにちは",
+  kor: "안녕하세요",
+  th: "สวัสดี",
+  ru: "привет",
+  de: "Was dein name",
+  fr: "bonjour",
+  es: "hola",
+  it: "ciao",
+  tr: "merhaba",
+  pt: "olá",
+  vi: "xin chào",
+  id: "Siapa namamu",
+  ms: "Siapa nama awak",
+};
+
+function generateTestCases(checkLanguages: Record<string, string>) {
+  return Object.entries(checkLanguages)
+    .filter(([_, code]) => languageTexts[code])
+    .map(([language, code]) => ({
+      text: languageTexts[code],
+      expected: code,
+      language
+    }));
+}
+
+async function runLanguageDetectionTests(engine: string, testCases: ReturnType<typeof generateTestCases>) {
+  for (const testCase of testCases) {
+    const res = await translator.checkLanguage(testCase.text, { engine: engine as any });
+    await sleep(500);
+    expect(res).toBe(testCase.expected);
+  }
+}
 
 describe("translator", () => {
   it.concurrent("google translate", async () => {
@@ -166,3 +201,34 @@ describe("translator", () => {
   });
 });
 
+describe("baidu checkLanguage for common languages", () => {
+  beforeAll(() => {
+    translator.addEngine(engines.baidu({
+      appId: process.env.BAIDU_APP_ID as string,
+      secretKey: process.env.BAIDU_SECRET_KEY as string
+    }));
+  });
+
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["baidu"]);
+    await runLanguageDetectionTests("baidu", testCases);
+  });
+});
+
+describe("tencent checkLanguage for common languages", () => {
+  beforeAll(() => {
+    if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
+      throw new Error("Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.");
+    }
+    translator.addEngine(engines.tencent({
+      secretId: process.env.TENCENT_SECRET_ID as string,
+      secretKey: process.env.TENCENT_SECRET_KEY as string,
+      region: "ap-shenzhen-fsi"
+    }));
+  });
+
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["tencent"]);
+    await runLanguageDetectionTests("tencent", testCases);
+  });
+});

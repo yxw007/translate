@@ -22,12 +22,15 @@ export type TranslateOptions<T extends Engines> = {
   max_character_num?: number | undefined;
 };
 
+export type CheckLanguageOptions<T extends Engines> = Pick<TranslateOptions<T>, "max_character_num" | "engine">;
+
 export interface BaseEngineOption {}
 
 export type EngineTranslateOptions<T extends Engines> = Omit<TranslateOptions<T>, "engine">;
 
 export type Engine = {
   name: string;
+  checkLanguage?: <T extends Engines>(text: string) => Promise<string>;
   translate: <T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) => Promise<string[]>;
 };
 
@@ -38,6 +41,15 @@ export interface CacheRecord {
 }
 
 export class TranslationError extends Error {
+  region: string;
+  constructor(region: string, message: string) {
+    super(message);
+    this.region = region;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+export class CheckLanguageError extends Error {
   region: string;
   constructor(region: string, message: string) {
     super(message);

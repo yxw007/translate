@@ -1,4 +1,4 @@
-import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError } from "../types";
+import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, CheckLanguageError } from "../types";
 import { Engines } from "..";
 import crypto from "crypto";
 
@@ -142,6 +142,50 @@ export function tencent(options: TencentEngineOption): Engine {
       } catch (error) {
         if (error instanceof TranslationError) throw error;
         throw new TranslationError(name, `Translation failed: ${error}`);
+      }
+    },
+    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+      checkOptions();
+      const payloadObj = {
+        Text: text,
+        ProjectId: 0,
+      };
+      const payload = JSON.stringify(payloadObj);
+
+      const headers = buildAuthorization({
+        secretId,
+        secretKey,
+        service,
+        host,
+        payload,
+        httpRequestMethod: "POST",
+        action: "LanguageDetect",
+        apiVersion,
+        region,
+      });
+
+      try {
+        const res: any = await fetch(endpoint, {
+          method: "POST",
+          headers,
+          body: payload,
+        });
+
+        if (!res.ok) {
+          throw new CheckLanguageError(name, `HTTP ${res.status}: ${await res.text()}`);
+        }
+        const data = await res.json();
+        if (data.Response?.Error) {
+          throw new CheckLanguageError(name, `Tencent language detect fail: ${data.Response.Error.Code}, ${data.Response.Error.Message}`);
+        }
+        const detectedLanguage = data.Response?.Lang;
+        if (!detectedLanguage) {
+          throw new CheckLanguageError(name, "Language detect fail! No result returned");
+        }
+        return detectedLanguage;
+      } catch (error) {
+        if (error instanceof CheckLanguageError) throw error;
+        throw new CheckLanguageError(name, `Language detection failed: ${error}`);
       }
     },
   };

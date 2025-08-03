@@ -1,4 +1,4 @@
-import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
+import { BaseEngineOption, CheckLanguageError, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import { Engines } from "..";
 import { throwResponseError } from "@/utils";
 
@@ -30,6 +30,26 @@ export function google(options?: BaseEngineOption): Engine {
         translations.push(item[0].replaceAll("\n", ""));
       }
       return translations;
+    },
+    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+      const url = `${base}?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURI(text)}`;
+
+      const res: any = await fetch(url);
+      if (!res.ok) {
+        throw await throwResponseError(this.name, res);
+      }
+
+      const body = await res.json();
+      if (!body || body.length < 3) {
+        throw new CheckLanguageError(this.name, "Check language fail! No result returned");
+      }
+
+      const detectedLanguage = body[2];
+      if (!detectedLanguage) {
+        throw new CheckLanguageError(this.name, "Check language fail! Language not detected");
+      }
+
+      return detectedLanguage;
     },
   };
 }

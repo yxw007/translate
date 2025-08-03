@@ -1,4 +1,4 @@
-import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
+import { BaseEngineOption, CheckLanguageError, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import md5 from "crypto-js/md5";
 import { Engines } from "..";
 import { throwResponseError } from "@/utils";
@@ -90,7 +90,7 @@ export function baidu(options: BaiduEngineOption): Engine {
       }
       const response = await res.json();
       if (!response || response.error_code != 0) {
-        throw new TranslationError(
+        throw new CheckLanguageError(
           this.name,
           `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg} \n Go to https://fanyi-api.baidu.com/product/143 view details`
         );

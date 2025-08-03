@@ -22,7 +22,7 @@ async function runLanguageDetectionTests(engine: string, testCases: ReturnType<t
   for (const testCase of testCases) {
     const res = await translator.checkLanguage(testCase.text, { engine: engine as any });
     await sleep(500);
-    expect(res).toBe(testCase.expected);
+    expect(res?.toUpperCase()).toBe(testCase.expected.toUpperCase());
   }
 }
 
@@ -228,4 +228,42 @@ describe("azure checkLanguage for common languages", () => {
     const testCases = generateTestCases(checkLanguages["azure"]);
     await runLanguageDetectionTests("azure", testCases);
   });
-});  
+});
+
+describe("amazon checkLanguage for common languages", () => {
+  beforeAll(() => {
+    translator.addEngine(engines.amazon({
+      region: process.env.AMAZON_REGION as string,
+      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
+    }));
+  });
+
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["amazon"]);
+    await runLanguageDetectionTests("amazon", testCases);
+  });
+});
+
+describe("deepl checkLanguage for common languages", () => {
+  beforeAll(() => {
+    translator.addEngine(engines.deepl({
+      key: process.env.DEEPL_KEY as string
+    }));
+  });
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["deepl"]);
+    await runLanguageDetectionTests("deepl", testCases);
+  });
+});
+
+describe("google checkLanguage for common languages", () => {
+  beforeAll(() => {
+    translator.addEngine(engines.google());
+  });
+
+  it("should detect all supported languages", async () => {
+    const testCases = generateTestCases(checkLanguages["google"]);
+    await runLanguageDetectionTests("google", testCases);
+  });
+});

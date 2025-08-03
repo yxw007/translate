@@ -42,5 +42,30 @@ export function amazon(options: AmazonEngineOption): Engine {
       }
       return translations;
     },
+    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+      checkOptions();
+      const translateClient = new TranslateClient({
+        region: region,
+        credentials: { accessKeyId, secretAccessKey },
+      });
+
+      const command = new TranslateTextCommand({
+        SourceLanguageCode: "auto",
+        TargetLanguageCode: "en",
+        Text: text,
+      });
+
+      try {
+        const response: TranslateTextResponse = await translateClient.send(command);
+
+        if (!response.SourceLanguageCode) {
+          throw new TranslationError(name, "Check language fail! Source language not detected");
+        }
+
+        return response.SourceLanguageCode;
+      } catch (error: any) {
+        throw new TranslationError(name, `Check language fail! ${error.message || error}`);
+      }
+    },
   };
 }

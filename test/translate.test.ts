@@ -193,7 +193,7 @@ describe("baidu checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["baidu"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("baidu", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });
 
 describe("tencent checkLanguage for common languages", () => {
@@ -205,7 +205,7 @@ describe("tencent checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["tencent"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("tencent", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });
 
 describe("azure checkLanguage for common languages", () => {
@@ -217,7 +217,7 @@ describe("azure checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["azure"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("azure", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });
 
 describe("amazon checkLanguage for common languages", () => {
@@ -229,7 +229,7 @@ describe("amazon checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["amazon"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("amazon", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });
 
 describe("deepl checkLanguage for common languages", () => {
@@ -239,7 +239,7 @@ describe("deepl checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["deepl"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("deepl", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });
 
 describe("google checkLanguage for common languages", () => {
@@ -247,5 +247,5 @@ describe("google checkLanguage for common languages", () => {
   const testCases = generateTestCases(checkLanguages["google"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("google", testCases);
-  }, { timeout: testCases.length * 1000 });
+  }, { timeout: testCases.length * 2000 });
 });

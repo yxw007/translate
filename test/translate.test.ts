@@ -185,85 +185,67 @@ describe("translator", () => {
 });
 
 describe("baidu checkLanguage for common languages", () => {
-  beforeAll(() => {
-    translator.addEngine(engines.baidu({
-      appId: process.env.BAIDU_APP_ID as string,
-      secretKey: process.env.BAIDU_SECRET_KEY as string
-    }));
-  });
+  translator.addEngine(engines.baidu({
+    appId: process.env.BAIDU_APP_ID as string,
+    secretKey: process.env.BAIDU_SECRET_KEY as string
+  }));
 
+  const testCases = generateTestCases(checkLanguages["baidu"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["baidu"]);
     await runLanguageDetectionTests("baidu", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });
 
 describe("tencent checkLanguage for common languages", () => {
-  beforeAll(() => {
-    if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
-      throw new Error("Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.");
-    }
-    translator.addEngine(engines.tencent({
-      secretId: process.env.TENCENT_SECRET_ID as string,
-      secretKey: process.env.TENCENT_SECRET_KEY as string,
-      region: "ap-shenzhen-fsi"
-    }));
-  });
-
+  translator.addEngine(engines.tencent({
+    secretId: process.env.TENCENT_SECRET_ID as string,
+    secretKey: process.env.TENCENT_SECRET_KEY as string,
+    region: "ap-shenzhen-fsi"
+  }));
+  const testCases = generateTestCases(checkLanguages["tencent"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["tencent"]);
     await runLanguageDetectionTests("tencent", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });
 
 describe("azure checkLanguage for common languages", () => {
-  beforeAll(() => {
-    translator.addEngine(engines.azure({
-      key: process.env.AZURE_KEY as string,
-      region: process.env.AZURE_REGION as string
-    }));
-  });
+  translator.addEngine(engines.azure({
+    key: process.env.AZURE_KEY as string,
+    region: process.env.AZURE_REGION as string
+  }));
 
+  const testCases = generateTestCases(checkLanguages["azure"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["azure"]);
     await runLanguageDetectionTests("azure", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });
 
 describe("amazon checkLanguage for common languages", () => {
-  beforeAll(() => {
-    translator.addEngine(engines.amazon({
-      region: process.env.AMAZON_REGION as string,
-      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
-      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
-    }));
-  });
-
+  translator.addEngine(engines.amazon({
+    region: process.env.AMAZON_REGION as string,
+    accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+    secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
+  }));
+  const testCases = generateTestCases(checkLanguages["amazon"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["amazon"]);
     await runLanguageDetectionTests("amazon", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });
 
 describe("deepl checkLanguage for common languages", () => {
-  beforeAll(() => {
-    translator.addEngine(engines.deepl({
-      key: process.env.DEEPL_KEY as string
-    }));
-  });
+  translator.addEngine(engines.deepl({
+    key: process.env.DEEPL_KEY as string
+  }));
+  const testCases = generateTestCases(checkLanguages["deepl"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["deepl"]);
     await runLanguageDetectionTests("deepl", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });
 
 describe("google checkLanguage for common languages", () => {
-  beforeAll(() => {
-    translator.addEngine(engines.google());
-  });
-
+  translator.addEngine(engines.google());
+  const testCases = generateTestCases(checkLanguages["google"]);
   it("should detect all supported languages", async () => {
-    const testCases = generateTestCases(checkLanguages["google"]);
     await runLanguageDetectionTests("google", testCases);
-  });
+  }, { timeout: testCases.length * 1000 });
 });

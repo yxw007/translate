@@ -73,7 +73,7 @@ English | [简体中文](./README_zh-CN.md)
   const { translator, engines }  = required("@yxw007/translate")
   ```
 
-- example
+- Translation examples
   ```typescript
   translator.addEngine(engines.google());
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
@@ -83,10 +83,21 @@ English | [简体中文](./README_zh-CN.md)
   console.log(res2);
   ```
 
-  输出结果
+  Output results
   ```bash
   ['你好']
   ["你好", "好的"]
+  ```
+- Language detection examples
+  ```typescript
+  translator.addEngine(engines.google());
+  const res1 = await translator.checkLanguage("hello", { engine:"google" });
+  console.log("en");
+
+  ```
+  Output results
+  ```bash
+  en
   ```
 
 ### Browser

@@ -76,7 +76,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
   const { translator, engines }  = required("@yxw007/translate")
   ```
 
-- example
+- 翻译例子
   ```typescript
   translator.addEngine(engines.google());
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
@@ -90,6 +90,17 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
   ```bash
   ['你好']
   ["你好", "好的"]
+  ```
+- 语言检测例子
+  ```typescript
+  translator.addEngine(engines.google());
+  const res1 = await translator.checkLanguage("hello", { engine:"google" });
+  console.log("en");
+  ```
+
+  输出结果
+  ```bash
+  en
   ```
 
 ### Browser

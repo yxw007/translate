@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.4.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.3.2...v0.4.0)
+
+### 🚀 Enhancements
+
+- Add language detection support for Baidu and Tencent engines ([ae60174](https://github.com/yxw007/translate/commit/ae60174))
+- Enhance translation error messages and add language detection for Azure ([657f79d](https://github.com/yxw007/translate/commit/657f79d))
+- Add language detection support for Amazon, DeepL, and Google engines ([c911fbc](https://github.com/yxw007/translate/commit/c911fbc))
+
+### 📖 Documentation
+
+- Update README and tests with language detection examples for various engines ([7fc64b2](https://github.com/yxw007/translate/commit/7fc64b2))
+
+### ✅ Tests
+
+- Increase timeout for language detection tests to improve reliability ([039536f](https://github.com/yxw007/translate/commit/039536f))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.3.2
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.3.1...v0.3.2)

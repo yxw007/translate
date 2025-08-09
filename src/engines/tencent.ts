@@ -150,7 +150,9 @@ export function tencent(options: TencentEngineOption): Engine {
     async checkLanguage<T extends Engines>(text: string): Promise<string> {
       checkOptions();
       const payloadObj = {
-        Text: text,
+        SourceText: text,
+        Source: "auto",
+        Target: "en",
         ProjectId: 0,
       };
       const payload = JSON.stringify(payloadObj);
@@ -162,7 +164,7 @@ export function tencent(options: TencentEngineOption): Engine {
         host,
         payload,
         httpRequestMethod: "POST",
-        action: "LanguageDetect",
+        action,
         apiVersion,
         region,
       });
@@ -181,10 +183,10 @@ export function tencent(options: TencentEngineOption): Engine {
         if (data.Response?.Error) {
           throw new CheckLanguageError(
             name,
-            `Tencent language detect fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15620 view details`
+            `Tencent language detect fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15619 view details`
           );
         }
-        const detectedLanguage = data.Response?.Lang;
+        const detectedLanguage = data.Response?.Source;
         if (!detectedLanguage) {
           throw new CheckLanguageError(name, "Language detect fail! No result returned");
         }

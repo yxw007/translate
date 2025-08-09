@@ -1,15 +1,6 @@
 import baidu from "./baidu";
-import tencent from "./tencent";
-import azure from "./azure";
-import amazon from "./amazon";
-import deepl from "./deepl";
-import google from "./google";
+import { originLanguages } from "../origin";
 
-export const checkLanguages = {
+export const checkLanguages = Object.assign(Object.assign({}, originLanguages), {
   baidu: baidu,
-  tencent: tencent,
-  azure: azure,
-  amazon: amazon,
-  deepl: deepl,
-  google: google,
-} as const;
+});

@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { translator, engines, OpenAIModel, TranslationError, checkLanguages } from "../src"
 import path from "path";
 import { fileURLToPath } from "url";
@@ -172,7 +172,7 @@ describe("translator", () => {
       region: "ap-shenzhen-fsi"
     }));
 
-    const res1 = await translator.translate("hello", { to: "Simplified Chinese", engine: "tencent", from: "en" });
+    const res1 = await translator.translate("hello", { to: "Simplified Chinese", engine: "tencent", from: "auto" });
     expect(res1).toEqual(["你好"]);
 
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Simplified Chinese", engine: "tencent" });

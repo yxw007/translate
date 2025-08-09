@@ -34,9 +34,7 @@ export const languageTexts: Record<string, string> = {
 	hu: "Barátom, mi a neved",
 	ro: "Cine ești",
 	bg: "Приятелю, как се казваш? Откъде си?",
-	hr: "Tko si ti",
-	sr: "Ko si ti",
-	uk: "Хто ти",
+	uk: "Як тебе звуть, мій друже? Звідки ти родом?",
 	el: "Ποιος είσαι",
-	ca: "Qui ets tu",
+	ca: "Hola, em dic Jordi i visc a Barcelona. Qui ets tu?",
 };

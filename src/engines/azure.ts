@@ -2,7 +2,7 @@
  * Azure translate documentation: https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/v3-0-translate
  */
 
-import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError } from "../types";
+import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, CheckLanguageError } from "../types";
 import { Engines } from "..";
 import { throwResponseError } from "@/utils";
 
@@ -69,9 +69,8 @@ export function azure(options: AzureEngineOption): Engine {
     },
     async checkLanguage<T extends Engines>(text: string): Promise<string> {
       checkOptions();
-      const detectUrl = "https://api.cognitive.microsofttranslator.com/detect?api-version=3.0";
-
-      const res: any = await fetch(detectUrl, {
+      const url = `${base}&to=en`;
+      const res: any = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -85,17 +84,23 @@ export function azure(options: AzureEngineOption): Engine {
         throw await throwResponseError(this.name, res);
       }
 
-      const response = await res.json();
-      if (!response || !Array.isArray(response) || response.length === 0) {
-        throw new TranslationError(this.name, "Check language fail! No result returned");
+      const bodyRes = await (res as any).json();
+      if (bodyRes.error) {
+        throw new CheckLanguageError(
+          this.name,
+          `checkLanguage fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`
+        );
+      }
+      if (!bodyRes || !Array.isArray(bodyRes) || bodyRes.length === 0) {
+        throw new CheckLanguageError(this.name, "Check language fail! No result returned");
       }
 
-      const detection = response[0];
-      if (!detection.language) {
-        throw new TranslationError(this.name, "Check language fail! Language not detected");
+      const detectedLanguage = bodyRes[0]?.detectedLanguage?.language;
+      if (!detectedLanguage) {
+        throw new CheckLanguageError(this.name, "Check language fail! Language not detected");
       }
 
-      return detection.language;
+      return detectedLanguage;
     },
   };
 }

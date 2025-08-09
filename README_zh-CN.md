@@ -95,7 +95,7 @@ Translate 是一个支持多翻译引擎的翻译工具库，它提供了一套�
   ```typescript
   translator.addEngine(engines.google());
   const res1 = await translator.checkLanguage("hello", { engine:"google" });
-  console.log("en");
+  console.log(res1);
   ```
 
   输出结果
@@ -376,6 +376,9 @@ export interface TencentEngineOption extends BaseEngineOption {
       const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
       return {
         name: "xx",
+        async checkLanguage<T extends Engines>(text: string): Promise<string> {
+          //TODO: 可以用translate来实现，这样的话就复用target语言配置
+        },
         async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
           const { from, to } = opts;
           if (!Array.isArray(text)) {

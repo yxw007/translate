@@ -92,7 +92,7 @@ English | [简体中文](./README_zh-CN.md)
   ```typescript
   translator.addEngine(engines.google());
   const res1 = await translator.checkLanguage("hello", { engine:"google" });
-  console.log("en");
+  console.log(res1);
 
   ```
   Output results
@@ -374,6 +374,9 @@ export interface TencentEngineOption extends BaseEngineOption {
       const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
       return {
         name: "yandex",
+         async checkLanguage<T extends Engines>(text: string): Promise<string> {
+          //TODO: This can be done with translate, in which case the target language configuration is reused.
+        },
         async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
           const { from, to } = opts;
           if (!Array.isArray(text)) {

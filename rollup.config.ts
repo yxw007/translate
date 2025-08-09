@@ -11,12 +11,22 @@ import { fileURLToPath } from "url";
 import pkg from "./package.json";
 import maxmin from "maxmin";
 import chalk from "chalk";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
 const pkgName = pkg.name;
 const libName = pkgName.split("/").pop();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const namedInput = "src/index.ts";
 const external = Object.keys(pkg.peerDependencies || {});
+
+const argv = yargs(hideBin(process.argv)).option('dev', {
+	type: 'boolean',
+	description: 'Build in development mode',
+	default: false
+}).argv;
+const isDev = argv.dev ?? false;
+const isRelease = !isDev;
 
 function bundleSize() {
 	return {
@@ -85,18 +95,18 @@ export default defineConfig(() => {
 		//Node.js ESM Bundle 
 		...buildConfig({
 			browser: false,
-			minifiedVersion: false,
+			minifiedVersion: isRelease,
 			output: {
 				file: "dist/node/index.js",
 				format: "esm",
-				sourcemap: true,
+				sourcemap: isDev,
 				banner,
 				inlineDynamicImports: true,
 			},
 			plugins: [
 				typescript({
 					tsconfig: "./tsconfig.json",
-					sourceMap: true,
+					sourceMap: isDev,
 				})
 			]
 		}),
@@ -104,18 +114,18 @@ export default defineConfig(() => {
 		//Node.js CJS Bundle 
 		...buildConfig({
 			browser: false,
-			minifiedVersion: false,
+			minifiedVersion: isRelease,
 			output: {
 				file: "dist/node/index.cjs",
 				format: "cjs",
-				sourcemap: true,
+				sourcemap: isDev,
 				banner,
 				inlineDynamicImports: true,
 			},
 			plugins: [
 				typescript({
 					tsconfig: "./tsconfig.json",
-					sourceMap: true,
+					sourceMap: isDev,
 				})
 			]
 		}),
@@ -123,19 +133,20 @@ export default defineConfig(() => {
 		//Browser umd Bundle
 		...buildConfig({
 			browser: true,
+			minifiedVersion: isRelease,
 			output:
 			{
 				file: "dist/browser/index.umd.js",
 				format: "umd",
 				name: libName,
-				sourcemap: true,
+				sourcemap: isDev,
 				banner,
 				inlineDynamicImports: true,
 			},
 			plugins: [
 				typescript({
 					tsconfig: "./tsconfig.json",
-					sourceMap: true,
+					sourceMap: isDev,
 				})
 			]
 		}),
@@ -143,19 +154,20 @@ export default defineConfig(() => {
 		//Browser ESM Bundle
 		...buildConfig({
 			browser: true,
+			minifiedVersion: isRelease,
 			output:
 			{
 				file: "dist/browser/index.esm.js",
 				format: "esm",
 				name: libName,
-				sourcemap: true,
+				sourcemap: isDev,
 				banner,
 				inlineDynamicImports: true,
 			},
 			plugins: [
 				typescript({
 					tsconfig: "./tsconfig.json",
-					sourceMap: true,
+					sourceMap: isDev,
 				})
 			]
 		}),
@@ -163,19 +175,20 @@ export default defineConfig(() => {
 		//Browser CJS Bundle
 		...buildConfig({
 			browser: true,
+			minifiedVersion: isRelease,
 			output:
 			{
 				file: "dist/browser/index.cjs",
 				format: "cjs",
 				name: libName,
-				sourcemap: true,
+				sourcemap: isDev,
 				banner,
 				inlineDynamicImports: true,
 			},
 			plugins: [
 				typescript({
 					tsconfig: "./tsconfig.json",
-					sourceMap: true,
+					sourceMap: isDev,
 				})
 			]
 		}),
@@ -188,7 +201,7 @@ export default defineConfig(() => {
 			{
 				file: "dist/index.d.ts",
 				format: "esm",
-				sourcemap: true,
+				sourcemap: isDev,
 			},
 			plugins: [
 				dts(),

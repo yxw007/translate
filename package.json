@@ -18,6 +18,7 @@
     "lint": "eslint . && prettier -c src",
     "lint:fix": "eslint . --fix && prettier -w src",
     "build": "pnpm clean && tsx script/build.ts",
+    "build:dev": "pnpm clean && tsx script/build.ts --dev",
     "clean": "rm -rf dist",
     "test": "vitest --run",
     "test:coverage": "vitest --coverage --run",
@@ -107,7 +108,8 @@
     "tsx": "^4.19.2",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.3.0",
-    "vitest": "^2.0.5"
+    "vitest": "^2.0.5",
+    "yargs": "^18.0.0"
   },
   "volta": {
     "node": "22.3.0"

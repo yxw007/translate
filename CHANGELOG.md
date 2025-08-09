@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.4.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.4.0...v0.4.1)
+
+### 💅 Refactors
+
+- CheckLanguage is implemented as a translate at the bottom to simplify maintenance ([263378a](https://github.com/yxw007/translate/commit/263378a))
+
+### 📦 Build
+
+- Compress and package the release bundle to remove the sourcemap generation ([6496656](https://github.com/yxw007/translate/commit/6496656))
+
+### ❤️ Contributors
+
+- Potter <75838259@qq.com>
+
 ## v0.4.0
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.3.2...v0.4.0)

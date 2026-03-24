@@ -53,7 +53,7 @@ English | [简体中文](./README_zh-CN.md)
   yarn add @yxw007/translate
   ```
 
-- pnpm 
+- pnpm
 
   ```bash
   pnpm i @yxw007/translate
@@ -75,7 +75,7 @@ English | [简体中文](./README_zh-CN.md)
 
 - Translation examples
   ```typescript
-  translator.addEngine(engines.google());
+  translator.addEngine(engines.google);
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
   console.log(res1);
 
@@ -90,7 +90,7 @@ English | [简体中文](./README_zh-CN.md)
   ```
 - Language detection examples
   ```typescript
-  translator.addEngine(engines.google());
+  translator.addEngine(engines.google);
   const res1 = await translator.checkLanguage("hello", { engine:"google" });
   console.log(res1);
 
@@ -102,13 +102,13 @@ English | [简体中文](./README_zh-CN.md)
 
 ### Browser
 
-use jsDelivr CDN 
+use jsDelivr CDN
 
 - `development`
   ```html
   <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   ```
-  
+
 - `production`
 
   ```html
@@ -130,7 +130,7 @@ use jsDelivr CDN
     <script>
       (async () => {
         const { engines, translator } = translate;
-        translator.addEngine(engines.google());
+        translator.addEngine(engines.google);
         const res = await translator.translate("hello", { from: "en", to: "zh" });
         console.log(res);
       })();
@@ -142,7 +142,7 @@ use jsDelivr CDN
   ```
 
 
-## 📚 API 
+## 📚 API
 
 ### Translator
 
@@ -166,6 +166,12 @@ class Translator {
   removeEngine(engineName: string) {
    ...
   }
+  getFromLanguages(engineName: string) {
+   ...
+  }
+  getToLanguages(engineName: string) {
+   ...
+  }
   translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
     ...
   }
@@ -179,7 +185,11 @@ Add a translation engine to transitorion engine to translator
 ```typescript
 type Engine = {
   name: string;
-  translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>) {
+  getFromLanguages(): Record<string, string>;
+  getToLanguages(): Record<string, string>;
+  normalFromLanguage(language?: string): string;
+  normalToLanguage(language?: string): string;
+  translate(text: string | string[], options: EngineTranslateOptions) {
 };
 ```
 
@@ -189,6 +199,15 @@ You can pass a text or pass a text array, which will return a translated ```Prom
 
 ```typescript
 translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>)
+```
+
+#### `getFromLanguages` / `getToLanguages`
+
+Read the language list for the specified engine.
+
+```typescript
+translator.getFromLanguages("google")
+translator.getToLanguages("google")
 ```
 
 #### TranslateOptions
@@ -209,17 +228,60 @@ export interface TranslateOptions {
 }
 ```
 
-> Note: To learn more about the support of each engine language, go to the following directory to view the corresponding configurations
-
-- from: [https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts](https://github.com/yxw007/translate/blob/master/src/language/origin/index.ts)
-- to: [https://github.com/yxw007/translate/blob/master/src/language/target/index.ts](https://github.com/yxw007/translate/blob/master/src/language/target/index.ts)
+> Note: Each engine now maintains its own `from`/`to` language configuration. You can inspect the engine-scoped configuration under `src/language/engines/*`.
 
 ### Each translation of Engine's Option
 
 #### BaseEngineOption
 
 ```typescript
-interface BaseEngineOption {}
+interface BaseEngineOption {
+  fromLanguages?: Record<string, string>;
+  toLanguages?: Record<string, string>;
+}
+```
+
+> `fromLanguages` / `toLanguages` are only initialization options for engine factories that need custom language tables. They are not exposed as public fields on the engine instance.
+
+#### Custom Engine
+
+```typescript
+import { Translator, type Engine } from "@yxw007/translate";
+
+const translator = new Translator();
+
+const fromLanguages = { Auto: "auto", English: "en" };
+const toLanguages = { Chinese: "zh", Japanese: "ja" };
+
+const customEngine: Engine = {
+  name: "custom",
+  getFromLanguages() {
+    return fromLanguages;
+  },
+  getToLanguages() {
+    return toLanguages;
+  },
+  normalFromLanguage(language) {
+    if (!language || language === "auto") return "auto";
+    return fromLanguages[language as keyof typeof fromLanguages] ?? "";
+  },
+  normalToLanguage(language) {
+    if (!language) return "";
+    return toLanguages[language as keyof typeof toLanguages] ?? "";
+  },
+  async translate(text, options) {
+    const list = Array.isArray(text) ? text : [text];
+    return list.map((item) => `[${options.from}->${options.to}] ${item}`);
+  },
+};
+
+translator.addEngine(customEngine);
+```
+
+Built-in engines are directly referenced:
+
+```typescript
+translator.addEngine(engines.google);
 ```
 
 #### AzureEngineOption
@@ -250,7 +312,7 @@ interface AmazonEngineOption extends BaseEngineOption{
 
 - Related document：https://docs.aws.amazon.com/translate/latest/dg/what-is.html
 - Related library：https://www.npmjs.com/package/@aws-sdk/client-translate
- 
+
 #### BaiduEngineOption
 
 ```typescript
@@ -328,7 +390,7 @@ export interface TencentEngineOption extends BaseEngineOption {
 }
 ```
 
-> Description: Option Param Please obtain it from the corresponding platform. 
+> Description: Option Param Please obtain it from the corresponding platform.
 - Related documentation：https://console.cloud.tencent.com/cam/capi
 
 - Region Configuration table
@@ -396,7 +458,7 @@ export interface TencentEngineOption extends BaseEngineOption {
     }
     ```
   - Add the plugin to Engines(Location:```/src/engines/index.ts```)
-  
+
     ```typescript
     import { xx } from "./xx";
     export const engines = {
@@ -410,14 +472,14 @@ export interface TencentEngineOption extends BaseEngineOption {
     } as const;
     ```
   - Add the origin language configuration supported by the engine
- 
+
     ```typescript
     //Note: If the origin and target languages are the same, you can directly use the target language to configure them, otherwise please configure them separately
-    //src/language/origin/index.ts  
+    //src/language/origin/index.ts
     import azure from "../target/azure";
     ...
     import xxx from "../target/xxx"
-    
+
     export const originLanguages = {
       azure: azure,
       ...
@@ -439,9 +501,9 @@ export interface TencentEngineOption extends BaseEngineOption {
     ```
 
   - Add the target language that is supported by the engine
- 
+
     ```typescript
-    //src/language/target/index.ts  
+    //src/language/target/index.ts
     import azure from "./azure";
     ...
     import xxx from "./amazon";

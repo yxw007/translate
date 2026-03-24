@@ -1,7 +1,7 @@
 import { engines } from "./engines";
 import { Engine, TranslateOptions, Engines, TranslationError, CheckLanguageOptions, CheckLanguageError } from "./types";
 import { useLogger, Cache, getGapLine, getErrorMessages, splitText, isOverMaxCharacterNum, sleep } from "./utils";
-import { FromLanguage, getLanguage, normalFromLanguage, normalToLanguage, ToLanguage } from "./language";
+import { getLanguage } from "./language";
 import { appName, defaultMaxCharacterNum } from "./utils/constant";
 export * from "./types";
 export * from "./language";
@@ -51,6 +51,23 @@ class Translator {
       return false;
     }
     this.engines.delete(engineName);
+    return true;
+  }
+  getFromLanguages(engineName: string) {
+    const engine = this.engines.get(engineName);
+    if (!engine) {
+      logger.warn(`Engine ${engineName} not found`);
+      return {};
+    }
+    return engine.getFromLanguages();
+  }
+  getToLanguages(engineName: string) {
+    const engine = this.engines.get(engineName);
+    if (!engine) {
+      logger.warn(`Engine ${engineName} not found`);
+      return {};
+    }
+    return engine.getToLanguages();
   }
   isSupportCheckLanguage(engineName: string): boolean {
     if (!engineName || !this.engines.has(engineName)) {
@@ -64,7 +81,7 @@ class Translator {
     }
     return !!engine.checkLanguage;
   }
-  async checkLanguage<T extends Engines>(text: string, options: CheckLanguageOptions<T>): Promise<string> {
+  async checkLanguage<T extends string = Engines>(text: string, options: CheckLanguageOptions<T>): Promise<string> {
     const { engine = "google", max_character_num = defaultMaxCharacterNum } = options;
     if (!this.engines.has(engine)) {
       throw new CheckLanguageError(appName, `Engine ${engine} not found`);
@@ -92,11 +109,9 @@ class Translator {
         throw e;
       });
   }
-  async translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>): Promise<string[]> {
+  async translate<T extends string = Engines>(text: string | string[], options: TranslateOptions<T>): Promise<string[]> {
     const { engine = "google", cache_time = 60 * 1000 } = options;
-    let { from = "auto", to } = options;
-    from = options.from = normalFromLanguage(from, engine) as FromLanguage<T>;
-    to = options.to = normalToLanguage(to, engine) as ToLanguage<T>;
+    const { from = "auto", to } = options;
 
     //1. Check if engine exists
     if (!this.engines.has(engine)) {
@@ -108,27 +123,37 @@ class Translator {
       throw new TranslationError(appName, `Engine ${engine} is null`);
     }
 
-    if (!from) {
+    const normalizedFrom = engineInstance.normalFromLanguage(from);
+    const normalizedTo = engineInstance.normalToLanguage(to);
+
+    const normalizedOptions: TranslateOptions<string> = {
+      ...options,
+      engine,
+      from: normalizedFrom,
+      to: normalizedTo,
+    };
+
+    if (!normalizedFrom) {
       throw new TranslationError(appName, `Invalid origin language ${from as string}`);
     }
-    if (!to) {
+    if (!normalizedTo) {
       throw new TranslationError(appName, `Invalid target language ${to as string}`);
     }
 
-    const key = `${from as string}:${to as string}:${engine}:${text}`;
+    const key = `${normalizedFrom}:${normalizedTo}:${engine}:${text}`;
     //3. If the cache is matched, the cache is used directly
     if (cache.get(key)) {
       return Promise.resolve(cache.get(key)?.value as string[]);
     }
 
-    return this.concurrencyHandle(engineInstance, text, options)
+    return this.concurrencyHandle(engineInstance, text, normalizedOptions)
       .then((translated) => {
         cache.set(key, translated, cache_time ?? this.cache_time);
         return translated;
       })
       .catch((e) => {
         logger.error(
-          `${appName} Failed: from=${from},to=${to},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
+          `${appName} Failed: from=${normalizedFrom},to=${normalizedTo},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
         );
         if (e instanceof TranslationError) {
           throw e;
@@ -137,7 +162,7 @@ class Translator {
         }
       });
   }
-  private async concurrencyHandle<T extends Engines>(
+  private async concurrencyHandle<T extends string = Engines>(
     engine: Engine,
     text: string | string[],
     options: TranslateOptions<T>
@@ -156,7 +181,7 @@ class Translator {
       return this.concurrencyTranslate(engine, text, options, maxCharacterNum);
     }
   }
-  private async concurrencyTranslate<T extends Engines>(
+  private async concurrencyTranslate<T extends string = Engines>(
     engine: Engine,
     text: string,
     options: TranslateOptions<T>,
@@ -206,6 +231,7 @@ class Translator {
 }
 
 const translator = new Translator();
+translator.addEngine(engines.google);
 
 export default {
   engines,

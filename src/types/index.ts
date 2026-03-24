@@ -1,9 +1,14 @@
-import { engines } from "../engines";
-import type { FromLanguage, ToLanguage } from "../language";
+import type { BuiltinEngineLanguageMap, BuiltinFromLanguageMap, BuiltinToLanguageMap } from "../language/engines";
 export * from "./typescript";
-export type Engines = keyof typeof engines;
+export type Engines = keyof BuiltinEngineLanguageMap;
 
-export type TranslateOptions<T extends Engines> = {
+export type LanguageMap = Readonly<Record<string, string>>;
+export type LanguageName<T extends LanguageMap = LanguageMap> = Extract<keyof T, string>;
+export type LanguageCode<T extends LanguageMap = LanguageMap> = T[LanguageName<T>];
+export type FromLanguage<T extends string = Engines> = T extends Engines ? BuiltinFromLanguageMap[T] : string;
+export type ToLanguage<T extends string = Engines> = T extends Engines ? BuiltinToLanguageMap[T] : string;
+
+export type TranslateOptions<T extends string = Engines> = {
   from?: FromLanguage<T>;
   to: ToLanguage<T>;
   engine?: T;
@@ -22,16 +27,23 @@ export type TranslateOptions<T extends Engines> = {
   max_character_num?: number | undefined;
 };
 
-export type CheckLanguageOptions<T extends Engines> = Pick<TranslateOptions<T>, "max_character_num" | "engine">;
+export type CheckLanguageOptions<T extends string = Engines> = Pick<TranslateOptions<T>, "max_character_num" | "engine">;
 
-export interface BaseEngineOption {}
+export interface BaseEngineOption {
+  fromLanguages?: LanguageMap;
+  toLanguages?: LanguageMap;
+}
 
-export type EngineTranslateOptions<T extends Engines> = Omit<TranslateOptions<T>, "engine">;
+export type EngineTranslateOptions<T extends string = string> = Omit<TranslateOptions<T>, "engine">;
 
 export type Engine = {
   name: string;
-  checkLanguage?: <T extends Engines>(text: string) => Promise<string>;
-  translate: <T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) => Promise<string[]>;
+  getFromLanguages: () => LanguageMap;
+  getToLanguages: () => LanguageMap;
+  normalFromLanguage: (language?: string) => string;
+  normalToLanguage: (language?: string) => string;
+  checkLanguage?: (text: string) => Promise<string>;
+  translate: (text: string | string[], opts: EngineTranslateOptions) => Promise<string[]>;
 };
 
 export interface CacheRecord {
@@ -45,7 +57,8 @@ export class TranslationError extends Error {
   constructor(region: string, message: string) {
     super(message);
     this.region = region;
-    Error.captureStackTrace(this, this.constructor);
+    this.name = "TranslationError";
+    Error.captureStackTrace?.(this, this.constructor);
   }
 }
 
@@ -54,11 +67,10 @@ export class CheckLanguageError extends Error {
   constructor(region: string, message: string) {
     super(message);
     this.region = region;
-    Error.captureStackTrace(this, this.constructor);
+    this.name = "CheckLanguageError";
+    Error.captureStackTrace?.(this, this.constructor);
   }
 }
-
-export { FromLanguage, ToLanguage };
 
 export const OPEN_AI_MODELS = [
   "o1-preview",

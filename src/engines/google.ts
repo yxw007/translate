@@ -1,12 +1,28 @@
 import { BaseEngineOption, CheckLanguageError, Engine, EngineTranslateOptions, TranslationError } from "../types";
-import { Engines } from "..";
 import { throwResponseError } from "@/utils";
+import googleLanguages from "../language/engines/google";
+import { normalizeEngineLanguage } from "./helper";
 
 export function google(options?: BaseEngineOption): Engine {
   const base = "https://translate.googleapis.com/translate_a/single";
+  const fromLanguages = options?.fromLanguages ?? googleLanguages.from;
+  const toLanguages = options?.toLanguages ?? googleLanguages.to;
+
   return {
     name: "google",
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       const { from = "auto", to } = opts;
       if (!Array.isArray(text)) {
         text = [text];
@@ -31,7 +47,7 @@ export function google(options?: BaseEngineOption): Engine {
       }
       return translations;
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       const url = `${base}?client=gtx&sl=auto&tl=en&dt=t&q=${encodeURI(text)}`;
 
       const res: any = await fetch(url);
@@ -53,3 +69,5 @@ export function google(options?: BaseEngineOption): Engine {
     },
   };
 }
+
+export default google;

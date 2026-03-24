@@ -1,13 +1,14 @@
 import { Engine, BaseEngineOption, EngineTranslateOptions, TranslationError } from "../types";
-import { Engines } from "..";
 import { throwResponseError } from "@/utils";
+import openaiLanguages from "../language/engines/openai";
+import { normalizeEngineLanguage } from "./helper";
 
 export interface YandexEngineOption extends BaseEngineOption {
   key: string;
 }
 
 export function yandex(options: YandexEngineOption): Engine {
-  const { key } = options;
+  const { key, fromLanguages = openaiLanguages.from, toLanguages = openaiLanguages.to } = options;
   const name = "yandex";
   const checkOptions = () => {
     if (!key) {
@@ -19,7 +20,19 @@ export function yandex(options: YandexEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       checkOptions();
       const { from, to } = opts;
       if (!Array.isArray(text)) {

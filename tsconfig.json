@@ -5,6 +5,10 @@
 		"moduleResolution": "Node",
 		"lib": [
 			"ESNext",
+			"DOM"
+		],
+		"types": [
+			"node"
 		],
 		"resolveJsonModule": true,
 		"outDir": "./dist",

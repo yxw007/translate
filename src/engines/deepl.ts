@@ -1,9 +1,12 @@
 import { CheckLanguageError, EngineTranslateOptions, TranslationError } from "@/types";
-import { Engines } from "..";
 import { throwResponseError } from "@/utils";
+import deeplLanguages from "../language/engines/deepl";
+import { normalizeEngineLanguage } from "./helper";
 
 export interface DeeplEngineOption {
   key: string;
+  fromLanguages?: typeof deeplLanguages.from;
+  toLanguages?: typeof deeplLanguages.to;
 }
 
 interface Translation {
@@ -12,7 +15,7 @@ interface Translation {
 }
 
 export function deepl(options: DeeplEngineOption) {
-  const { key } = options;
+  const { key, fromLanguages = deeplLanguages.from, toLanguages = deeplLanguages.to } = options;
   const name = "deepl";
   const checkOptions = () => {
     if (!key) {
@@ -24,7 +27,19 @@ export function deepl(options: DeeplEngineOption) {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions) {
       checkOptions();
       const { to, from } = opts;
       if (!Array.isArray(text)) {
@@ -59,7 +74,7 @@ export function deepl(options: DeeplEngineOption) {
       const translations: string[] = body.map((t) => t.text);
       return translations;
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       checkOptions();
 
       const res: any = await fetch(url, {

@@ -1,6 +1,7 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, CheckLanguageError } from "../types";
-import { Engines } from "..";
 import crypto from "crypto";
+import tencentLanguages from "../language/engines/tencent";
+import { normalizeEngineLanguage } from "./helper";
 
 export interface TencentEngineOption extends BaseEngineOption {
   secretId: string;
@@ -80,7 +81,13 @@ function buildAuthorization({ secretId, secretKey, service, host, payload, httpR
 }
 
 export function tencent(options: TencentEngineOption): Engine {
-  const { secretId, secretKey, region = "ap-guangzhou" } = options;
+  const {
+    secretId,
+    secretKey,
+    region = "ap-guangzhou",
+    fromLanguages = tencentLanguages.from,
+    toLanguages = tencentLanguages.to,
+  } = options;
   const name = "tencent";
   const host = "tmt.tencentcloudapi.com";
   const endpoint = `https://${host}/`;
@@ -96,7 +103,19 @@ export function tencent(options: TencentEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       checkOptions();
       const { from = "auto", to } = opts;
       const source = from === "auto" ? "auto" : from;
@@ -147,7 +166,7 @@ export function tencent(options: TencentEngineOption): Engine {
         throw new TranslationError(name, `Translation failed: ${error}`);
       }
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       checkOptions();
       const payloadObj = {
         SourceText: text,

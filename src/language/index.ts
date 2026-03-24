@@ -1,68 +1,51 @@
-import { originLanguages, originLanguageMapNames, originLanguageMapValues } from "./origin";
-import { targetLanguages, targetLanguageMapNames, targetLanguageMapValues } from "./target";
-import { Engines } from "..";
+import type { Engine, Engines, FromLanguage, LanguageMap, ToLanguage } from "../types";
+import { builtinEngineLanguages, type BuiltinEngineLanguageMap } from "./engines";
 export * from "./check";
 
-export type KeysOfTarget<T extends keyof targetLanguageMapNames> = targetLanguageMapNames[T];
-export type KeysOfOrigin<T extends keyof originLanguageMapNames> = originLanguageMapNames[T];
+function normalizeLanguage(language: string | undefined, languages: LanguageMap, allowAuto = false) {
+  if (!language) {
+    return allowAuto ? "auto" : "";
+  }
 
-export type FromLanguage<T extends Engines> = KeysOfOrigin<T> | originLanguageMapValues[T] | "auto";
-export type ToLanguage<T extends Engines> = KeysOfTarget<T> | targetLanguageMapValues[T];
-
-export function normalFromLanguage<T extends Engines>(from: FromLanguage<T>, engine: Engines) {
-  if (from === "auto") {
+  if (allowAuto && language === "auto") {
     return "auto";
   }
 
-  const engineLanguages = originLanguages[engine];
-  if (!engineLanguages) {
-    throw new Error(`Engine ${engine} not found`);
+  const entries = Object.entries(languages) as Array<[string, string]>;
+  const matchedByKey = entries.find(([name]) => name.toLowerCase() === language.toLowerCase());
+  if (matchedByKey) {
+    return matchedByKey[1];
   }
 
-  const keys = Object.keys(originLanguages[engine]);
-  if (keys.includes(from)) {
-    return engineLanguages[from as keyof typeof engineLanguages];
+  const matchedByValue = entries.find(([, value]) => value.toLowerCase() === language.toLowerCase());
+  if (matchedByValue) {
+    return matchedByValue[1];
   }
 
-  const values = Object.values(originLanguages[engine]) as string[];
-  if (values.includes(from)) {
-    return from;
-  }
-
-  throw new Error(`Invalid from language ${engine} ${from}`);
+  return "";
 }
 
-export function normalToLanguage<T extends Engines>(to: ToLanguage<T>, engine: Engines) {
-  const engineLanguages = targetLanguages[engine];
-  if (!engineLanguages) {
-    throw new Error(`Engine ${engine} not found`);
+function resolveLanguageSource(engine: Engines | Engine) {
+  if (typeof engine === "string") {
+    const languages = builtinEngineLanguages[engine] as BuiltinEngineLanguageMap[Engines] | undefined;
+    if (!languages) {
+      throw new Error(`Engine ${engine} not found`);
+    }
+    return languages;
   }
 
-  const keys = Object.keys(targetLanguages[engine]);
-  if (keys.includes(to)) {
-    return engineLanguages[to as keyof typeof engineLanguages];
-  }
-
-  const values = Object.values(targetLanguages[engine]) as string[];
-  if (values.includes(to)) {
-    return to;
-  }
-
-  throw new Error(`Invalid to language ${engine} ${to}`);
-}
-
-export function getLanguage(engine: Engines) {
   return {
-    from: originLanguages[engine],
-    to: targetLanguages[engine],
+    from: engine.getFromLanguages(),
+    to: engine.getToLanguages(),
   };
 }
 
-export {
-  originLanguages,
-  originLanguageMapNames,
-  originLanguageMapValues,
-  targetLanguages,
-  targetLanguageMapNames,
-  targetLanguageMapValues,
-};
+export function getLanguage<T extends Engines>(engine: T): BuiltinEngineLanguageMap[T];
+export function getLanguage(engine: Engine): { from: LanguageMap; to: LanguageMap };
+export function getLanguage(engine: Engines | Engine) {
+  const languages = resolveLanguageSource(engine);
+  return {
+    from: languages.from,
+    to: languages.to,
+  };
+}

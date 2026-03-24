@@ -3,8 +3,9 @@
  */
 
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, CheckLanguageError } from "../types";
-import { Engines } from "..";
 import { throwResponseError } from "@/utils";
+import azureLanguages from "../language/engines/azure";
+import { normalizeEngineLanguage } from "./helper";
 
 interface Translation {
   translations: Array<{ text: string; to: string; from: string }>;
@@ -16,7 +17,7 @@ export interface AzureEngineOption extends BaseEngineOption {
 }
 
 export function azure(options: AzureEngineOption): Engine {
-  const { key, region } = options;
+  const { key, region, fromLanguages = azureLanguages.from, toLanguages = azureLanguages.to } = options;
   const name = "azure";
   const checkOptions = () => {
     if (!key || !region) {
@@ -28,7 +29,19 @@ export function azure(options: AzureEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       checkOptions();
       const { from, to } = opts;
       const url = `${base}&to=${to}${from && from !== "auto" ? `&from=${from}` : ""}`;
@@ -67,7 +80,7 @@ export function azure(options: AzureEngineOption): Engine {
       }
       return translations;
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       checkOptions();
       const url = `${base}&to=en`;
       const res: any = await fetch(url, {

@@ -1,6 +1,7 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, OpenAIModel, OPEN_AI_MODELS } from "../types";
-import { Engines } from "..";
 import { throwResponseError, useLogger } from "@/utils";
+import openaiLanguages from "../language/engines/openai";
+import { normalizeEngineLanguage } from "./helper";
 
 export interface OpenAIEngineOption extends BaseEngineOption {
   apiKey: string;
@@ -12,7 +13,14 @@ export interface OpenAIEngineOption extends BaseEngineOption {
 const logger = useLogger("openai");
 
 export function openai(options: OpenAIEngineOption): Engine {
-  const { apiKey, model, maxTokens = 2000, outputLog = false } = options;
+  const {
+    apiKey,
+    model,
+    maxTokens = 2000,
+    outputLog = false,
+    fromLanguages = openaiLanguages.from,
+    toLanguages = openaiLanguages.to,
+  } = options;
 
   const name = "openai";
   const checkOptions = () => {
@@ -28,7 +36,19 @@ export function openai(options: OpenAIEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>): Promise<string[]> {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions): Promise<string[]> {
       checkOptions();
       const { from, to } = opts;
       const url = `${base}`;
@@ -50,7 +70,7 @@ export function openai(options: OpenAIEngineOption): Engine {
           2.-$s$-和-$e$-这2个标记不要返回，只是用来标记翻译的起始和结束位置
 
           -$s$-
-          ${text.join("\n")} 
+          ${text.join("\n")}
           -$e$-
           `,
       };

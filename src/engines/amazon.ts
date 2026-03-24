@@ -1,15 +1,16 @@
-import { Engine, EngineTranslateOptions, TranslationError } from "../types";
+import { BaseEngineOption, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import { TranslateClient, TranslateTextCommand, TranslateTextResponse } from "@aws-sdk/client-translate";
-import { Engines } from "..";
+import amazonLanguages from "../language/engines/amazon";
+import { normalizeEngineLanguage } from "./helper";
 
-export interface AmazonEngineOption {
+export interface AmazonEngineOption extends BaseEngineOption {
   region: string;
   accessKeyId: string;
   secretAccessKey: string;
 }
 
 export function amazon(options: AmazonEngineOption): Engine {
-  const { region, accessKeyId, secretAccessKey } = options;
+  const { region, accessKeyId, secretAccessKey, fromLanguages = amazonLanguages.from, toLanguages = amazonLanguages.to } = options;
   const name = "amazon";
   const checkOptions = () => {
     if (!region || !accessKeyId || !secretAccessKey) {
@@ -21,7 +22,19 @@ export function amazon(options: AmazonEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions) {
       checkOptions();
       const { from = "auto", to } = opts;
       const translateClient = new TranslateClient({ region: region, credentials: { accessKeyId, secretAccessKey } });
@@ -42,7 +55,7 @@ export function amazon(options: AmazonEngineOption): Engine {
       }
       return translations;
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       checkOptions();
       const translateClient = new TranslateClient({
         region: region,

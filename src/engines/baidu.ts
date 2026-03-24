@@ -1,7 +1,8 @@
 import { BaseEngineOption, CheckLanguageError, Engine, EngineTranslateOptions, TranslationError } from "../types";
 import md5 from "crypto-js/md5";
-import { Engines } from "..";
 import { throwResponseError } from "@/utils";
+import baiduLanguages from "../language/engines/baidu";
+import { normalizeEngineLanguage } from "./helper";
 
 export interface BaiduEngineOption extends BaseEngineOption {
   appId: string;
@@ -9,7 +10,7 @@ export interface BaiduEngineOption extends BaseEngineOption {
 }
 
 export function baidu(options: BaiduEngineOption): Engine {
-  const { appId, secretKey } = options;
+  const { appId, secretKey, fromLanguages = baiduLanguages.from, toLanguages = baiduLanguages.to } = options;
   const url = "https://fanyi-api.baidu.com/api/trans/vip/fieldtranslate";
   const name = "baidu";
   const checkOptions = () => {
@@ -21,7 +22,19 @@ export function baidu(options: BaiduEngineOption): Engine {
 
   return {
     name,
-    async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
+    getFromLanguages() {
+      return fromLanguages;
+    },
+    getToLanguages() {
+      return toLanguages;
+    },
+    normalFromLanguage(language?: string) {
+      return normalizeEngineLanguage(language, fromLanguages, true);
+    },
+    normalToLanguage(language?: string) {
+      return normalizeEngineLanguage(language, toLanguages);
+    },
+    async translate(text: string | string[], opts: EngineTranslateOptions) {
       checkOptions();
       const { to, from = "auto", domain = "it" } = opts;
       if (!Array.isArray(text)) {
@@ -67,7 +80,7 @@ export function baidu(options: BaiduEngineOption): Engine {
 
       return translations;
     },
-    async checkLanguage<T extends Engines>(text: string): Promise<string> {
+    async checkLanguage(text: string): Promise<string> {
       checkOptions();
       const salt = Date.now();
       const sign = md5(`${appId}${text}${salt}${secretKey}`).toString();

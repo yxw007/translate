@@ -28,7 +28,7 @@ async function runLanguageDetectionTests(engine: string, testCases: ReturnType<t
 
 describe("translator", () => {
   it.concurrent("google translate", async () => {
-    translator.addEngine(engines.google());
+    translator.addEngine(engines.google);
 
     const res1 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
     expect(res1).toEqual(["你好"]);
@@ -139,7 +139,7 @@ describe("translator", () => {
     try {
       await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     } catch (error) {
-      expect(error.message).toEqual("Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
+      expect((error as Error).message).toEqual("Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
     }
   });
 
@@ -243,7 +243,7 @@ describe("deepl checkLanguage for common languages", () => {
 });
 
 describe("google checkLanguage for common languages", () => {
-  translator.addEngine(engines.google());
+  translator.addEngine(engines.google);
   const testCases = generateTestCases(checkLanguages["google"]);
   it("should detect all supported languages", async () => {
     await runLanguageDetectionTests("google", testCases);

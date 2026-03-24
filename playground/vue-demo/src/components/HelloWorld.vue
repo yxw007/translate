@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Translator, getLanguage, engines, FromLanguage, ToLanguage } from "@yxw007/translate"
+import { Translator, getLanguage, engines } from "@yxw007/translate"
 
 defineProps<{ msg: string }>()
 
-const { from, to } = getLanguage("google");
-Object.assign(from, { "auto": "auto" });
+const { from, to } = getLanguage(engines.google);
 
 const translator = new Translator();
-translator.use(engines.google());
+translator.use(engines.google);
 const originText = ref("hello");
 const translatedText = ref("");
 
@@ -22,8 +21,8 @@ async function translate() {
   translatedText.value = "";
   translator.translate(originText.value, {
     engine: "google",
-    from: selectedFromLanguage.value as unknown as FromLanguage<"google">,
-    to: selectedToLanguage.value as unknown as ToLanguage<"google">
+    from: selectedFromLanguage.value,
+    to: selectedToLanguage.value
   }).then(res => {
     translatedText.value = res.join("")
   }).catch(e => {

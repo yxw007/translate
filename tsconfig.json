@@ -22,7 +22,6 @@
 		"preserveSymlinks": true,
 		"removeComments": false,
 		"baseUrl": "./src",
-		"ignoreDeprecations": "6.0",
 		"paths": {
 			"@/*": [
 				"*"

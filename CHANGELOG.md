@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.5.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.4.1...v0.5.0)
+
+### 🚀 Enhancements
+
+- Support customer engine ([793d59a](https://github.com/yxw007/translate/commit/793d59a))
+
+### 🩹 Fixes
+
+- Add ignoreDeprecations option to tsconfig for better compatibility ([a738503](https://github.com/yxw007/translate/commit/a738503))
+
+### ❤️ Contributors
+
+- Yxw007 ([@yxw007](http://github.com/yxw007))
+
 ## v0.4.1
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.4.0...v0.4.1)

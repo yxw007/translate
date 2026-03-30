@@ -1,5 +1,5 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, CheckLanguageError } from "../types";
-import crypto from "crypto";
+import CryptoJS from "crypto-js";
 import tencentLanguages from "../language/engines/tencent";
 import { normalizeEngineLanguage } from "./helper";
 
@@ -22,15 +22,25 @@ interface Authorization {
   token?: string;
 }
 
-function sha256(message: string, secret: string | Buffer = "", encoding?: "hex" | "base64"): string | Buffer {
-  if (encoding) {
-    return crypto.createHmac("sha256", secret).update(message).digest(encoding);
+type WordArray = CryptoJS.lib.WordArray;
+
+function sha256(message: string, secret: string | WordArray = "", encoding?: "hex" | "base64"): string | WordArray {
+  const digest = CryptoJS.HmacSHA256(message, secret);
+  if (encoding === "hex") {
+    return CryptoJS.enc.Hex.stringify(digest);
   }
-  return crypto.createHmac("sha256", secret).update(message).digest();
+  if (encoding === "base64") {
+    return CryptoJS.enc.Base64.stringify(digest);
+  }
+  return digest;
 }
 
-function getHash(message: any, encoding: "hex" = "hex") {
-  return crypto.createHash("sha256").update(message).digest(encoding);
+function getHash(message: string | WordArray, encoding: "hex" = "hex") {
+  const digest = CryptoJS.SHA256(message);
+  if (encoding === "hex") {
+    return CryptoJS.enc.Hex.stringify(digest);
+  }
+  return digest.toString();
 }
 
 function getDate(timestamp: number): string {

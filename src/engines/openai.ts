@@ -1,5 +1,5 @@
 import { Engine, EngineTranslateOptions, BaseEngineOption, TranslationError, OpenAIModel, OPEN_AI_MODELS } from "../types";
-import { throwResponseError, useLogger } from "@/utils";
+import { throwResponseError, useLogger } from "../utils";
 import openaiLanguages from "../language/engines/openai";
 import { normalizeEngineLanguage } from "./helper";
 

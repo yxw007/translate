@@ -1,4 +1,4 @@
-import { CheckLanguageError, EngineTranslateOptions, TranslationError } from "@/types";
+import { CheckLanguageError, EngineTranslateOptions, TranslationError } from "../types";
 import { throwResponseError } from "@/utils";
 import deeplLanguages from "../language/engines/deepl";
 import { normalizeEngineLanguage } from "./helper";

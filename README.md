@@ -9,6 +9,7 @@ English | [简体中文](./README_zh-CN.md)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/yxw007/translate/ci.yml)
 
 ## ❓ Why do I need translate?
+
 1. a lot of translation tool libraries on the market, basically not very well-maintained
 2. not written by ts, not friendly enough when using the prompts
 3. single function, does not support batch translation Or only support a translation engine
@@ -17,6 +18,7 @@ English | [简体中文](./README_zh-CN.md)
 > Note: Translate helps you to solve all the above problems, and will expand more in the future!
 
 ## ✨ Features
+
 - 🌐 **Multi-environment support**: Node environment, browser environment
 - ✨ **Easy to use**: provides a concise API, you can easily help you to translate
 - 🌍 **Multi-translation engine support**: Google, Azure Translate, Amazon Translate, Deepl, Baidu, OpenAI, etc. (will expand more in the future)
@@ -25,6 +27,8 @@ English | [简体中文](./README_zh-CN.md)
 - 🔓 **completely open source**.
 
 > **Special reminder: although the library has supported the use of the browser environment, but please only use the google engine translation (google does not need key), the use of other translation engine need to configure the key, the use of the front-end will lead to key leakage, do not do it**
+
+> Browser bundles exclude Node-only helpers such as filesystem utilities. Keep browser usage focused on engines that are safe to expose client-side.
 
 ## 💻Translation engines, integration cases
 
@@ -38,6 +42,40 @@ English | [简体中文](./README_zh-CN.md)
 | openai           | ✔       | Commissioned and ready for use                                                                                                                            |
 | tencent          | ✔       | Commissioned and ready for use                                                                                                                            |
 | yandex           |         | I have not tuned in as I do not have a bank account supported by the platform (help from those who are in a position to do so is welcome and appreciated) |
+
+## 🛠 Development
+
+This project now uses `rolldown`, `oxlint`, and `oxfmt` instead of `rollup`, `eslint`, and `prettier`.
+
+```bash
+pnpm build
+pnpm lint
+pnpm lint:fix
+pnpm format
+pnpm format:check
+pnpm test
+```
+
+- `pnpm build`: builds Node and browser bundles with `rolldown`, then emits `.d.ts` files with TypeScript.
+- `pnpm lint`: runs `oxlint` and `oxfmt --check`.
+- `pnpm lint:fix`: applies `oxlint --fix` and formats files with `oxfmt`.
+- `pnpm format`: formats the repository with `oxfmt`.
+- `pnpm test`: runs stable offline-safe tests.
+
+Integration tests that require real network access and third-party credentials are disabled by default. To run them manually, set `RUN_INTEGRATION_TESTS=true` before running `pnpm test`.
+
+- Bash
+
+  ```bash
+  RUN_INTEGRATION_TESTS=true pnpm test
+  ```
+
+- PowerShell
+
+  ```powershell
+  $env:RUN_INTEGRATION_TESTS = "true"
+  pnpm test
+  ```
 
 ## 🚀 Install
 
@@ -64,16 +102,19 @@ English | [简体中文](./README_zh-CN.md)
 ### Node
 
 - ESM
+
   ```typescript
-  import { translator, engines } from "@yxw007/translate"
+  import { translator, engines } from "@yxw007/translate";
   ```
 
 - Commonjs
+
   ```typescript
-  const { translator, engines }  = required("@yxw007/translate")
+  const { translator, engines } = required("@yxw007/translate");
   ```
 
 - Translation examples
+
   ```typescript
   translator.addEngine(engines.google);
   const res1 = await translator.translate("hello", { from: "en", to: "zh" });
@@ -84,18 +125,22 @@ English | [简体中文](./README_zh-CN.md)
   ```
 
   Output results
+
   ```bash
   ['你好']
   ["你好", "好的"]
   ```
+
 - Language detection examples
+
   ```typescript
   translator.addEngine(engines.google);
-  const res1 = await translator.checkLanguage("hello", { engine:"google" });
+  const res1 = await translator.checkLanguage("hello", { engine: "google" });
   console.log(res1);
-
   ```
+
   Output results
+
   ```bash
   en
   ```
@@ -105,6 +150,7 @@ English | [简体中文](./README_zh-CN.md)
 use jsDelivr CDN
 
 - `development`
+
   ```html
   <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.7/dist/browser/index.umd.js"></script>
   ```
@@ -140,7 +186,6 @@ use jsDelivr CDN
   </html>
 
   ```
-
 
 ## 📚 API
 
@@ -195,7 +240,7 @@ type Engine = {
 
 #### `translate`
 
-You can pass a text or pass a text array, which will return a translated ```Promise<string[]>```
+You can pass a text or pass a text array, which will return a translated `Promise<string[]>`
 
 ```typescript
 translate<T extends Engines>(text: string | string[], options: TranslateOptions<T>)
@@ -206,8 +251,8 @@ translate<T extends Engines>(text: string | string[], options: TranslateOptions<
 Read the language list for the specified engine.
 
 ```typescript
-translator.getFromLanguages("google")
-translator.getToLanguages("google")
+translator.getFromLanguages("google");
+translator.getToLanguages("google");
 ```
 
 #### TranslateOptions
@@ -217,7 +262,7 @@ export interface TranslateOptions {
   from?: FromLanguage<T>;
   to: ToLanguage<T>;
   engine?: Engines;
-   /**
+  /**
    * Cache time in milliseconds
    */
   cache_time?: number;
@@ -297,11 +342,10 @@ interface AzureEngineOption extends BaseEngineOption {
 
 - Relative document：[rest-api-guide](https://learn.microsoft.com/zh-cn/azure/ai-services/translator/reference/rest-api-guide?WT.mc_id=Portal-Microsoft_Azure_ProjectOxford)
 
-
 #### AmazonEngineOption
 
 ```typescript
-interface AmazonEngineOption extends BaseEngineOption{
+interface AmazonEngineOption extends BaseEngineOption {
   region: string;
   accessKeyId: string;
   secretAccessKey: string;
@@ -384,34 +428,34 @@ export type OpenAIModel = (typeof OPEN_AI_MODELS)[number];
 
 ```typescript
 export interface TencentEngineOption extends BaseEngineOption {
-	secretId: string;
-	secretKey: string;
-	region?: string;
+  secretId: string;
+  secretKey: string;
+  region?: string;
 }
 ```
 
 > Description: Option Param Please obtain it from the corresponding platform.
+
 - Related documentation：https://console.cloud.tencent.com/cam/capi
 
 - Region Configuration table
-  | 地域                   | 取值             |
+  | 地域 | 取值 |
   | ---------------------- | ---------------- |
-  | 亚太东南（曼谷）       | ap-bangkok       |
-  | 华北地区（北京）       | ap-beijing       |
-  | 西南地区（成都）       | ap-chengdu       |
-  | 西南地区（重庆）       | ap-chongqing     |
-  | 华南地区（广州）       | ap-guangzhou     |
-  | 港澳台地区（中国香港） | ap-hongkong      |
-  | 亚太东北（首尔）       | ap-seoul         |
-  | 华东地区（上海）       | ap-shanghai      |
-  | 华东地区（上海金融）   | ap-shanghai-fsi  |
-  | 华南地区（深圳金融）   | ap-shenzhen-fsi  |
-  | 亚太东南（新加坡）     | ap-singapore     |
-  | 亚太东北（东京）       | ap-tokyo         |
-  | 欧洲地区（法兰克福）   | eu-frankfurt     |
-  | 美国东部（弗吉尼亚）   | na-ashburn       |
-  | 美国西部（硅谷）       | na-siliconvalley |
-
+  | 亚太东南（曼谷） | ap-bangkok |
+  | 华北地区（北京） | ap-beijing |
+  | 西南地区（成都） | ap-chengdu |
+  | 西南地区（重庆） | ap-chongqing |
+  | 华南地区（广州） | ap-guangzhou |
+  | 港澳台地区（中国香港） | ap-hongkong |
+  | 亚太东北（首尔） | ap-seoul |
+  | 华东地区（上海） | ap-shanghai |
+  | 华东地区（上海金融） | ap-shanghai-fsi |
+  | 华南地区（深圳金融） | ap-shenzhen-fsi |
+  | 亚太东南（新加坡） | ap-singapore |
+  | 亚太东北（东京） | ap-tokyo |
+  | 欧洲地区（法兰克福） | eu-frankfurt |
+  | 美国东部（弗吉尼亚） | na-ashburn |
+  | 美国西部（硅谷） | na-siliconvalley |
 
 ## 🤝 Contribute
 
@@ -424,8 +468,8 @@ export interface TencentEngineOption extends BaseEngineOption {
   ```
 
 - Add new Engine
-
   - Add a new platform ENGINE plugin
+
     ```typescript
     export interface XXEngineOption extends BaseEngineOption {
       key: string;
@@ -436,7 +480,7 @@ export interface TencentEngineOption extends BaseEngineOption {
       const base = "https://translate.yandex.net/api/v1.5/tr.json/translate";
       return {
         name: "yandex",
-         async checkLanguage<T extends Engines>(text: string): Promise<string> {
+        async checkLanguage<T extends Engines>(text: string): Promise<string> {
           //TODO: This can be done with translate, in which case the target language configuration is reused.
         },
         async translate<T extends Engines>(text: string | string[], opts: EngineTranslateOptions<T>) {
@@ -457,7 +501,8 @@ export interface TencentEngineOption extends BaseEngineOption {
       };
     }
     ```
-  - Add the plugin to Engines(Location:```/src/engines/index.ts```)
+
+  - Add the plugin to Engines(Location:`/src/engines/index.ts`)
 
     ```typescript
     import { xx } from "./xx";
@@ -468,9 +513,10 @@ export interface TencentEngineOption extends BaseEngineOption {
       baidu,
       deepl,
       openai,
-      xx
+      xx,
     } as const;
     ```
+
   - Add the origin language configuration supported by the engine
 
     ```typescript
@@ -525,8 +571,10 @@ export interface TencentEngineOption extends BaseEngineOption {
       ...
       xxx: ValuesOf<typeof xxx>;
     };
+    ```
 
 - Build
+
   ```bash
   pnpm build
   ```
@@ -538,8 +586,8 @@ export interface TencentEngineOption extends BaseEngineOption {
 
 > **Tips: At present, the library can be used normally. Welcome everyone to experience. If you have any questions and suggestions, you can mention the feedback to me.If you are interested, you are welcome to join, let us improve this tool together. Help to click star ⭐, let more people know this tool, thank you for everyone🙏**
 
-
 ## 🌹 Thanks
+
 - [franciscop/translate](https://github.com/franciscop/translate.git)
 
 > Note：Thanks to [franciscop/translate](https://github.com/franciscop/translate.git) for giving me ideas for a quick implementation of this library, and also indirectly some of his code. Much appreciated.🙏
@@ -547,4 +595,3 @@ export interface TencentEngineOption extends BaseEngineOption {
 ## 📄 License
 
 Translate is released under the MIT license. See the [`LICENSE`](./LICENSE) file.
-

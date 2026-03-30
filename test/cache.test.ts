@@ -58,4 +58,3 @@ describe("cache", () => {
     expect(() => cache.set("key", "value", -1)).toThrow("time must be greater than 0");
   });
 });
-

@@ -1,12 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { translator, engines, OpenAIModel, TranslationError, checkLanguages } from "../src"
+import { translator, engines, OpenAIModel, TranslationError, checkLanguages } from "../src";
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "node:fs/promises"
+import fs from "node:fs/promises";
 import { sleep, splitText } from "../src/utils";
 import { languageTexts } from "./constant";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const runIntegrationTests = process.env.RUN_INTEGRATION_TESTS === "true";
+const describeIntegration = runIntegrationTests ? describe : describe.skip;
 
 function generateTestCases(checkLanguages: Record<string, string>) {
   return Object.entries(checkLanguages)
@@ -14,19 +16,20 @@ function generateTestCases(checkLanguages: Record<string, string>) {
     .map(([language, code]) => ({
       text: languageTexts[code],
       expected: code,
-      language
+      language,
     }));
 }
 
 async function runLanguageDetectionTests(engine: string, testCases: ReturnType<typeof generateTestCases>) {
+  expect(testCases.length).toBeGreaterThan(0);
   for (const testCase of testCases) {
-    const res = await translator.checkLanguage(testCase.text, { engine: engine as any });
+    const res = await translator.checkLanguage(testCase.text, { engine: engine as keyof typeof checkLanguages });
     await sleep(500);
     expect(res?.toUpperCase()).toBe(testCase.expected.toUpperCase());
   }
 }
 
-describe("translator", () => {
+describeIntegration("translator", () => {
   it.concurrent("google translate", async () => {
     translator.addEngine(engines.google);
 
@@ -42,9 +45,9 @@ describe("translator", () => {
     expect(Date.now() - start).toBeLessThan(2);
     expect(res3).toEqual(["你好"]);
 
-    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
     const res4 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "google" });
-    expect(res4.some(it => it.length <= 0)).toEqual(false);
+    expect(res4.some((it) => it.length <= 0)).toEqual(false);
 
     const articleFilePath = path.join(__dirname, "./fixtures/article.txt");
     const articleContent = await fs.readFile(articleFilePath, { encoding: "utf-8" });
@@ -54,18 +57,22 @@ describe("translator", () => {
 
     try {
       await translator.translate(splitText(articleContent, 1000), { from: "en", to: "Chinese", engine: "google" });
-    } catch (error: any) {
+    } catch (error: unknown) {
       const translateError = error as TranslationError;
       expect(translateError instanceof TranslationError).toBe(true);
-      expect(translateError.message).include("String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters.");
+      expect(translateError.message).include(
+        "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters."
+      );
     }
   });
 
   it.concurrent("azure translate", async () => {
-    translator.addEngine(engines.azure({
-      key: process.env.AZURE_KEY as string,
-      region: process.env.AZURE_REGION as string
-    }));
+    translator.addEngine(
+      engines.azure({
+        key: process.env.AZURE_KEY as string,
+        region: process.env.AZURE_REGION as string,
+      })
+    );
 
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "azure" });
     expect(res1).toEqual(["你好"]);
@@ -73,22 +80,29 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh-Hans", engine: "azure" });
     expect(res2).toEqual(["你好", "好"]);
 
-    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "azure" });
     expect(res3).toEqual(["此函数将两个数字相加", "@param", "", "— 第一个数字", "@param", "", "— 第二个数字"]);
   });
 
   it.concurrent("amazon translate", async () => {
-    translator.addEngine(engines.amazon({
-      region: process.env.AMAZON_REGION as string,
-      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
-      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
-    }));
+    translator.addEngine(
+      engines.amazon({
+        region: process.env.AMAZON_REGION as string,
+        accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+        secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
+      })
+    );
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "amazon" });
     expect(res1).toEqual(["你好"]);
 
-    const res11 = await translator.translate("This is a test text, It should be split correctly.", { from: "en", to: "zh", engine: "amazon", max_character_num: 10 });
+    const res11 = await translator.translate("This is a test text, It should be split correctly.", {
+      from: "en",
+      to: "zh",
+      engine: "amazon",
+      max_character_num: 10,
+    });
     expect(res11).toEqual(["这是一个 测试 文本，它 应该 分裂正确地。"]);
 
     const res12 = await translator.translate("What is your name, what can I call you?", { from: "en", to: "zh", engine: "amazon" });
@@ -97,16 +111,18 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { to: "zh", engine: "amazon" });
     expect(res2).toEqual(["你好", "好"]);
 
-    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese (Simplified)", engine: "amazon" });
     expect(res3).toEqual(["此函数将两个数字相加", "@param", "", "— 第一个数字", "@param", "", "— 第二个数字"]);
   });
 
   it.concurrent("baidu translate", async () => {
-    translator.addEngine(engines.baidu({
-      appId: process.env.BAIDU_APP_ID as string,
-      secretKey: process.env.BAIDU_SECRET_KEY as string
-    }));
+    translator.addEngine(
+      engines.baidu({
+        appId: process.env.BAIDU_APP_ID as string,
+        secretKey: process.env.BAIDU_SECRET_KEY as string,
+      })
+    );
 
     const res1 = await translator.translate("hello", { to: "zh", engine: "baidu" });
     expect(res1).toEqual(["你好"]);
@@ -114,16 +130,17 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "baidu" });
     expect(res2).toEqual(["你好", "好的"]);
 
-    const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", " ", "— first  number", "@param", " ", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "baidu" });
     expect(res3).toEqual(["此函数将两个数字相加", "@参数", "-第一个数字", "@参数", "-第二个数字"]);
   });
 
-
   it.concurrent("deepl translate", async () => {
-    translator.addEngine(engines.deepl({
-      key: process.env.DEEPL_KEY as string
-    }));
+    translator.addEngine(
+      engines.deepl({
+        key: process.env.DEEPL_KEY as string,
+      })
+    );
 
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "deepl" });
     expect(res1).toEqual(["你好"]);
@@ -131,11 +148,11 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "zh", engine: "deepl" });
     expect(res2).toEqual(["你好", "好"]);
 
-    let translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
+    let translateText = ["This function adds two  numbers", "@param", " ", "— first  number", "@param", " ", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     expect(res3).toEqual(["此函数将两个数字相加", "@ 参数", "", "- 第一位", "@ 参数", "", "- 二号"]);
 
-    translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
     try {
       await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     } catch (error) {
@@ -144,10 +161,12 @@ describe("translator", () => {
   });
 
   it.concurrent("openai translate", async () => {
-    translator.addEngine(engines.openai({
-      apiKey: process.env.OPEN_AI_API_KEY as string,
-      model: process.env.OPEN_AI_MODEL as OpenAIModel
-    }));
+    translator.addEngine(
+      engines.openai({
+        apiKey: process.env.OPEN_AI_API_KEY as string,
+        model: process.env.OPEN_AI_MODEL as OpenAIModel,
+      })
+    );
 
     // Note: Since open ai has different translation results for the same parameters, we only test if the result is returned here.
 
@@ -157,20 +176,24 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Chinese", engine: "openai" });
     expect(res2).toEqual(["你好", "好"]);
 
-    const translateText = ['This function adds two  numbers', '@param', ' ', '— first  number', '@param', ' ', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", " ", "— first  number", "@param", " ", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "openai" });
-    expect(res3).toEqual(['这个函数添加两个数字', '@param', '— 第一个数字', '@param', '— 第二个数字']);
+    expect(res3).toEqual(["这个函数添加两个数字", "@param", "— 第一个数字", "@param", "— 第二个数字"]);
   });
 
   it.concurrent("tencent translate", async () => {
     if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
-      throw new Error("Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.");
+      throw new Error(
+        "Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables."
+      );
     }
-    translator.addEngine(engines.tencent({
-      secretId: process.env.TENCENT_SECRET_ID as string,
-      secretKey: process.env.TENCENT_SECRET_KEY as string,
-      region: "ap-shenzhen-fsi"
-    }));
+    translator.addEngine(
+      engines.tencent({
+        secretId: process.env.TENCENT_SECRET_ID as string,
+        secretKey: process.env.TENCENT_SECRET_KEY as string,
+        region: "ap-shenzhen-fsi",
+      })
+    );
 
     const res1 = await translator.translate("hello", { to: "Simplified Chinese", engine: "tencent", from: "auto" });
     expect(res1).toEqual(["你好"]);
@@ -178,74 +201,108 @@ describe("translator", () => {
     const res2 = await translator.translate(["hello", "good"], { from: "en", to: "Simplified Chinese", engine: "tencent" });
     expect(res2).toEqual(["你好", "好"]);
 
-    const translateText = ['This function adds two  numbers', '@param', '', '— first  number', '@param', '', '— second  number'];
+    const translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Simplified Chinese", engine: "tencent" });
     expect(res3).toEqual(["该功能添加两个数字", "@param", "", "- 第一数量", "@param", "", "- 二数目"]);
   });
 });
 
-describe("baidu checkLanguage for common languages", () => {
-  translator.addEngine(engines.baidu({
-    appId: process.env.BAIDU_APP_ID as string,
-    secretKey: process.env.BAIDU_SECRET_KEY as string
-  }));
+describeIntegration("baidu checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.baidu({
+      appId: process.env.BAIDU_APP_ID as string,
+      secretKey: process.env.BAIDU_SECRET_KEY as string,
+    })
+  );
 
   const testCases = generateTestCases(checkLanguages["baidu"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("baidu", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("baidu", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });
 
-describe("tencent checkLanguage for common languages", () => {
-  translator.addEngine(engines.tencent({
-    secretId: process.env.TENCENT_SECRET_ID as string,
-    secretKey: process.env.TENCENT_SECRET_KEY as string,
-    region: "ap-shenzhen-fsi"
-  }));
+describeIntegration("tencent checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.tencent({
+      secretId: process.env.TENCENT_SECRET_ID as string,
+      secretKey: process.env.TENCENT_SECRET_KEY as string,
+      region: "ap-shenzhen-fsi",
+    })
+  );
   const testCases = generateTestCases(checkLanguages["tencent"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("tencent", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("tencent", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });
 
-describe("azure checkLanguage for common languages", () => {
-  translator.addEngine(engines.azure({
-    key: process.env.AZURE_KEY as string,
-    region: process.env.AZURE_REGION as string
-  }));
+describeIntegration("azure checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.azure({
+      key: process.env.AZURE_KEY as string,
+      region: process.env.AZURE_REGION as string,
+    })
+  );
 
   const testCases = generateTestCases(checkLanguages["azure"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("azure", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("azure", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });
 
-describe("amazon checkLanguage for common languages", () => {
-  translator.addEngine(engines.amazon({
-    region: process.env.AMAZON_REGION as string,
-    accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
-    secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string
-  }));
+describeIntegration("amazon checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.amazon({
+      region: process.env.AMAZON_REGION as string,
+      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
+    })
+  );
   const testCases = generateTestCases(checkLanguages["amazon"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("amazon", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("amazon", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });
 
-describe("deepl checkLanguage for common languages", () => {
-  translator.addEngine(engines.deepl({
-    key: process.env.DEEPL_KEY as string
-  }));
+describeIntegration("deepl checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.deepl({
+      key: process.env.DEEPL_KEY as string,
+    })
+  );
   const testCases = generateTestCases(checkLanguages["deepl"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("deepl", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("deepl", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });
 
-describe("google checkLanguage for common languages", () => {
+describeIntegration("google checkLanguage for common languages", () => {
   translator.addEngine(engines.google);
   const testCases = generateTestCases(checkLanguages["google"]);
-  it("should detect all supported languages", async () => {
-    await runLanguageDetectionTests("google", testCases);
-  }, { timeout: testCases.length * 2000 });
+  it(
+    "should detect all supported languages",
+    async () => {
+      await runLanguageDetectionTests("google", testCases);
+    },
+    { timeout: testCases.length * 2000 }
+  );
 });

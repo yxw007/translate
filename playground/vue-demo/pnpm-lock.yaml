@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@yxw007/translate':
-        specifier: ^0.0.19
-        version: 0.0.19(@aws-sdk/client-translate@3.693.0)(@smithy/smithy-client@3.4.4)(crypto-js@4.2.0)
+        specifier: latest
+        version: 0.5.0(@aws-sdk/client-translate@3.693.0)(@smithy/smithy-client@3.4.4)(crypto-js@4.2.0)
       vue:
         specifier: ^3.5.12
         version: 3.5.13(typescript@5.6.3)
@@ -633,8 +633,8 @@ packages:
   '@vue/shared@3.5.13':
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
 
-  '@yxw007/translate@0.0.19':
-    resolution: {integrity: sha512-sgure73OmQuE+kfI/J3pmnmNFFH8sNteOoxv6DFPTE9wcaBqt0S/3z+uezV75K4N9V4At0PFNH5tVeuHMnOalA==}
+  '@yxw007/translate@0.5.0':
+    resolution: {integrity: sha512-jlSjA3p8T5uvjr52b0+DxCNbe7ZtVV019H4eHTiuuEREMN8VGYik2Dgq5SEUl0SE0dqTlFFJyY/cqtMu00NH4g==}
     peerDependencies:
       '@aws-sdk/client-translate': ^3.637.0
       '@smithy/smithy-client': ^3.2.0
@@ -1687,7 +1687,7 @@ snapshots:
 
   '@vue/shared@3.5.13': {}
 
-  '@yxw007/translate@0.0.19(@aws-sdk/client-translate@3.693.0)(@smithy/smithy-client@3.4.4)(crypto-js@4.2.0)':
+  '@yxw007/translate@0.5.0(@aws-sdk/client-translate@3.693.0)(@smithy/smithy-client@3.4.4)(crypto-js@4.2.0)':
     dependencies:
       '@aws-sdk/client-translate': 3.693.0
       '@smithy/smithy-client': 3.4.4

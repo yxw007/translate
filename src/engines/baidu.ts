@@ -67,7 +67,7 @@ export function baidu(options: BaiduEngineOption): Engine {
       if (!data || data.error_code || !data.trans_result || data.trans_result.length === 0) {
         throw new TranslationError(
           this.name,
-          `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg} \n Go to https://fanyi-api.baidu.com/product/123 view details`
+          `Translate fail ! error_code:${data.error_code}, error_msg: ${data.error_msg} \n Go to https://fanyi-api.baidu.com/product/123 view details`,
         );
       }
 
@@ -105,7 +105,7 @@ export function baidu(options: BaiduEngineOption): Engine {
       if (!response || response.error_code != 0) {
         throw new CheckLanguageError(
           this.name,
-          `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg} \n Go to https://fanyi-api.baidu.com/product/143 view details`
+          `Check language fail ! error_code:${response.error_code}, error_msg: ${response.error_msg} \n Go to https://fanyi-api.baidu.com/product/143 view details`,
         );
       }
 

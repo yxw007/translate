@@ -31,7 +31,7 @@ async function build() {
       "--outDir",
       "./dist",
     ],
-    { cwd: path.resolve(__dirname, ".."), stdio: "inherit" }
+    { cwd: path.resolve(__dirname, ".."), stdio: "inherit" },
   );
 
   fs.copyFileSync(path.resolve(__dirname, "../package.json"), path.resolve(__dirname, "../dist/package.json"));

@@ -64,7 +64,7 @@ export function azure(options: AzureEngineOption): Engine {
       if (bodyRes.error) {
         throw new TranslationError(
           this.name,
-          `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`
+          `Translate fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`,
         );
       }
       const body: Translation[] = bodyRes;
@@ -101,7 +101,7 @@ export function azure(options: AzureEngineOption): Engine {
       if (bodyRes.error) {
         throw new CheckLanguageError(
           this.name,
-          `checkLanguage fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`
+          `checkLanguage fail ! code: ${bodyRes.error.code}, message: ${bodyRes.error.message} \n Go to https://learn.microsoft.com/zh-cn/azure/ai-services/translator/text-translation/reference/v3/translate view details`,
         );
       }
       if (!bodyRes || !Array.isArray(bodyRes) || bodyRes.length === 0) {

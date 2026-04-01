@@ -104,7 +104,7 @@ class Translator {
       .then((r) => r)
       .catch((e) => {
         logger.error(
-          `${appName} Failed to check language for text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
+          `${appName} Failed to check language for text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`,
         );
         throw e;
       });
@@ -153,7 +153,7 @@ class Translator {
       })
       .catch((e) => {
         logger.error(
-          `${appName} Failed: from=${normalizedFrom},to=${normalizedTo},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`
+          `${appName} Failed: from=${normalizedFrom},to=${normalizedTo},engine=${engine},translate text: \n${getGapLine()}\n${text}\n${getGapLine()}\n error: ${getErrorMessages(e)}`,
         );
         if (e instanceof TranslationError) {
           throw e;
@@ -165,7 +165,7 @@ class Translator {
   private async concurrencyHandle<T extends string = Engines>(
     engine: Engine,
     text: string | string[],
-    options: TranslateOptions<T>
+    options: TranslateOptions<T>,
   ): Promise<string[]> {
     const { max_character_num = defaultMaxCharacterNum } = options;
     const maxCharacterNum: number = max_character_num > 0 ? max_character_num : defaultMaxCharacterNum;
@@ -173,7 +173,7 @@ class Translator {
       if (isOverMaxCharacterNum(text, max_character_num)) {
         throw new TranslationError(
           appName,
-          "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters."
+          "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters.",
         );
       }
       return engine.translate(text, options);
@@ -185,10 +185,10 @@ class Translator {
     engine: Engine,
     text: string,
     options: TranslateOptions<T>,
-    maxCharacterMum: number
+    maxCharacterMum: number,
   ): Promise<string[]> {
     const pendingTasks: ConcurrencyTask[] = splitText(text, maxCharacterMum).map(
-      (content, index) => ({ content, index }) as ConcurrencyTask
+      (content, index) => ({ content, index }) as ConcurrencyTask,
     );
     const result: TranslateTaskResult[] = [];
     let activeTasks = 0;

@@ -31,7 +31,7 @@ async function runLanguageDetectionTests(engine: string, testCases: ReturnType<t
 
 describeIntegration("translator", () => {
   it.concurrent("google translate", async () => {
-    translator.addEngine(engines.google);
+    translator.addEngine(engines.google());
 
     const res1 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
     expect(res1).toEqual(["你好"]);
@@ -61,7 +61,7 @@ describeIntegration("translator", () => {
       const translateError = error as TranslationError;
       expect(translateError instanceof TranslationError).toBe(true);
       expect(translateError.message).include(
-        "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters."
+        "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters.",
       );
     }
   });
@@ -71,7 +71,7 @@ describeIntegration("translator", () => {
       engines.azure({
         key: process.env.AZURE_KEY as string,
         region: process.env.AZURE_REGION as string,
-      })
+      }),
     );
 
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "azure" });
@@ -91,7 +91,7 @@ describeIntegration("translator", () => {
         region: process.env.AMAZON_REGION as string,
         accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
         secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
-      })
+      }),
     );
 
     const res1 = await translator.translate("hello", { from: "en", to: "zh", engine: "amazon" });
@@ -121,7 +121,7 @@ describeIntegration("translator", () => {
       engines.baidu({
         appId: process.env.BAIDU_APP_ID as string,
         secretKey: process.env.BAIDU_SECRET_KEY as string,
-      })
+      }),
     );
 
     const res1 = await translator.translate("hello", { to: "zh", engine: "baidu" });
@@ -139,7 +139,7 @@ describeIntegration("translator", () => {
     translator.addEngine(
       engines.deepl({
         key: process.env.DEEPL_KEY as string,
-      })
+      }),
     );
 
     const res1 = await translator.translate("hello", { to: "Chinese", engine: "deepl" });
@@ -165,7 +165,7 @@ describeIntegration("translator", () => {
       engines.openai({
         apiKey: process.env.OPEN_AI_API_KEY as string,
         model: process.env.OPEN_AI_MODEL as OpenAIModel,
-      })
+      }),
     );
 
     // Note: Since open ai has different translation results for the same parameters, we only test if the result is returned here.
@@ -184,7 +184,7 @@ describeIntegration("translator", () => {
   it.concurrent("tencent translate", async () => {
     if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
       throw new Error(
-        "Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables."
+        "Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.",
       );
     }
     translator.addEngine(
@@ -192,7 +192,7 @@ describeIntegration("translator", () => {
         secretId: process.env.TENCENT_SECRET_ID as string,
         secretKey: process.env.TENCENT_SECRET_KEY as string,
         region: "ap-shenzhen-fsi",
-      })
+      }),
     );
 
     const res1 = await translator.translate("hello", { to: "Simplified Chinese", engine: "tencent", from: "auto" });
@@ -212,17 +212,13 @@ describeIntegration("baidu checkLanguage for common languages", () => {
     engines.baidu({
       appId: process.env.BAIDU_APP_ID as string,
       secretKey: process.env.BAIDU_SECRET_KEY as string,
-    })
+    }),
   );
 
   const testCases = generateTestCases(checkLanguages["baidu"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("baidu", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("baidu", testCases);
+  });
 });
 
 describeIntegration("tencent checkLanguage for common languages", () => {
@@ -231,16 +227,12 @@ describeIntegration("tencent checkLanguage for common languages", () => {
       secretId: process.env.TENCENT_SECRET_ID as string,
       secretKey: process.env.TENCENT_SECRET_KEY as string,
       region: "ap-shenzhen-fsi",
-    })
+    }),
   );
   const testCases = generateTestCases(checkLanguages["tencent"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("tencent", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("tencent", testCases);
+  });
 });
 
 describeIntegration("azure checkLanguage for common languages", () => {
@@ -248,17 +240,13 @@ describeIntegration("azure checkLanguage for common languages", () => {
     engines.azure({
       key: process.env.AZURE_KEY as string,
       region: process.env.AZURE_REGION as string,
-    })
+    }),
   );
 
   const testCases = generateTestCases(checkLanguages["azure"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("azure", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("azure", testCases);
+  });
 });
 
 describeIntegration("amazon checkLanguage for common languages", () => {
@@ -267,42 +255,30 @@ describeIntegration("amazon checkLanguage for common languages", () => {
       region: process.env.AMAZON_REGION as string,
       accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
-    })
+    }),
   );
   const testCases = generateTestCases(checkLanguages["amazon"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("amazon", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("amazon", testCases);
+  });
 });
 
 describeIntegration("deepl checkLanguage for common languages", () => {
   translator.addEngine(
     engines.deepl({
       key: process.env.DEEPL_KEY as string,
-    })
+    }),
   );
   const testCases = generateTestCases(checkLanguages["deepl"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("deepl", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("deepl", testCases);
+  });
 });
 
 describeIntegration("google checkLanguage for common languages", () => {
-  translator.addEngine(engines.google);
+  translator.addEngine(engines.google());
   const testCases = generateTestCases(checkLanguages["google"]);
-  it(
-    "should detect all supported languages",
-    async () => {
-      await runLanguageDetectionTests("google", testCases);
-    },
-    { timeout: testCases.length * 2000 }
-  );
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    await runLanguageDetectionTests("google", testCases);
+  });
 });

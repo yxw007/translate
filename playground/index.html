@@ -13,7 +13,7 @@
     <script>
       (async () => {
         const { engines, translator } = translate;
-        translator.use(engines.google());
+        translator.addEngine(engines.google());
         const res = await translator.translate("hello", {
           from: "en",
           to: "zh-CN",

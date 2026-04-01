@@ -163,7 +163,7 @@ export function tencent(options: TencentEngineOption): Engine {
         if (data.Response?.Error) {
           throw new TranslationError(
             name,
-            `Tencent translate fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15619 view details`
+            `Tencent translate fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15619 view details`,
           );
         }
         const translatedResults = data.Response?.TargetText.split("\n") ?? [];
@@ -212,7 +212,7 @@ export function tencent(options: TencentEngineOption): Engine {
         if (data.Response?.Error) {
           throw new CheckLanguageError(
             name,
-            `Tencent language detect fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15619 view details`
+            `Tencent language detect fail: ${data.Response.Error.Code}, ${data.Response.Error.Message} \n Go to https://cloud.tencent.com/document/product/551/15619 view details`,
           );
         }
         const detectedLanguage = data.Response?.Source;

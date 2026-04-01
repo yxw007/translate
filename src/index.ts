@@ -231,7 +231,7 @@ class Translator {
 }
 
 const translator = new Translator();
-translator.addEngine(engines.google);
+translator.addEngine(engines.google());
 
 export default {
   engines,

@@ -7,7 +7,7 @@ import { openai } from "./openai";
 import { tencent } from "./tencent";
 
 export const engines = {
-  google: google(),
+  google,
   azure,
   amazon,
   baidu,

@@ -1,24 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <style></style>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@latest/crypto-js.min.js"></script>
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<title>title</title>
-	<style>
-	</style>
-	<!-- <script src="https://cdn.jsdelivr.net/npm/@yxw007/translate@0.0.1-alpha.3/dist/browser/index.umd.js"></script> -->
-</head>
-
-<body>
-	<script src="../dist/browser/index.umd.js"></script>
-	<script>
-		(async () => {
-			const { engines, translator } = translate;
-			translator.use(engines.google());
-			const res = await translator.translate("hello", { from: "en", to: "zh-CN" });
-			console.log(res);
-		})();
-	</script>
-</body>
-
+  <body>
+    <script src="../dist/browser/index.umd.js"></script>
+    <script>
+      (async () => {
+        const { engines, translator } = translate;
+        translator.use(engines.google());
+        const res = await translator.translate("hello", {
+          from: "en",
+          to: "zh-CN",
+        });
+        console.log(res);
+      })();
+    </script>
+  </body>
 </html>

@@ -85,21 +85,21 @@
     "@commitlint/config-conventional": "^19.2.2",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.5.0",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/coverage-v8": "^4.1.2",
     "chalk": "^5.3.0",
-    "changelogen": "^0.5.5",
+    "changelogen": "^0.6.2",
     "commitlint": "^19.4.0",
     "dotenv": "^16.4.5",
     "husky": "^9.1.5",
-    "lint-staged": "^15.2.9",
+    "lint-staged": "^16.4.0",
     "maxmin": "^4.1.0",
     "oxfmt": "^0.42.0",
     "oxlint": "^1.57.0",
     "rolldown": "1.0.0-rc.12",
     "tslib": "^2.7.0",
-    "tsx": "^4.19.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "vitest": "^4.1.2"
   },
   "volta": {
     "node": "22.3.0"

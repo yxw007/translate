@@ -23,6 +23,7 @@ const libName = pkgName.split("/").pop() ?? pkgName;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const input = "src/index.ts";
 const external = Object.keys(packageJson.peerDependencies || {});
+const browserExternal = external.filter((dependency) => dependency !== "crypto-js");
 const externalGlobals: Record<string, string> = {
   "@aws-sdk/client-translate": "AwsSdkClientTranslate",
   "@smithy/smithy-client": "SmithyClient",
@@ -51,7 +52,7 @@ function createBuildVariants({
 }: BuildVariant): RolldownOptions[] {
   const buildVariant = (shouldMinify: boolean): RolldownOptions => ({
     input,
-    external,
+    external: browser ? browserExternal : external,
     platform: browser ? "browser" : "node",
     resolve: {
       alias: {

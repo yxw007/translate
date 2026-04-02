@@ -1,6 +1,33 @@
 # Changelog
 
 
+## v1.0.0
+
+[compare changes](https://github.com/yxw007/translate/compare/v0.5.0...v1.0.0)
+
+### 🔥 Performance
+
+- Stripping crypto-js out of umd products ([dd1bc03](https://github.com/yxw007/translate/commit/dd1bc03))
+
+### 🩹 Fixes
+
+- Remove ignoreDeprecations option from tsconfig for compatibility ([763fbcc](https://github.com/yxw007/translate/commit/763fbcc))
+- Solve built-in google translation engine configuration error ([d00f518](https://github.com/yxw007/translate/commit/d00f518))
+- Package subpath './module-runner' is not defined ([df3cc05](https://github.com/yxw007/translate/commit/df3cc05))
+
+### 💅 Refactors
+
+- Remove rollup configuration and migrate to rolldown for build process ([b5daebc](https://github.com/yxw007/translate/commit/b5daebc))
+
+### 🏡 Chore
+
+- Update dependencies ([1914210](https://github.com/yxw007/translate/commit/1914210))
+- Add dev branch to CI workflow triggers ([79d2cd4](https://github.com/yxw007/translate/commit/79d2cd4))
+
+### ❤️ Contributors
+
+- Yxw007 ([@yxw007](https://github.com/yxw007))
+
 ## v0.5.0
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.4.1...v0.5.0)

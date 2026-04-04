@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.0.1
+
+[compare changes](https://github.com/yxw007/translate/compare/v1.0.0...v1.0.1)
+
+### 🩹 Fixes
+
+- **test:** Solve the problem of running test cases with errors ([4d52ae7](https://github.com/yxw007/translate/commit/4d52ae7))
+
+### 💅 Refactors
+
+- **tests:** Simplify integration test handling and improve error reporting ([5f90661](https://github.com/yxw007/translate/commit/5f90661))
+
+### 🏡 Chore
+
+- **ci:** Add TEST_SKIP_ENGINES environment variable to CI workflow ([9571435](https://github.com/yxw007/translate/commit/9571435))
+
+### ❤️ Contributors
+
+- Yxw007 ([@yxw007](https://github.com/yxw007))
+
 ## v1.0.0
 
 [compare changes](https://github.com/yxw007/translate/compare/v0.5.0...v1.0.0)

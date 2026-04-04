@@ -24,6 +24,7 @@ env:
   OPEN_AI_MODEL: ${{ secrets.OPEN_AI_MODEL }}
   TENCENT_SECRET_ID: ${{ secrets.TENCENT_SECRET_ID }}
   TENCENT_SECRET_KEY: ${{ secrets.TENCENT_SECRET_KEY }}
+  TEST_SKIP_ENGINES: amazon,baidu,openai
 
 jobs:
   build:

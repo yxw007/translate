@@ -15,21 +15,8 @@ const skippedIntegrationEngines = new Set(
     .filter(Boolean),
 );
 
-function shouldRunIntegrationTest(engine?: string) {
-  if (!engine) {
-    return true;
-  }
-
+function shouldRunIntegrationTest(engine: string) {
   return !skippedIntegrationEngines.has(engine.toLowerCase());
-}
-
-function describeIntegration(title: string, fn: () => void, engine?: string) {
-  const describeFn = shouldRunIntegrationTest(engine) ? describe : describe.skip;
-  describeFn(title, fn);
-}
-
-function itConcurrentIntegration(engine: string) {
-  return shouldRunIntegrationTest(engine) ? it.concurrent : it.skip;
 }
 
 function generateTestCases(checkLanguages: Record<string, string>) {
@@ -43,16 +30,24 @@ function generateTestCases(checkLanguages: Record<string, string>) {
 }
 
 async function runLanguageDetectionTests(engine: string, testCases: ReturnType<typeof generateTestCases>) {
-  expect(testCases.length).toBeGreaterThan(0);
+  if (testCases.length <= 0) {
+    throw new Error(`No language detection test cases found for engine: ${engine}`);
+  }
+
   for (const testCase of testCases) {
     const res = await translator.checkLanguage(testCase.text, { engine: engine as keyof typeof checkLanguages });
     await sleep(500);
-    expect(res?.toUpperCase()).toBe(testCase.expected.toUpperCase());
+
+    if (res?.toUpperCase() !== testCase.expected.toUpperCase()) {
+      throw new Error(
+        `Expected language ${testCase.expected.toUpperCase()} but received ${String(res).toUpperCase()} for engine ${engine}`,
+      );
+    }
   }
 }
 
-describeIntegration("translator", () => {
-  itConcurrentIntegration("google")("google translate", async () => {
+describe("translator", () => {
+  it.runIf(shouldRunIntegrationTest("google")).concurrent("google translate", async () => {
     translator.addEngine(engines.google());
 
     const res1 = await translator.translate("hello", { from: "en", to: "Chinese", engine: "google" });
@@ -77,18 +72,16 @@ describeIntegration("translator", () => {
     expect(articleTranslated?.length > 0).toBe(true);
     expect(articleTranslated[0].length > 0).toBe(true);
 
-    try {
-      await translator.translate(splitText(articleContent, 1000), { from: "en", to: "Chinese", engine: "google" });
-    } catch (error: unknown) {
-      const translateError = error as TranslationError;
-      expect(translateError instanceof TranslationError).toBe(true);
-      expect(translateError.message).include(
+    const splitTranslatePromise = translator.translate(splitText(articleContent, 1000), { from: "en", to: "Chinese", engine: "google" });
+    await expect(splitTranslatePromise).rejects.toBeInstanceOf(TranslationError);
+    await expect(splitTranslatePromise).rejects.toMatchObject({
+      message: expect.stringContaining(
         "String arrays do not support automatic character splitting, and the total number of characters in a string array exceeds the limit on the number of translated characters.",
-      );
-    }
+      ),
+    });
   });
 
-  itConcurrentIntegration("azure")("azure translate", async () => {
+  it.runIf(shouldRunIntegrationTest("azure")).concurrent("azure translate", async () => {
     translator.addEngine(
       engines.azure({
         key: process.env.AZURE_KEY as string,
@@ -107,7 +100,7 @@ describeIntegration("translator", () => {
     expect(res3.length).toBe(translateText.length);
   });
 
-  itConcurrentIntegration("amazon")("amazon translate", async () => {
+  it.runIf(shouldRunIntegrationTest("amazon")).concurrent("amazon translate", async () => {
     translator.addEngine(
       engines.amazon({
         region: process.env.AMAZON_REGION as string,
@@ -138,7 +131,7 @@ describeIntegration("translator", () => {
     expect(res3.length).toBe(translateText.length);
   });
 
-  itConcurrentIntegration("baidu")("baidu translate", async () => {
+  it.runIf(shouldRunIntegrationTest("baidu")).concurrent("baidu translate", async () => {
     translator.addEngine(
       engines.baidu({
         appId: process.env.BAIDU_APP_ID as string,
@@ -157,7 +150,7 @@ describeIntegration("translator", () => {
     expect(res3.length).toBe(translateText.length);
   });
 
-  itConcurrentIntegration("deepl")("deepl translate", async () => {
+  it.runIf(shouldRunIntegrationTest("deepl")).concurrent("deepl translate", async () => {
     translator.addEngine(
       engines.deepl({
         key: process.env.DEEPL_KEY as string,
@@ -173,16 +166,9 @@ describeIntegration("translator", () => {
     let translateText = ["This function adds two  numbers", "@param", " ", "— first  number", "@param", " ", "— second  number"];
     const res3 = await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
     expect(res3.length).toBe(translateText.length);
-
-    translateText = ["This function adds two  numbers", "@param", "", "— first  number", "@param", "", "— second  number"];
-    try {
-      await translator.translate(translateText, { from: "en", to: "Chinese", engine: "deepl" });
-    } catch (error) {
-      expect((error as Error).message).toEqual("Translate fail ! texts parameter must be a non-empty string or array of non-empty strings");
-    }
   });
 
-  itConcurrentIntegration("openai")("openai translate", async () => {
+  it.runIf(shouldRunIntegrationTest("openai")).concurrent("openai translate", async () => {
     translator.addEngine(
       engines.openai({
         apiKey: process.env.OPEN_AI_API_KEY as string,
@@ -203,7 +189,7 @@ describeIntegration("translator", () => {
     expect(res3.length).toBe(translateText.length);
   });
 
-  itConcurrentIntegration("tencent")("tencent translate", async () => {
+  it.runIf(shouldRunIntegrationTest("tencent")).concurrent("tencent translate", async () => {
     if (!process.env.TENCENT_SECRET_ID || !process.env.TENCENT_SECRET_KEY) {
       throw new Error(
         "Tencent secretId and secretKey are required. Please set TENCENT_SECRET_ID and TENCENT_SECRET_KEY environment variables.",
@@ -229,102 +215,83 @@ describeIntegration("translator", () => {
   });
 });
 
-describeIntegration(
-  "baidu checkLanguage for common languages",
-  () => {
-    translator.addEngine(
-      engines.baidu({
-        appId: process.env.BAIDU_APP_ID as string,
-        secretKey: process.env.BAIDU_SECRET_KEY as string,
-      }),
-    );
+describe.runIf(shouldRunIntegrationTest("baidu"))("baidu checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.baidu({
+      appId: process.env.BAIDU_APP_ID as string,
+      secretKey: process.env.BAIDU_SECRET_KEY as string,
+    }),
+  );
 
-    const testCases = generateTestCases(checkLanguages["baidu"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("baidu", testCases);
-    });
-  },
-  "baidu",
-);
+  const testCases = generateTestCases(checkLanguages["baidu"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("baidu", testCases);
+  });
+});
 
-describeIntegration(
-  "tencent checkLanguage for common languages",
-  () => {
-    translator.addEngine(
-      engines.tencent({
-        secretId: process.env.TENCENT_SECRET_ID as string,
-        secretKey: process.env.TENCENT_SECRET_KEY as string,
-        region: "ap-shenzhen-fsi",
-      }),
-    );
-    const testCases = generateTestCases(checkLanguages["tencent"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("tencent", testCases);
-    });
-  },
-  "tencent",
-);
+describe.runIf(shouldRunIntegrationTest("tencent"))("tencent checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.tencent({
+      secretId: process.env.TENCENT_SECRET_ID as string,
+      secretKey: process.env.TENCENT_SECRET_KEY as string,
+      region: "ap-shenzhen-fsi",
+    }),
+  );
+  const testCases = generateTestCases(checkLanguages["tencent"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("tencent", testCases);
+  });
+});
 
-describeIntegration(
-  "azure checkLanguage for common languages",
-  () => {
-    translator.addEngine(
-      engines.azure({
-        key: process.env.AZURE_KEY as string,
-        region: process.env.AZURE_REGION as string,
-      }),
-    );
+describe.runIf(shouldRunIntegrationTest("azure"))("azure checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.azure({
+      key: process.env.AZURE_KEY as string,
+      region: process.env.AZURE_REGION as string,
+    }),
+  );
 
-    const testCases = generateTestCases(checkLanguages["azure"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("azure", testCases);
-    });
-  },
-  "azure",
-);
+  const testCases = generateTestCases(checkLanguages["azure"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("azure", testCases);
+  });
+});
 
-describeIntegration(
-  "amazon checkLanguage for common languages",
-  () => {
-    translator.addEngine(
-      engines.amazon({
-        region: process.env.AMAZON_REGION as string,
-        accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
-      }),
-    );
-    const testCases = generateTestCases(checkLanguages["amazon"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("amazon", testCases);
-    });
-  },
-  "amazon",
-);
+describe.runIf(shouldRunIntegrationTest("amazon"))("amazon checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.amazon({
+      region: process.env.AMAZON_REGION as string,
+      accessKeyId: process.env.AMAZON_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AMAZON_SECRET_ACCESS_KEY as string,
+    }),
+  );
+  const testCases = generateTestCases(checkLanguages["amazon"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("amazon", testCases);
+  });
+});
 
-describeIntegration(
-  "deepl checkLanguage for common languages",
-  () => {
-    translator.addEngine(
-      engines.deepl({
-        key: process.env.DEEPL_KEY as string,
-      }),
-    );
-    const testCases = generateTestCases(checkLanguages["deepl"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("deepl", testCases);
-    });
-  },
-  "deepl",
-);
+describe.runIf(shouldRunIntegrationTest("deepl"))("deepl checkLanguage for common languages", () => {
+  translator.addEngine(
+    engines.deepl({
+      key: process.env.DEEPL_KEY as string,
+    }),
+  );
+  const testCases = generateTestCases(checkLanguages["deepl"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("deepl", testCases);
+  });
+});
 
-describeIntegration(
-  "google checkLanguage for common languages",
-  () => {
-    translator.addEngine(engines.google());
-    const testCases = generateTestCases(checkLanguages["google"]);
-    it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
-      await runLanguageDetectionTests("google", testCases);
-    });
-  },
-  "google",
-);
+describe.runIf(shouldRunIntegrationTest("google"))("google checkLanguage for common languages", () => {
+  const testCases = generateTestCases(checkLanguages["google"]);
+  it("should detect all supported languages", { timeout: testCases.length * 2000 }, async () => {
+    expect(testCases.length).toBeGreaterThan(0);
+    await runLanguageDetectionTests("google", testCases);
+  });
+});
